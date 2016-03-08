@@ -1,0 +1,34 @@
+
+<!--</div>-->
+
+<div class="middle-box text-center loginscreen  animated fadeInDown">
+    <div>
+        <div>
+            <h1 class="logo-name"><i class="fa fa-ticket"></i></h1>
+        </div>
+        <h3>Acessar Conta</h3>
+        <div class="alert alert-danger" align="center" ng-show="loginerror">
+            <strong>Atenção:</strong> {{login.msgerror}}
+        </div>
+
+        <form class="m-t" role="form" name="loginForm">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Username" ng-model="login.usuario" ng-required="true">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="Password" ng-model="login.senha" ng-required="true">
+            </div>
+            <div class="form-group">
+                <!--<label> <input icheck type="checkbox" ng-model="login.infinity"> Desejo permanecer logado </label>-->
+                <p ng-show="login.infinity" style="color:#A94442;">Por segurança use apenas em computador pessoal</p>
+            </div>
+            <button type="submit" class="btn btn-primary block full-width m-b" ng-disabled="loginForm.$invalid" ng-click="logar(login)">Acessar</button>
+            <a ui-sref="forgot_password"><small>Esqueceu a senha?</small></a>
+            <p class="text-muted text-center"><small>Não tem uma conta?</small></p>
+            <a class="btn btn-sm btn-white btn-block" ui-sref="register">Solicitar acesso</a>
+        </form>
+        <p class="m-t"> <small>Um produto da empresa Nuvio Dev &copy; 2014</small> </p>
+    </div>
+
+
+</div>
