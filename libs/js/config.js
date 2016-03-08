@@ -21,11 +21,16 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
 
     $stateProvider
 
+        .state('login', {
+            url: "/login",
+            templateUrl: "views/login.html",
+            controller: "authenticationCtrl",
+            data: { pageTitle: 'Login', specialClass: 'gray-bg'},
+        })
         .state('home', {
             url: '/home',
             templateUrl: "views/home.html"
         })
-
         .state('outra', {
             abstract: true,
             url: "/outra",

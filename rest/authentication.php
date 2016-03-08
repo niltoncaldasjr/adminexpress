@@ -42,7 +42,7 @@ function logarCupom () {
                     "success"   => true,
                     "msg"       => "logado",
                     "metodo"    => "logar",
-                    "data"      => $usuario = array('idusuario'=>$row['id'],'usuario'=>$row['usuario'],'idpessoafisica'=> $row['idpessoafisica'], 'idperfil'=>$row['idperfil'], 'inatividade'=>'ativo')
+                    "data"      => $usuario = array('idusuario'=>$row['id'],'usuario'=>$row['usuario'], 'idperfil'=>$row['idperfil'], 'inatividade'=>'ativo')
                 );
             }   
         } else {

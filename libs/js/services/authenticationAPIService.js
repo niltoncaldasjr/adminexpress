@@ -3,7 +3,7 @@ angular.module('admin-express').service("authenticationAPI", function ($q, $loca
 	function _genericAuthentication (data) {
 		return $http({
 			method: 'POST',
-			url: "authenticator.php",
+			url: "rest/autoload.php",
 			data: {
 				metodo: data.metodo,
 				data: data.data, 
@@ -12,21 +12,6 @@ angular.module('admin-express').service("authenticationAPI", function ($q, $loca
 		});
 	};
 
-	// function _verificaSessao () {
-	// 	return $http({
- //    		method: "POST",
- //    		url: "authenticator.php",
- //    		data: {metodo: "verificaSessao"}
- //    	})
- //    	then(function successCallback(response) {
- //                if (response['data']) {
- //                    console.log(response['data']);
- //                    listar(response['data']);
- //                } else {
- //                    //window.location.replace("index.php");
- //                }
- //            }, function errorCallback(response) {
-	// }
 
 	function _createSession (data, infinity) {
 		//verifica se o cookie não foi marcado
@@ -37,14 +22,14 @@ angular.module('admin-express').service("authenticationAPI", function ($q, $loca
         sessionStorage["usuario"] = JSON.stringify(data);
         //cria obj Date com a data atual
         var now = new Date();
-        //criar o obj do localStorage sessionMNAdmin
-        var sessionMNAdmin = {
+        //criar o obj do localStorage sessionExpress
+        var sessionExpress = {
             "usuario": 	data, //alimenta os dados da session usuario
             "infinity": infinity, //passa true ou false para o cookie infinito
             "dataExp": 	new Date(now.getTime()+50000) //passa a data atual + 1 minuto para dataExp
         };
         //cria o local storage
-        localStorage["sessionMNAdmin"] = JSON.stringify(sessionMNAdmin);
+        localStorage["sessionExpress"] = JSON.stringify(sessionExpress);
     }
 
 	function _sessionCtrl () {
@@ -54,13 +39,13 @@ angular.module('admin-express').service("authenticationAPI", function ($q, $loca
 		*/
 		function atualizaLocalStorage () {
 			//converte json string para obj e armazena em session.
-			var session = JSON.parse(localStorage['sessionMNAdmin']);
+			var session = JSON.parse(localStorage['sessionExpress']);
 			//cria um novo obj de data atual
 			var now = new Date();
 			//atualiza o tempo da sessão, a hora atual +5 minutos
 			session.dataExp = new Date(now.getTime()+50000);
 			//atualiza a sessionStorage mynuvio cupom
-			localStorage['sessionMNAdmin'] = JSON.stringify(session);
+			localStorage['sessionExpress'] = JSON.stringify(session);
 			//converte o obj em json string e salva em sessionStorage
 			sessionStorage['usuario'] = JSON.stringify(session.usuario);
 			//converte json string para obj e passa para o scopo usuario
@@ -81,9 +66,9 @@ angular.module('admin-express').service("authenticationAPI", function ($q, $loca
 			/*
 				Verifica se existe localStorage
 			*/
-			if(localStorage['sessionMNAdmin']) {
+			if(localStorage['sessionExpress']) {
 				//converte json string para obj e armazena em session.
-				var session = JSON.parse(localStorage['sessionMNAdmin']);
+				var session = JSON.parse(localStorage['sessionExpress']);
 				/*
 					Verifica se a sessão tem conf infinita,
 					sendo que o usuario está sempre logado
@@ -122,13 +107,13 @@ angular.module('admin-express').service("authenticationAPI", function ($q, $loca
     	if($rootScope.usuario) {
         	$http({
         		method: "POST",
-        		url: "authenticator.php",
+        		url: "rest/autoload.php",
         		data: {metodo: "logout"}
         	}).then(function successCallback(response) {
 	        	if(response.data) {
 
 	        		window.sessionStorage.removeItem("usuario");
-	        		window.localStorage.removeItem("sessionMNAdmin");
+	        		window.localStorage.removeItem("sessionExpress");
 	        		$rootScope.usuario = "";
 					//delete $rootScope.menus;
 	        		$location.path("/login");

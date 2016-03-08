@@ -68,7 +68,7 @@ function communicator () {
         )
     ));
 
-    return file_get_contents("http://api.nuvio.com.br/src/api.php", null, $context);
+    return file_get_contents("rest/autoload.php", null, $context);
 }
 
 /*

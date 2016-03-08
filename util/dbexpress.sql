@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `datacadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `dataedicao` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 
 -- Copiando dados para a tabela dbexpress.menu: ~29 rows (aproximadamente)
 /*!40000 ALTER TABLE `menu` DISABLE KEYS */;
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `permissoes` (
   CONSTRAINT `fk_permissao_perfil` FOREIGN KEY (`id_perfil`) REFERENCES `perfil` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela dbexpress.permissoes: ~4 rows (aproximadamente)
+-- Copiando dados para a tabela dbexpress.permissoes: ~29 rows (aproximadamente)
 /*!40000 ALTER TABLE `permissoes` DISABLE KEYS */;
 INSERT INTO `permissoes` (`id_menu`, `id_perfil`) VALUES
 	(1, 1),
@@ -120,7 +120,9 @@ INSERT INTO `permissoes` (`id_menu`, `id_perfil`) VALUES
 	(24, 1),
 	(25, 1),
 	(26, 1),
-	(27, 1);
+	(27, 1),
+	(28, 1),
+	(29, 1);
 /*!40000 ALTER TABLE `permissoes` ENABLE KEYS */;
 
 
@@ -129,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(60) DEFAULT NULL,
   `usuario` varchar(30) DEFAULT NULL,
-  `senha` varchar(30) DEFAULT NULL,
+  `senha` varchar(40) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `telefone` varchar(30) DEFAULT NULL,
   `ativo` int(11) DEFAULT NULL,
@@ -141,10 +143,10 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   CONSTRAINT `fk_usuario_perfil1` FOREIGN KEY (`idperfil`) REFERENCES `perfil` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela dbexpress.usuario: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela dbexpress.usuario: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
 INSERT INTO `usuario` (`id`, `nome`, `usuario`, `senha`, `email`, `telefone`, `ativo`, `datacadastro`, `dataedicao`, `idperfil`) VALUES
-	(32, 'Administrador', 'admin', '21232f297a57a5a743894a0e4a801f', 'admin@admin.com.br', NULL, NULL, '2016-03-08 13:15:58', '0000-00-00 00:00:00', 1);
+	(1, 'Administrador', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin.com.br', NULL, NULL, '2016-03-08 13:15:58', '0000-00-00 00:00:00', 1);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

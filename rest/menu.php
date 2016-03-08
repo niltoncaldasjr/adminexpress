@@ -14,15 +14,16 @@ switch ($_POST['metodo']) {
 
 function listar()
 {
+//    var_dump($_POST);
     $data = $_POST['data'];
-
+    $menu = array();
     $con = Conexao::getInstance()->getConexao();
-
-    $folder = [];
-    if ($data['idpessoafisica'] == "") {
-        $idusuario = 0;
-    } else
-        $idusuario = $data ['idusuario'];
+//
+//    $folder = [];
+//    if ($data['idpessoafisica'] == "") {
+//        $idusuario = 0;
+//    } else
+    $idusuario = $data['idusuario'];
 
     if ($idusuario != 0) {
         $queryString = "SELECT p.id_menu id FROM usuario u ";

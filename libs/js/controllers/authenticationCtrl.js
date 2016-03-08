@@ -63,5 +63,5 @@ var authenticationCtrl = function ($location, $scope, $rootScope, authentication
 };
 
 angular
-	.module("admin-nuvio")
+	.module("admin-express")
 	.controller("authenticationCtrl", authenticationCtrl);

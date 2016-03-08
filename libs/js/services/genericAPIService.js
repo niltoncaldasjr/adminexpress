@@ -3,7 +3,7 @@ angular.module('admin-express').service("genericAPI", function ($http) {
     function _generic (data, scope) {
         return $http({
             method: 'POST',
-            url: "communicator.php",
+            url: "rest/autoload.php",
             data: {
                 session: data.session,
                 metodo: data.metodo,
