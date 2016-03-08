@@ -1,12 +1,13 @@
 <?php
 
 /*
- 	Projeto: SGAF.
- 	Project Owner: Giovanni Russo.
+ 	Projeto: AdminExpress.
+ 	Project Owner: Diego.
  	Gerente de Desenvolvimento: Nilton Caldas Jr.
- 	Desenvolverdor: Adelson Guimarães.
- 	Data de início: 07/03/2016.
- 	Data Atual: 07/03/2016. 
+ 	Desenvolverdor: Fabiano Ferreira da Silva Costa
+ 	Desenvolverdor: Adelson Guimarães Monteiro.
+ 	Data de início: 08/03/2016.
+ 	Data Atual: 08/03/2016. 
 */
 
 /* Inclui a Class de autoLoad */
