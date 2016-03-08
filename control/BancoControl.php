@@ -10,16 +10,16 @@
  	Data Atual: 07/03/2016. 
 */
 
-class IndidcacaoControl {
+class BancoControl {
 	/* Atributos */
 	protected $con;
 	protected $obj;
 	protected $objDao;
 	
 	/* Contrutor */
-	function __construct (Indicacao $obj=NULL) {
+	function __construct (Banco $obj=NULL) {
 		$this->con = Conexao::getInstance()->getConexao();
-		$this->objDao = new IndicacaoDao($this->con);
+		$this->objDao = new BancoDao($this->con);
 		$this->obj = $obj;
 	}
 	
