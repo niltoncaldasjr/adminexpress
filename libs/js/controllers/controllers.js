@@ -3342,7 +3342,7 @@ function jstreeCtrl($scope) {
  * Pass all functions into module
  */
 angular
-    .module('inspinia')
+    .module('admin-express')
     .controller('MainCtrl', MainCtrl)
     .controller('dashboardFlotOne', dashboardFlotOne)
     .controller('dashboardFlotTwo', dashboardFlotTwo)
