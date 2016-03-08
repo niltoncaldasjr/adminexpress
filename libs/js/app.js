@@ -3,7 +3,7 @@
  *
  */
 (function () {
-    angular.module('inspinia', [
+    angular.module('admin-express', [
         'ui.router',                    // Routing
         'oc.lazyLoad',                  // ocLazyLoad
         'ui.bootstrap',                 // Ui Bootstrap

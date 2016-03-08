@@ -1,4 +1,4 @@
-angular.module('admin-nuvio').service("genericAPI", function ($http) {
+angular.module('admin-express').service("genericAPI", function ($http) {
 
     function _generic (data, scope) {
         return $http({

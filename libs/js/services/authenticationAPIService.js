@@ -1,4 +1,4 @@
-angular.module('admin-nuvio').service("authenticationAPI", function ($q, $location, $rootScope, $http) {
+angular.module('admin-express').service("authenticationAPI", function ($q, $location, $rootScope, $http) {
 	
 	function _genericAuthentication (data) {
 		return $http({

@@ -5,7 +5,7 @@
 -->
 
 <!DOCTYPE html>
-<html ng-app="admin-nuvio">
+<html ng-app="admin-express">
 
 <head>
 
@@ -17,23 +17,14 @@
     <title page-title></title>
 
     <!-- Bootstrap -->
-    <link href="http://api.nuvio.com.br/libs/css/bootstrap.min.css" rel="stylesheet">
+    <link href="libs/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Font awesome -->
-    <link href="http://api.nuvio.com.br/libs/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="libs/font-awesome/css/font-awesome.css" rel="stylesheet">
 
     <!-- Main Inspinia CSS files -->
-    <link href="http://api.nuvio.com.br/libs/css/animate.css" rel="stylesheet">
-    <link id="loadBefore" href="http://api.nuvio.com.br/libs/css/style.css" rel="stylesheet">
-
-    <!-- CSS Cupom -->
-    <link rel="stylesheet" type="text/css" href="http://api.nuvio.com.br/libsAngular/css/cupom.css">
-
-    <!-- CSS isteven multi select -->
-    <link rel="stylesheet" href="http://api.nuvio.com.br/libsAngular/css/plugins/isteven-multi-select/isteven-multi-select.css">
-
-    <!-- CSS Ng-Tags-input -->
-    <link rel="stylesheet" href="http://api.nuvio.com.br/libsAngular/css/plugins/ng-tags-input/ng-tags-input.min.css">
+    <link href="libs/css/animate.css" rel="stylesheet">
+    <link id="loadBefore" href="libs/css/style.css" rel="stylesheet">
 
 </head>
 
@@ -45,35 +36,35 @@
 <div ui-view></div>
 
 <!-- jQuery and Bootstrap -->
-<script src="http://api.nuvio.com.br/libs/js/jquery-2.1.1.js"></script>
-<script src="http://api.nuvio.com.br/libs/js/plugins/jquery-ui/jquery-ui.js"></script>
-<script src="http://api.nuvio.com.br/libs/js/bootstrap.min.js"></script>
+<script src="libs/js/jquery/jquery-2.1.1.min.js"></script>
+<script src="libs/js/jquery/jquery-ui-1.10.4.min.js"></script>
+<script src="libs/js/bootstrap/bootstrap.min.js"></script>
 
 <!-- MetsiMenu -->
-<script src="http://api.nuvio.com.br/libs/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="libs/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 
 <!-- SlimScroll -->
-<script src="http://api.nuvio.com.br/libs/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="libs/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
 <!-- Peace JS -->
-<script src="http://api.nuvio.com.br/libs/js/plugins/pace/pace.min.js"></script>
+<script src="libs/js/plugins/pace/pace.min.js"></script>
 
 <!-- Custom and plugin javascript -->
-<script src="http://api.nuvio.com.br/libs/js/inspinia.js"></script>
+<script src="libs/js/inspinia.js"></script>
 
 <!-- Main Angular scripts-->
-<script src="http://api.nuvio.com.br/libsAngular/js/angular/angular.min.js"></script>
-<script src="http://api.nuvio.com.br/libsAngular/js/angular/angular-sanitize.js"></script>
-<script src="http://api.nuvio.com.br/libsAngular/js/plugins/oclazyload/dist/ocLazyLoad.min.js"></script>
-<script src="http://api.nuvio.com.br/libsAngular/js/angular-translate/angular-translate.min.js"></script>
-<script src="http://api.nuvio.com.br/libsAngular/js/ui-router/angular-ui-router.min.js"></script>
-<script src="http://api.nuvio.com.br/libsAngular/js/bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
-<script src="http://api.nuvio.com.br/libsAngular/js/plugins/angular-idle/angular-idle.js"></script>
+<script src="libs/js/angular/angular.min.js"></script>
+<script src="libs/js/angular/angular-sanitize.js"></script>
+<script src="libs/js/plugins/oclazyload/dist/ocLazyLoad.min.js"></script>
+<script src="libs/js/angular-translate/angular-translate.min.js"></script>
+<script src="libs/js/ui-router/angular-ui-router.min.js"></script>
+<script src="libs/js/bootstrap/ui-bootstrap-tpls-1.1.2.min.js"></script>
+<script src="libs/js/plugins/angular-idle/angular-idle.js"></script>
 
 <!-- Plugins -->
-<script src="http://api.nuvio.com.br/libsAngular/js/plugins/angular-file-upload/angular-file-upload.min.js"></script>
-<script src="http://api.nuvio.com.br/libsAngular/js/plugins/isteven-multi-select/isteven-multi-select.js"></script>
-<script src="http://api.nuvio.com.br/libsAngular/js/plugins/ng-tags-input/ng-tags-input.min.js"></script>
+<!--<script src="libs/js/plugins/angular-file-upload/angular-file-upload.min.js"></script>-->
+<!--<script src="libs/js/plugins/isteven-multi-select/isteven-multi-select.js"></script>-->
+<!--<script src="http://api.nuvio.com.br/libsAngular/js/plugins/ng-tags-input/ng-tags-input.min.js"></script>-->
 
 <!--
  You need to include this script on any page that has a Google Map.
@@ -84,39 +75,25 @@
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQTpXj82d8UpCi97wzo_nKXL7nYrd4G70"></script>
 
 <!-- Anglar App Script -->
-<script src="js/app.js"></script>
-<script src="http://api.nuvio.com.br/libs/js/MD5.js"></script>
-<script src="js/config.js"></script>
-<script src="js/translations.js"></script>
-<script src="js/directives/directivesInspinia.js"></script>
-<script src="js/controllers/inspiniaCtrl.js"></script>
+<script src="libs/js/app.js"></script>
+<script src="libs/js/MD5.js"></script>
+<script src="libs/js/config.js"></script>
+<script src="libs/js/translations.js"></script>
+<script src="libs/js/directives/directives.js"></script>
+<script src="libs/js/controllers/controllers.js"></script>
 
 <!-- Controllers -->
-<script src="js/controllers/menuCtrl.js"></script>
-<script src="js/controllers/profileCtrl.js"></script>
-<script src="js/controllers/editProfileCtrl.js"></script>
-<script src="js/controllers/cadCategoria.js"></script>
-<script src="js/controllers/cadMarca.js"></script>
-<script src="js/controllers/cadEmpresa.js"></script>
-<script src="js/controllers/homeCtrl.js"></script>
-<script src="js/controllers/authenticationCtrl.js"></script>
-<script src="js/controllers/validarUsuarioCtrl.js"></script>
-<script src="js/controllers/cadCupom.js"></script>
+<script src="libs/js/controllers/menuCtrl.js"></script>
 
 <!-- Services -->
-<script src="js/services/pessoafisicaAPIService.js"></script>
-<script src="js/services/utilService.js"></script>
-<script src="js/services/validarSrv.js"></script>
-<script src="js/services/authenticationAPIService.js"></script>
-<script src="js/services/genericAPIService.js"></script>
-<!--Values -->
-<script src="js/values/value.js"></script>
+<script src="libs/js/services/authenticationAPIService.js"></script>
+<script src="libs/js/services/genericAPIService.js"></script>
 
 <!-- Directives -->
-<script src="js/directives/metisMenuDirective.js"></script>
-<script src="js/directives/angularFileUploadDirective.js"></script>
-<script src="js/directives/usuarioDirective.js"></script>
-<script src="js/directives/vitrineDirective.js"></script>
+<!--<script src="js/directives/metisMenuDirective.js"></script>-->
+<!--<script src="js/directives/angularFileUploadDirective.js"></script>-->
+<!--<script src="js/directives/usuarioDirective.js"></script>-->
+<!--<script src="js/directives/vitrineDirective.js"></script>-->
 
 </body>
 </html>

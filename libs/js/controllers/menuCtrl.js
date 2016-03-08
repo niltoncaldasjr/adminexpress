@@ -1,4 +1,4 @@
-angular.module('admin-nuvio')
+angular.module('admin-express')
 
     .controller('header_menu', function ($scope, $rootScope, $location, $http, genericAPI, authenticationAPI) {
 
