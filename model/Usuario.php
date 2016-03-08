@@ -9,9 +9,8 @@ class Usuario implements JsonSerializable {
 	private $datacadastro;
 	private $dataedicao;
 	private $objPerfil;
-	private $objPessoafisica;
 	
-	function __construct($id=null, $nome=null, $usuario=null, $senha=null, $email=null, $ativo=null, $datacadastro=null, $dataedicao=null, Perfil $objPerfil=null, PessoaFisica $objPessoafisica=null) {
+	function __construct($id=null, $nome=null, $usuario=null, $senha=null, $email=null, $ativo=null, $datacadastro=null, $dataedicao=null, Perfil $objPerfil=null) {
             $this->id = $id;
             $this->nome = $nome;
             $this->usuario = $usuario;
@@ -21,88 +20,169 @@ class Usuario implements JsonSerializable {
             $this->datacadastro = $datacadastro;
             $this->dataedicao = $dataedicao;
             $this->objPerfil = $objPerfil;
-            $this->objPessoafisica = $objPessoafisica;
         }
 
-        function getId() {
-            return $this->id;
-        }
+    /**
+     * @return null
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
-        function getNome() {
-            return $this->nome;
-        }
+    /**
+     * @param null $id
+     * @return Usuario
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
 
-        function getUsuario() {
-            return $this->usuario;
-        }
+    /**
+     * @return null
+     */
+    public function getNome()
+    {
+        return $this->nome;
+    }
 
-        function getSenha() {
-            return $this->senha;
-        }
+    /**
+     * @param null $nome
+     * @return Usuario
+     */
+    public function setNome($nome)
+    {
+        $this->nome = $nome;
+        return $this;
+    }
 
-        function getEmail() {
-            return $this->email;
-        }
+    /**
+     * @return null
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
 
-        function getAtivo() {
-            return $this->ativo;
-        }
+    /**
+     * @param null $usuario
+     * @return Usuario
+     */
+    public function setUsuario($usuario)
+    {
+        $this->usuario = $usuario;
+        return $this;
+    }
 
-        function getDatacadastro() {
-            return $this->datacadastro;
-        }
+    /**
+     * @return null
+     */
+    public function getSenha()
+    {
+        return $this->senha;
+    }
 
-        function getDataedicao() {
-            return $this->dataedicao;
-        }
+    /**
+     * @param null $senha
+     * @return Usuario
+     */
+    public function setSenha($senha)
+    {
+        $this->senha = $senha;
+        return $this;
+    }
 
-        function getObjPerfil() {
-            return $this->objPerfil;
-        }
+    /**
+     * @return null
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
 
-        function getObjPessoafisica() {
-            return $this->objPessoafisica;
-        }
+    /**
+     * @param null $email
+     * @return Usuario
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return $this;
+    }
 
-        function setId($id) {
-            $this->id = $id;
-        }
+    /**
+     * @return null
+     */
+    public function getAtivo()
+    {
+        return $this->ativo;
+    }
 
-        function setNome($nome) {
-            $this->nome = $nome;
-        }
+    /**
+     * @param null $ativo
+     * @return Usuario
+     */
+    public function setAtivo($ativo)
+    {
+        $this->ativo = $ativo;
+        return $this;
+    }
 
-        function setUsuario($usuario) {
-            $this->usuario = $usuario;
-        }
+    /**
+     * @return null
+     */
+    public function getDatacadastro()
+    {
+        return $this->datacadastro;
+    }
 
-        function setSenha($senha) {
-            $this->senha = $senha;
-        }
+    /**
+     * @param null $datacadastro
+     * @return Usuario
+     */
+    public function setDatacadastro($datacadastro)
+    {
+        $this->datacadastro = $datacadastro;
+        return $this;
+    }
 
-        function setEmail($email) {
-            $this->email = $email;
-        }
+    /**
+     * @return null
+     */
+    public function getDataedicao()
+    {
+        return $this->dataedicao;
+    }
 
-        function setAtivo($ativo) {
-            $this->ativo = $ativo;
-        }
+    /**
+     * @param null $dataedicao
+     * @return Usuario
+     */
+    public function setDataedicao($dataedicao)
+    {
+        $this->dataedicao = $dataedicao;
+        return $this;
+    }
 
-        function setDatacadastro($datacadastro) {
-            $this->datacadastro = $datacadastro;
-        }
+    /**
+     * @return Perfil
+     */
+    public function getObjPerfil()
+    {
+        return $this->objPerfil;
+    }
 
-        function setDataedicao($dataedicao) {
-            $this->dataedicao = $dataedicao;
-        }
-
-        function setObjPerfil($objPerfil) {
-            $this->objPerfil = $objPerfil;
-        }
-
-        function setObjPessoafisica($objPessoafisica) {
-            $this->objPessoafisica = $objPessoafisica;
-        }
+    /**
+     * @param Perfil $objPerfil
+     * @return Usuario
+     */
+    public function setObjPerfil($objPerfil)
+    {
+        $this->objPerfil = $objPerfil;
+        return $this;
+    }
          
 	public function jsonSerialize() {
 		return 	[ 
@@ -114,8 +194,7 @@ class Usuario implements JsonSerializable {
 				'ativo' => $this->ativo,
 				'dataCadastro' => $this->datacadastro,
 				'dataEdicao' => $this->dataedicao,
-				'perfil' => $this->objPerfil,
-				'PessoaFisica' => $this->objPessoafisica 
+				'perfil' => $this->objPerfil
 		];
 	}
 }

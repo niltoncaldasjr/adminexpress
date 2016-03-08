@@ -4,7 +4,7 @@ class Conexao{
 	
 	protected function __construct(){
 
-		$this->con = mysqli_connect("localhost","root","", "portalnuvio");
+		$this->con = mysqli_connect("localhost","root","", "dbexpress");
 //		$this->con = mysqli_connect("10.51.7.1","mynuvio","mynuvi0@db", "mynuvio");
 
 		if (mysqli_connect_error()) {

@@ -14,45 +14,97 @@ class Perfil implements JsonSerializable{
             $this->dataedicao = $dataedicao;
         }
 
-        function getId() {
-            return $this->id;
-        }
+    /**
+     * @return null
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
-        function getNome() {
-            return $this->nome;
-        }
+    /**
+     * @param null $id
+     * @return Perfil
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
 
-        function getAtivo() {
-            return $this->ativo;
-        }
+    /**
+     * @return null
+     */
+    public function getNome()
+    {
+        return $this->nome;
+    }
 
-        function getDatacadastro() {
-            return $this->datacadastro;
-        }
+    /**
+     * @param null $nome
+     * @return Perfil
+     */
+    public function setNome($nome)
+    {
+        $this->nome = $nome;
+        return $this;
+    }
 
-        function getDataedicao() {
-            return $this->dataedicao;
-        }
+    /**
+     * @return null
+     */
+    public function getAtivo()
+    {
+        return $this->ativo;
+    }
 
-        function setId($id) {
-            $this->id = $id;
-        }
+    /**
+     * @param null $ativo
+     * @return Perfil
+     */
+    public function setAtivo($ativo)
+    {
+        $this->ativo = $ativo;
+        return $this;
+    }
 
-        function setNome($nome) {
-            $this->nome = $nome;
-        }
+    /**
+     * @return null
+     */
+    public function getDatacadastro()
+    {
+        return $this->datacadastro;
+    }
 
-        function setAtivo($ativo) {
-            $this->ativo = $ativo;
-        }
+    /**
+     * @param null $datacadastro
+     * @return Perfil
+     */
+    public function setDatacadastro($datacadastro)
+    {
+        $this->datacadastro = $datacadastro;
+        return $this;
+    }
 
-        function setDatacadastro($datacadastro) {
-            $this->datacadastro = $datacadastro;
-        }
+    /**
+     * @return null
+     */
+    public function getDataedicao()
+    {
+        return $this->dataedicao;
+    }
 
-        function setDataedicao($dataedicao) {
-            $this->dataedicao = $dataedicao;
-        }
+    /**
+     * @param null $dataedicao
+     * @return Perfil
+     */
+    public function setDataedicao($dataedicao)
+    {
+        $this->dataedicao = $dataedicao;
+        return $this;
+    }
+
+
 
         	
 	function __toString(){

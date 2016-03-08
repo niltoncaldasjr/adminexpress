@@ -36,7 +36,7 @@ function cadastrarUsuarioCupom() {
     if($obj) {
         $result = array("success" => false, "msg" => "Este e-mail já é registrado!");
     }else{
-        
+
         /*
             Cadastramos primeiro a pessoa física
         */
@@ -50,7 +50,6 @@ function cadastrarUsuarioCupom() {
             $object->setUsuario($data['usuario']);
             $object->setEmail($data['usuario']);
             $object->setSenha( $data['senha'] );
-            $object->setObjPessoafisica(new PessoaFisica($idPF));
             $object->setObjPerfil(new Perfil(3));//perfil usuario
 
             $objControl = new UsuarioControl($object);

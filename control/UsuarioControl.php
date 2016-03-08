@@ -50,10 +50,6 @@ class UsuarioControl{
 		return $this->o_usuarioDAO->buscarPorId($this->o_usuario);
 	}
 
-	function buscarPorPessoaFisica(){
-		return $this->o_usuarioDAO->buscarPorPessoaFisica($this->o_usuario);
-	}
-
 	function listarPorPessoa(){
 		return $this->o_usuarioDAO->listarPorNome($this->o_usuario);
 	}
@@ -73,7 +69,4 @@ class UsuarioControl{
 	function buscarPorUsuario(){
 		return $this->o_usuarioDAO->buscarPorUsuario($this->o_usuario);
 	}
-
-
 }
-?>
