@@ -6,8 +6,8 @@
  	Gerente de Desenvolvimento: Nilton Caldas Jr.
  	Desenvolverdor: Fabiano Ferreira da Silva Costa
  	Desenvolverdor: Adelson Guimarães Monteiro.
- 	Data de início: 07/03/2016.
- 	Data Atual: 07/03/2016. 
+ 	Data de início: 08/03/2016.
+ 	Data Atual: 08/03/2016. 
 */
 
 Class BancoDao {
