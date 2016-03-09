@@ -29,7 +29,8 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('home', {
             url: '/home',
-            templateUrl: "views/home.html"
+            templateUrl: "views/home.html",
+            controller: 'homeCtrl'
         })
         .state('outra', {
             abstract: true,

@@ -1,12 +1,16 @@
 <?php
-// session_start();
+ session_start();
 
 /*
 	Verifica métodos requisitado
 */
 switch ($_POST['metodo']) {
-    case 'logarCupom':
-        logarCupom();
+    case 'logar':
+        logar();
+        break;
+
+    case 'logout':
+        logout();
         break;
 
     default:
@@ -17,7 +21,13 @@ switch ($_POST['metodo']) {
 	Metodos
 */
 
-function logarCupom () {
+function logout () {
+    $_SESSION = array();
+    session_destroy();
+    echo true;
+}
+
+function logar() {
 
     $con = Conexao::getInstance()->getConexao();
 

@@ -1,4 +1,4 @@
-angular.module('admin-nuvio')
+angular.module('admin-express')
     .controller('homeCtrl', function ($scope, $location, $rootScope) {
 
         if (!$rootScope.usuario) {

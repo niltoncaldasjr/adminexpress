@@ -22,7 +22,7 @@ angular.module('admin-express')
 
         $rootScope.trazer_menu = function(){
 
-            var dados = {'session': false ,'metodo': 'listar', 'data': {idusuario:1}, 'class': 'menu'};
+            var dados = {'session': false ,'metodo': 'listar', 'data': $rootScope.usuario, 'class': 'menu'};
 
             genericAPI.generic(dados)
                 .then(function successCallback(response) {
@@ -35,10 +35,10 @@ angular.module('admin-express')
                 });
         }
 
-        //if($rootScope.usuario){
+        if($rootScope.usuario){
             $rootScope.trazer_menu();
             //$rootScope.trazer_perfil();
-        //}
+        }
 
         $scope.abrir = function (param) {
 
