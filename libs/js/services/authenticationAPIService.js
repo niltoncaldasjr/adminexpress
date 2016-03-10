@@ -28,6 +28,7 @@ angular.module('admin-express').service("authenticationAPI", function ($q, $loca
             "infinity": infinity, //passa true ou false para o cookie infinito
             "dataExp": 	new Date(now.getTime()+50000) //passa a data atual + 1 minuto para dataExp
         };
+
         //cria o local storage
         localStorage["sessionExpress"] = JSON.stringify(sessionExpress);
     }
@@ -35,7 +36,7 @@ angular.module('admin-express').service("authenticationAPI", function ($q, $loca
 	function _sessionCtrl () {
 		
 		/*
-			Function generica para as várias operações abaixo
+			Function generica para as várias operaçõesss abaixo
 		*/
 		function atualizaLocalStorage () {
 			//converte json string para obj e armazena em session.
@@ -115,7 +116,7 @@ angular.module('admin-express').service("authenticationAPI", function ($q, $loca
 	        		window.sessionStorage.removeItem("usuario");
 	        		window.localStorage.removeItem("sessionExpress");
 	        		$rootScope.usuario = "";
-					delete $rootScope.menus;
+					//delete $rootScope.menus;
 	        		$location.path("/login");
 	        	}
 	        });	
