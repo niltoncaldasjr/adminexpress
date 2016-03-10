@@ -30,7 +30,19 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         .state('home', {
             url: '/home',
             templateUrl: "views/home.html",
-            controller: 'homeCtrl'
+            data: { pageTitle: 'Home' },
+            controller: 'homeCtrl',
+        })
+        .state('auth', {
+            abstract: true,
+            url: "/outra",
+            templateUrl: "views/common/content.html",
+        })
+        .state('auth.perfil', {
+            url: '/perfil',
+            templateUrl: "views/cadPerfil.html",
+            data: { pageTitle: 'Home' },
+            controller: 'perfilCtrl',
         })
         .state('outra', {
             abstract: true,
