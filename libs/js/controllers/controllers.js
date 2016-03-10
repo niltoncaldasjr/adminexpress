@@ -53,7 +53,15 @@
  * Contains several global data used in different view
  *
  */
-function MainCtrl() {
+function MainCtrl($location, $rootScope, authenticationAPI) {
+
+    var root = $rootScope;
+
+    root.api = "http://api.nuvio.com.br"; //variavel de api global
+    root.usuario = ""; //startando variavel global usuario
+
+    // authenticationAPI.verificaSessao();
+    authenticationAPI.sessionCtrl();
 
     /**
      * daterange - Used as initial model for data range picker in Advanced form view

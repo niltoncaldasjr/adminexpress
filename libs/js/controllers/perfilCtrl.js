@@ -1,9 +1,9 @@
 angular.module('admin-express')
     .controller('perfilCtrl', function ($scope, $rootScope, $http, $location, genericAPI, SweetAlert, authenticationAPI) {
 
-        //if (!$rootScope.usuario) {
-        //    $location.path('/login');
-        //}
+        if (!$rootScope.usuario) {
+            $location.path('/login');
+        }
 
         /**
          * Funcao de alert para confirmar

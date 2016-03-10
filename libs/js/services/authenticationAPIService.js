@@ -34,6 +34,7 @@ angular.module('admin-express').service("authenticationAPI", function ($q, $loca
     }
 
 	function _sessionCtrl () {
+
 		
 		/*
 			Function generica para as várias operaçõesss abaixo
@@ -57,7 +58,7 @@ angular.module('admin-express').service("authenticationAPI", function ($q, $loca
 			Verifica se existe sessionStore.usuario
 		*/
 		if(sessionStorage['usuario']) {
-			
+
 			atualizaLocalStorage();
 			
 		/*
