@@ -7,7 +7,7 @@ var authenticationCtrl = function ($location, $scope, $rootScope, authentication
     
 	$scope.logar = function (obj) {
         obj.senha = MD5(obj.senha);
-		var data = { "metodo": "logarCupom", "data": obj, "class": "authentication" };
+		var data = { "metodo": "logar", "data": obj, "class": "authentication" };
 
 		authenticationAPI.genericAuthentication(data)
 		.then(function successCallback(response) {

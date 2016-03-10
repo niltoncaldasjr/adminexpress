@@ -108,14 +108,14 @@ angular.module('admin-express').service("authenticationAPI", function ($q, $loca
         	$http({
         		method: "POST",
         		url: "rest/autoload.php",
-        		data: {metodo: "logout"}
+        		data: {metodo: "logout", class: "authentication"}
         	}).then(function successCallback(response) {
 	        	if(response.data) {
 
 	        		window.sessionStorage.removeItem("usuario");
 	        		window.localStorage.removeItem("sessionExpress");
 	        		$rootScope.usuario = "";
-					//delete $rootScope.menus;
+					delete $rootScope.menus;
 	        		$location.path("/login");
 	        	}
 	        });	
