@@ -36,16 +36,8 @@
             </li>
 
             <li ui-sref-active="active">
-                <a ui-sref="home"><i class="fa fa-diamond"></i> <span class="nav-label">{{ 'HOME' | translate }}</span> </a>
+                <a ui-sref="home"><i class="fa fa-legal"></i> <span class="nav-label">{{ 'HOME' | translate }}</span> </a>
             </li>
-            <!--<li ng-class="{active: $state.includes('cadastro')}">-->
-            <!--<a href=""><i class="fa fa-institution"></i> <span class="nav-label">CADASTROS</span> <span class="fa arrow"></span></a>-->
-            <!--<ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('cadastro')}">-->
-            <!--<li ui-sref-active="active"><a ui-sref="cadastro.empresa">Empresas</a></li>-->
-            <!--<li ui-sref-active="active"><a ui-sref="cadastro.categoria">Categorias</a></li>-->
-            <!--<li ui-sref-active="active"><a ui-sref="cadastro.marca">Marcas</a></li>-->
-            <!--</ul>-->
-            <!--</li>-->
 
             <li ng-repeat="menu in menus" id="{{menu.id}}" ng-class="{active: $state.includes('{{menu.href}}')}" ng-click="abrir(menu.id)">
                 <a href=""><i class="{{ menu.icon }}"></i> <span class="nav-label">{{menu.nome | translate  }}</span> <span

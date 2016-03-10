@@ -9,8 +9,43 @@ switch ($_POST['metodo']) {
         trazer_perfil();
         break;
 
+    case 'listar':
+        listar_perfil();
+        break;
+
+    case 'cadastrar':
+        cadastrar_perfil();
+        break;
+
     default:
         break;
+}
+
+function cadastrar_perfil()
+{
+    var_dump($_POST);
+    $data = $_POST['data'];
+
+    $perfil = new Perfil();
+    $perfil->setNome($data['nome']);
+
+    $pControl = new PerfilControl($perfil);
+    $id = $pControl->cadastrar();
+
+    if($id){
+        echo json_encode(array('result'=> true, 'data'=> $id));
+    }else{
+        echo json_encode(array('result'=> false));
+    }
+
+}
+
+function listar_perfil()
+{
+    $control = new PerfilControl(new Perfil());
+    $listaDePerfil = $control->listarTodos();
+
+    echo json_encode($listaDePerfil);
 }
 
 function trazer_perfil()

@@ -26,7 +26,7 @@ angular.module('admin-express')
                         genericAPI.generic(dados)
                             .then(function successCallback(response) {
                                 if(response['data']){
-                                    listarCategorias();
+                                    listarPerfils();
                                 }else{
                                 }
                             }, function errorCallback(response) {
@@ -51,7 +51,7 @@ angular.module('admin-express')
          * checa o obj.id se existe entao altera
          * @param obj
          */
-        $scope.cadastrarCategoria = function(obj){
+        $scope.cadastrarPerfil = function(obj){
             var dados;
 
             if(obj.id == undefined){
@@ -63,29 +63,26 @@ angular.module('admin-express')
             genericAPI.generic(dados)
                 .then(function successCallback(response) {
                     if(response['data']){
-
                         delete $scope.perfil;
-                        listarCategorias();
-                        //$scope.limparCampos();
-                        //$scope.perfilForm.$setPrestine();
+                        listarPerfil();
                     }else{
                     }
                 }, function errorCallback(response) {
                 });
         };
 
-        $scope.editarCategoria = function(obj){
+        $scope.editarPerfil = function(obj){
 
             $scope.limparCampos();
             $scope.perfil = obj;
         };
 
-        $scope.deletarCategoria = function(obj){
+        $scope.deletarPerfil = function(obj){
 
             confirmaDelete(obj);
         };
 
-        var listarCategorias = function(){
+        var listarPerfil = function(){
 
             var dados = {'session':true, 'metodo': 'listar', 'data': null, 'class': 'perfil'};
 
@@ -99,7 +96,7 @@ angular.module('admin-express')
             });
         };
 
-        //listarCategorias();
+        listarPerfil();
 
 
 

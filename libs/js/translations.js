@@ -8,6 +8,7 @@ function config($translateProvider) {
         .translations('pt', {
 
             // Define all menu elements
+            HOME: 'CartórioExpressAM',
             CADASTROSGERAIS: 'Cadastros Gerais',
             AUTENTICACAO: 'Autenticação',
             CADASTROSADMINISTRATIVOS: 'Administrativos',
@@ -45,6 +46,7 @@ function config($translateProvider) {
         .translations('en', {
 
             // Define all menu elements
+            HOME: 'CartórioExpressAM',
             CADASTROSGERAIS: 'Cadastros Gerais',
             AUTENTICACAO: 'Autenticação',
             CADASTROSADMINISTRATIVOS: 'Administrativos',
