@@ -17,13 +17,16 @@ switch ($_POST['metodo']) {
         cadastrar_perfil();
         break;
 
+    case 'alterar':
+        alterar_perfil();
+        break;
+
     default:
         break;
 }
 
 function cadastrar_perfil()
 {
-    var_dump($_POST);
     $data = $_POST['data'];
 
     $perfil = new Perfil();
@@ -37,6 +40,12 @@ function cadastrar_perfil()
     }else{
         echo json_encode(array('result'=> false));
     }
+
+}
+
+function alterar_perfil()
+{
+    var_dump($_POST);
 
 }
 

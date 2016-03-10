@@ -20,13 +20,15 @@
                         Português </a></li>
                     <li><a ng-click="changeLanguage('en')"><img
                             src="http://api.nuvio.com.br/img/flags/16/United-States.png"> English</a></li>
+                    <li class="divider"></li>
+                    <li>
+                        <a ng-click="logout()">
+                            <i class="fa fa-sign-out"></i> {{ 'LOGOUT' | translate }}
+                        </a>
+                    </li>
                 </ul>
             </li>
-            <li>
-                <a ng-click="logout()">
-                    <i class="fa fa-sign-out"></i> {{ 'LOGOUT' | translate }}
-                </a>
-            </li>
+
         </ul>
     </nav>
 </div>
