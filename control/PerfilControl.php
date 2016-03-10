@@ -17,7 +17,7 @@ class PerfilControl{
 	}
 
 	function atualizar(){
-		$this->o_perfilDAO->atualizar($this->o_perfil);
+		return $this->o_perfilDAO->atualizar($this->o_perfil);
 	}
 
 	function deletar(){

@@ -17,7 +17,7 @@ switch ($_POST['metodo']) {
         cadastrar_perfil();
         break;
 
-    case 'alterar':
+    case 'atualizar':
         alterar_perfil();
         break;
 
@@ -45,7 +45,19 @@ function cadastrar_perfil()
 
 function alterar_perfil()
 {
-    var_dump($_POST);
+    $data = $_POST['data'];
+
+    $perfil = new Perfil();
+    $perfil->setId($data['id'])->setNome($data['nome']);
+
+    $pControl = new PerfilControl($perfil);
+    $id = $pControl->atualizar();
+
+    if($id>0){
+        echo json_encode(array('result'=> true, 'data'=> $id));
+    }else{
+        echo json_encode(array('result'=> false));
+    }
 
 }
 

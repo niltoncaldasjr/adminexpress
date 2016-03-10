@@ -12,9 +12,8 @@ class PerfilDAO {
 	
 	function cadastrar(Perfil $o_perfil){	
 		
-		$this->sql = sprintf("INSERT INTO perfil (nome, ativo) VALUES ('%s', %d)",
-				mysqli_real_escape_string($this->con, $o_perfil->getNome()),
-				mysqli_real_escape_string($this->con, $o_perfil->getAtivo()));
+		$this->sql = sprintf("INSERT INTO perfil (nome) VALUES ('%s')",
+				mysqli_real_escape_string($this->con, $o_perfil->getNome()));
 		
 		if (!mysqli_query($this->con, $this->sql)) {
 			die('Error: ' . mysqli_error($this->con));
@@ -23,15 +22,15 @@ class PerfilDAO {
 	}
 	
 	function atualizar(Perfil $o_perfil){
-		$this->sql = sprintf("UPDATE perfil SET nome= '%s', ativo=%d, dataedicao='%s' WHERE id=%d",
+		$this->sql = sprintf("UPDATE perfil SET nome= '%s', dataedicao='%s' WHERE id=%d",
 		mysqli_real_escape_string($this->con, $o_perfil->getNome()),
-		mysqli_real_escape_string($this->con, $o_perfil->getAtivo()),
-		mysqli_real_escape_string($this->con, $o_perfil->getDataedicao()),
+		mysqli_real_escape_string($this->con, date('Y-m-d H:i:s')),
 		mysqli_real_escape_string($this->con, $o_perfil->getId()));
 		
 		if (!mysqli_query($this->con, $this->sql)) {
 			die('Error: ' . mysqli_error($this->con));
 		}
+		return $o_perfil->getId();
 	}
 	
 	function deletar(Perfil $o_perfil){
