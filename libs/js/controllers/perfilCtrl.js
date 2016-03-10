@@ -1,9 +1,9 @@
-angular.module('admin-nuvio')
-    .controller('cadCategoriaCtrl', function ($scope, $rootScope, $http, $location, genericAPI, SweetAlert, authenticationAPI) {
+angular.module('admin-express')
+    .controller('perfilCtrl', function ($scope, $rootScope, $http, $location, genericAPI, SweetAlert, authenticationAPI) {
 
-        if (!$rootScope.usuario) {
-            $location.path('/login');
-        }
+        //if (!$rootScope.usuario) {
+        //    $location.path('/login');
+        //}
 
         /**
          * Funcao de alert para confirmar
@@ -22,7 +22,7 @@ angular.module('admin-nuvio')
                     closeOnCancel: false },
                 function (isConfirm) {
                     if (isConfirm) {
-                        var dados = {'session':true, 'metodo': 'deletar', 'data': obj, 'class': 'categoria'};
+                        var dados = {'session':true, 'metodo': 'deletar', 'data': obj, 'class': 'perfil'};
                         genericAPI.generic(dados)
                             .then(function successCallback(response) {
                                 if(response['data']){
@@ -43,7 +43,7 @@ angular.module('admin-nuvio')
          * Limpa os campos na tela
          */
         $scope.limparCampos = function(){
-            delete $scope.categoria;
+            delete $scope.perfil;
         };
 
         /**
@@ -55,19 +55,19 @@ angular.module('admin-nuvio')
             var dados;
 
             if(obj.id == undefined){
-                var dados = {'session': false, 'metodo': 'cadastrar', 'data': obj, 'class': 'categoria'};
+                var dados = {'session': false, 'metodo': 'cadastrar', 'data': obj, 'class': 'perfil'};
             }else{
-                var dados = {'session': false, 'metodo': 'atualizar', 'data': obj, 'class': 'categoria'};
+                var dados = {'session': false, 'metodo': 'atualizar', 'data': obj, 'class': 'perfil'};
             }
 
             genericAPI.generic(dados)
                 .then(function successCallback(response) {
                     if(response['data']){
 
-                        delete $scope.categoria;
+                        delete $scope.perfil;
                         listarCategorias();
                         //$scope.limparCampos();
-                        //$scope.categoriaForm.$setPrestine();
+                        //$scope.perfilForm.$setPrestine();
                     }else{
                     }
                 }, function errorCallback(response) {
@@ -77,7 +77,7 @@ angular.module('admin-nuvio')
         $scope.editarCategoria = function(obj){
 
             $scope.limparCampos();
-            $scope.categoria = obj;
+            $scope.perfil = obj;
         };
 
         $scope.deletarCategoria = function(obj){
@@ -87,19 +87,19 @@ angular.module('admin-nuvio')
 
         var listarCategorias = function(){
 
-            var dados = {'session':true, 'metodo': 'listar', 'data': null, 'class': 'categoria'};
+            var dados = {'session':true, 'metodo': 'listar', 'data': null, 'class': 'perfil'};
 
             genericAPI.generic(dados)
             .then(function successCallback(response) {
                 if(response['data']){
-                    $scope.categorias = response['data'];
+                    $scope.perfils = response['data'];
                 }else{
                 }
             }, function errorCallback(response) {
             });
         };
 
-        listarCategorias();
+        //listarCategorias();
 
 
 

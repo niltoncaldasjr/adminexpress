@@ -35,14 +35,33 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('auth', {
             abstract: true,
-            url: "/outra",
+            url: "/auth",
             templateUrl: "views/common/content.html",
         })
         .state('auth.perfil', {
             url: '/perfil',
             templateUrl: "views/cadPerfil.html",
-            data: { pageTitle: 'Home' },
             controller: 'perfilCtrl',
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            files: ['libs/js/plugins/footable/footable.all.min.js', 'libs/css/plugins/footable/footable.core.css']
+                        },
+                        {
+                            name: 'ui.footable',
+                            files: ['libs/js/plugins/footable/angular-footable.js']
+                        },
+                        {
+                            files: ['libs/js/plugins/sweetalert/sweetalert.min.js', 'libs/css/plugins/sweetalert/sweetalert.css']
+                        },
+                        {
+                            name: 'oitozero.ngSweetAlert',
+                            files: ['libs/js/plugins/sweetalert/angular-sweetalert.min.js']
+                        }
+                    ]);
+                }
+            }
         })
         .state('outra', {
             abstract: true,

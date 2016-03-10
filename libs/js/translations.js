@@ -8,7 +8,7 @@ function config($translateProvider) {
         .translations('pt', {
 
             // Define all menu elements
-            CADASTROSGERAIS: 'Cadastroa Gerais',
+            CADASTROSGERAIS: 'Cadastros Gerais',
             AUTENTICACAO: 'Autenticação',
             CADASTROSADMINISTRATIVOS: 'Administrativos',
             UTILITARIOS: 'Utilitários',
@@ -45,7 +45,7 @@ function config($translateProvider) {
         .translations('en', {
 
             // Define all menu elements
-            CADASTROSGERAIS: 'Cadastroa Gerais',
+            CADASTROSGERAIS: 'Cadastros Gerais',
             AUTENTICACAO: 'Autenticação',
             CADASTROSADMINISTRATIVOS: 'Administrativos',
             UTILITARIOS: 'Utilitários',

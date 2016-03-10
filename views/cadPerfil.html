@@ -4,23 +4,23 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
-                    <form name="marcaForm" class="form" ng-submit="cadastrarMarca(marca)"
+                    <form name="perfilForm" class="form" ng-submit="cadastrarPerfil(perfil)"
                           novalidate>
                         <p>Preencha os dados com atenção.</p>
 
-                        <input type="hidden" class="form-control" id="id" name="id" ng-model="marca.id">
+                        <input type="hidden" class="form-control" id="id" name="id" ng-model="perfil.id">
 
                         <div class="form-group" >
-                            <label class="">Nome</label>
-                            <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome da Marca" ng-model="marca.nome" ng-required="true">
-                            <div class="m-t-xs" ng-show="marcaForm.nome.$invalid && marcaForm.$prestine">
-                                <small class="text-danger" ng-show="marcaForm.nome.$error.required">Insira o nome da MARCA</small>
+                            <label class="">Nome do Perfil</label>
+                            <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do Perfil" ng-model="perfil.nome" ng-required="true">
+                            <div class="m-t-xs" ng-show="perfilForm.nome.$invalid && perfilForm.$prestine">
+                                <small class="text-danger" ng-show="perfilForm.nome.$error.required">Insira o nome do Perfil</small>
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <div class="">
-                                <button class="btn btn-info" type="submit" ng-disabled="marcaForm.$invalid">
+                                <button class="btn btn-info" type="submit" ng-disabled="perfilForm.$invalid">
                                     Salvar
                                 </button>
                                 <button class="btn btn-primary" type="button" ng-click="limparCampos()">
@@ -45,22 +45,24 @@
                         <tr>
                             <th data-toggle="true">ID</th>
                             <th data-hide="phone">Nome</th>
+                            <th data-hide="phone">Ativo</th>
                             <th data-hide="phone">Data de Cadastro</th>
                             <th data-hide="phone">Data de Edição</th>
                             <th class="text-right" data-sort-ignore="true">Ações</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="m in marcas" reiniciar-footable>
-                            <td ng-bind="m.id"></td>
-                            <td ng-bind="m.nome"></td>
-                            <td ng-bind="m.datacadastro"></td>
-                            <td ng-bind="m.dataedicao"></td>
+                        <tr ng-repeat="p in perfils" reiniciar-footable>
+                            <td ng-bind="p.id"></td>
+                            <td ng-bind="p.nome"></td>
+                            <td ng-bind="p.ativo"></td>
+                            <td ng-bind="p.datacadastro"></td>
+                            <td ng-bind="p.dataedicao"></td>
                             <td class="text-right">
                                 <div class="btn-group">
-                                    <button class="btn-white btn btn-xs" ng-click="editarMarca(m)"><i class="fa fa-edit"></i>
+                                    <button class="btn-white btn btn-xs" ng-click="editarMarca(p)"><i class="fa fa-edit"></i>
                                     </button>
-                                    <button class="btn-white btn btn-xs" ng-click="deletarMarca(m)"><i class="fa fa-close"></i>
+                                    <button class="btn-white btn btn-xs" ng-click="deletarMarca(p)"><i class="fa fa-close"></i>
                                     </button>
                                 </div>
                             </td>
@@ -78,4 +80,4 @@
             </div>
         </div>
     </div>
-</div>>
+</div>
