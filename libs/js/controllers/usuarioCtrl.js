@@ -1,6 +1,8 @@
 angular.module('admin-express')
     .controller('usuarioCtrl', function ($scope, $rootScope, $http, $location, genericAPI, SweetAlert, authenticationAPI) {
 
+
+
         if (!$rootScope.usuario) {
             $location.path('/login');
         }
@@ -55,9 +57,9 @@ angular.module('admin-express')
             var dados;
 
             if(obj.id == undefined){
-                var dados = {'session': false, 'metodo': 'cadastrar', 'data': obj, 'class': 'usuario'};
+                var dados = {'metodo': 'cadastrar', 'data': obj, 'class': 'usuario'};
             }else{
-                var dados = {'session': false, 'metodo': 'atualizar', 'data': obj, 'class': 'usuario'};
+                var dados = {'metodo': 'atualizar', 'data': obj, 'class': 'usuario'};
             }
 
             genericAPI.generic(dados)
@@ -84,7 +86,7 @@ angular.module('admin-express')
 
         var listarUsuario = function(){
 
-            var dados = {'session':true, 'metodo': 'listar', 'data': null, 'class': 'usuario'};
+            var dados = {'metodo': 'listar', 'data': null, 'class': 'usuario'};
 
             genericAPI.generic(dados)
             .then(function successCallback(response) {

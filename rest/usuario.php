@@ -24,15 +24,18 @@ switch ($_POST['metodo']) {
         break;
 
     case 'cadastrar':
-        cadastrar_usuario();
+        var_dump($_POST);
+//        cadastrar_usuario();
         break;
 
     case 'atualizar':
-        alterar_usuario();
+        var_dump($_POST);
+//        alterar_usuario();
         break;
 
     case 'deletar':
-        deletar_usuario();
+        var_dump($_POST);
+//        deletar_usuario();
         break;
 
     default;
