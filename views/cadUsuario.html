@@ -180,11 +180,15 @@
                             <td ng-bind="u.dataCadastro"></td>
                             <td ng-bind="u.dataEdicao"></td>
                             <td class="text-right">
+
                                 <div class="btn-group">
-                                    <button class="btn-white btn btn-xs" ng-click="editarUsuario(u)"><i
+                                    <button title="Resetar senha" class="btn-info btn btn-xs" ng-click="resetarSenha(u)"><i
+                                            class="fa fa-key"></i>
+                                    </button>
+                                    <button title="Editar usuário" class="btn-white btn btn-xs" ng-click="editarUsuario(u)"><i
                                             class="fa fa-edit"></i>
                                     </button>
-                                    <button class="btn-white btn btn-xs" ng-click="deletarUsuario(u)"><i
+                                    <button title="Deletar usuário" class="btn-danger btn btn-xs" ng-click="deletarUsuario(u)"><i
                                             class="fa fa-close"></i>
                                     </button>
                                 </div>

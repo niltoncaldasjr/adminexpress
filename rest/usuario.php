@@ -29,8 +29,8 @@ switch ($_POST['metodo']) {
         break;
 
     case 'atualizar':
-        var_dump($_POST);
-//        alterar_usuario();
+//        var_dump($_POST);
+        alterar_usuario();
         break;
 
     case 'deletar':
@@ -72,8 +72,8 @@ function alterar_usuario()
     $data = $_POST['data'];
 
     $usuario = new Usuario();
-    $usuario->setNome($data['nome'])
-        ->setId($data['id'])
+    $usuario->setId($data['id'])
+        ->setNome($data['nome'])
         ->setUsuario($data['usuario'])
         ->setEmail($data['email'])
         ->setAtivo($data['ativo'])
@@ -81,14 +81,14 @@ function alterar_usuario()
         ->setTelefone($data['telefone']);
 
 
-//    $pControl = new UsuarioControl($usuario);
-//    $id = $pControl->atualizar();
-//
-//    if($id>0){
-//        echo json_encode(array('result'=> true, 'data'=> $id));
-//    }else{
-//        echo json_encode(array('result'=> false));
-//    }
+    $pControl = new UsuarioControl($usuario);
+    $id = $pControl->atualizar();
+
+    if($id>0){
+        echo json_encode(array('result'=> true, 'data'=> $id));
+    }else{
+        echo json_encode(array('result'=> false));
+    }
 
 }
 

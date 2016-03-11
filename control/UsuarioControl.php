@@ -35,7 +35,7 @@ class UsuarioControl{
 	}
 
 	function atualizar(){
-		$this->o_usuarioDAO->atualizar($this->o_usuario);
+		return $this->o_usuarioDAO->atualizar($this->o_usuario);
 	}
 
 	function redefinir_senha(){
