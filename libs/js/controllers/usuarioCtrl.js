@@ -28,14 +28,20 @@ angular.module('admin-express')
                         genericAPI.generic(dados)
                             .then(function successCallback(response) {
                                 if(response['data']){
-                                    listarUsuario();
+                                    if(response.data.result == false){
+                                        SweetAlert.swal("Ops!!!", response.data.msg, "error");
+                                    }else{
+                                        SweetAlert.swal("Deletado!", "Essa informação foi deletada.", "success");
+                                        listarUsuario();
+                                    }
+
                                 }else{
                                 }
                             }, function errorCallback(response) {
                             });
-                        SweetAlert.swal("Deletado!", "Essa informação foi deletada.", "success");
+                        //SweetAlert.swal("Deletado!", "Essa informação foi deletada.", "success");
                     } else {
-                        SweetAlert.swal("Cancelado", "A informação foi mantida :)", "error");
+                        SweetAlert.swal("Cancelado", "Operação cancelado pelo usuário", "error");
                     }
                 });
         };
@@ -45,8 +51,8 @@ angular.module('admin-express')
          * Limpa os campos na tela
          */
         $scope.limparCampos = function(){
+            delete $scope.user;
             $scope.atualizacao = true;
-            delete $scope.usuario;
         };
 
         /**
@@ -55,7 +61,9 @@ angular.module('admin-express')
          * @param obj
          */
         $scope.cadastrarUsuario = function(obj){
-            obj.senha = MD5(obj.senha);
+            if(obj.senha != undefined){
+                obj.senha = MD5(obj.senha);
+            }
 
             var dados;
 
@@ -70,11 +78,17 @@ angular.module('admin-express')
                     if(response['data']){
                         delete $scope.user;
                         listarUsuario();
+                        $scope.atualizacao = true;
                     }else{
                     }
                 }, function errorCallback(response) {
                 });
         };
+
+        $scope.resetarSenha = function (obj)
+        {
+            confirmaResetSenha(obj);
+        }
 
         $scope.editarUsuario = function(obj){
             $scope.atualizacao = false;
@@ -112,6 +126,35 @@ angular.module('admin-express')
                     }else{
                     }
                 }, function errorCallback(response) {
+                });
+        };
+
+        var confirmaResetSenha = function (obj) {
+            SweetAlert.swal({
+                    title: "Deseja realmente resetar a Senha do usuário?",
+                    text: "Uma senha padrão será enviada ao usuário!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Sim, reset!",
+                    cancelButtonText: "Não, cancele!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        var dados = {'metodo': 'resetsenha', 'data': obj, 'class': 'usuario'};
+                        genericAPI.generic(dados)
+                            .then(function successCallback(response) {
+                                if(response['data']){
+                                    listarUsuario();
+                                }else{
+                                }
+                            }, function errorCallback(response) {
+                            });
+                        SweetAlert.swal("Resetado!", "O usuário será notificado.", "success");
+                    } else {
+                        SweetAlert.swal("Cancelado", "A informação foi mantida :)", "error");
+                    }
                 });
         };
 
