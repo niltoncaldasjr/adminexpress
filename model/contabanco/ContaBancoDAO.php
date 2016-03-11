@@ -10,7 +10,7 @@
  	Data Atual: 08/03/2016. 
 */
 
-Class ContaBancoDao {
+Class ContaBancoDAO {
 	/* Atributos */
 	private $con;	//conexao
 	private $sql; 	//sql

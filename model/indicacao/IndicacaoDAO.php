@@ -10,7 +10,7 @@
  	Data Atual: 08/03/2016. 
 */
 
-Class IndicacaoDao {
+Class IndicacaoDAO {
 	/* Atributos */
 	private $con;	//conexao
 	private $sql; 	//sql
