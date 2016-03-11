@@ -21,6 +21,10 @@ switch ($_POST['metodo']) {
         alterar_perfil();
         break;
 
+    case 'deletar':
+        deletar_perfil();
+        break;
+
     default:
         break;
 }
@@ -67,6 +71,23 @@ function listar_perfil()
     $listaDePerfil = $control->listarTodos();
 
     echo json_encode($listaDePerfil);
+}
+
+function deletar_perfil()
+{
+    $data = $_POST['data'];
+
+    $perfil = new Perfil();
+    $perfil->setId($data['id']);
+
+    $pControl = new PerfilControl($perfil);
+
+
+    if($pControl->deletar()){
+        echo json_encode(array('result'=> true));
+    }else{
+        echo json_encode(array('result'=> false));
+    }
 }
 
 function trazer_perfil()

@@ -1,0 +1,189 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+    <!--<div class="container services">-->
+    <div class="row">
+        <!-- 		DIREITA FORMULARIO     -->
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <form name="usuarioForm" class="form" ng-submit="cadastrarUsuario(usuario)"
+                          novalidate>
+                        <p>Preencha os dados com atenção.</p>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input type="hidden" class="form-control" id="id" name="id" ng-model="usuario.id">
+
+                                <div class="form-group">
+                                    <label class="">Nome</label>
+                                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome"
+                                           ng-model="usuario.nome" ng-required="true">
+
+                                    <div class="m-t-xs" ng-show="usuarioForm.nome.$invalid && usuarioForm.$prestine">
+                                        <small class="text-danger" ng-show="usuarioForm.nome.$error.required">Insira o
+                                            nome do Usuario
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="">Usuário</label>
+                                    <input type="text" class="form-control" id="usuario" name="usuario"
+                                           placeholder="Usuario" ng-model="usuario.usuario" ng-required="true">
+
+                                    <div class="m-t-xs" ng-show="usuarioForm.usuario.$invalid && usuarioForm.$prestine">
+                                        <small class="text-danger" ng-show="usuarioForm.usuario.$error.required">Insira
+                                            o Usuario
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="">Senha</label>
+                                            <input type="password" class="form-control" id="senha" name="senha"
+                                                   placeholder="Senha" ng-model="usuario.senha" ng-required="true">
+
+                                            <div class="m-t-xs"
+                                                 ng-show="usuarioForm.senha.$invalid && usuarioForm.$prestine">
+                                                <small class="text-danger" ng-show="usuarioForm.senha.$error.required">
+                                                    Insira a senha
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="">Confirmar</label>
+                                            <input type="password" class="form-control" id="confirmar" name="confirmar"
+                                                   placeholder="Confirmar" ng-model="usuario.confirmar"
+                                                   ng-required="true">
+                                            <div class="m-t-xs"
+                                                 ng-show="usuarioForm.confirmar.$invalid && usuarioForm.$prestine">
+                                                <small class="text-danger"
+                                                       ng-show="usuarioForm.confirmar.$error.required">A senha devem ser
+                                                    iguais
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email"
+                                           ng-model="usuario.email" ng-required="true">
+
+                                    <div class="m-t-xs" ng-show="usuarioForm.email.$invalid && usuarioForm.$prestine">
+                                        <small class="text-danger" ng-show="usuarioForm.email.$error.required">Insira o
+                                            nome do Email
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="">Telefone</label>
+                                    <input type="text" class="form-control" id="telefone" name="telefone"
+                                           placeholder="Telefone" ng-model="usuario.telefone" ng-required="true">
+                                    <div class="m-t-xs"
+                                         ng-show="usuarioForm.telefone.$invalid && usuarioForm.$prestine">
+                                        <small class="text-danger" ng-show="usuarioForm.telefone.$error.required">Insira
+                                            o telefone
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Tornar Ativo</label>
+                                    <div>
+                                        <label class="checkbox-inline"><input type="radio"
+                                                                              value="ativo"
+                                                                              id="ativo"
+                                                                              name="ativo"
+                                                                              ng-model="usuario.ativo">
+                                            SIM
+                                        </label>
+                                        <label
+                                                class="checkbox-inline"> <input type="radio"
+                                                                                value="inativo"
+                                                                                id="inativo"
+                                                                                name="ativo"
+                                                                                ng-model="usuario.ativo">
+                                            NÃO
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="">
+                                <button class="btn btn-info" type="submit" ng-disabled="usuarioForm.$invalid">
+                                    Salvar
+                                </button>
+                                <button class="btn btn-primary" type="button" ng-click="limparCampos()">
+                                    Novo
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- 		FIM FORMULARIO    -->
+
+        <!-- 		ESQUERDA TABELA DE DADOS     -->
+
+        <div class="col-md-12">
+            <div class="ibox">
+                <div class="ibox-content">
+
+                    <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="10">
+                        <thead>
+                        <tr>
+                            <th data-toggle="true">ID</th>
+                            <th data-hide="phone">Nome</th>
+                            <th data-hide="phone">Usuário</th>
+                            <th data-hide="phone">Email</th>
+                            <th data-hide="phone">Telefone</th>
+                            <th data-hide="phone">Ativo</th>
+                            <th data-hide="phone">Perfil</th>
+                            <th data-hide="phone">Data de Cadastro</th>
+                            <th data-hide="phone">Data de Edição</th>
+                            <th class="text-right" data-sort-ignore="true">Ações</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="u in usuarios" reiniciar-footable>
+                            <td ng-bind="u.id"></td>
+                            <td ng-bind="u.nome"></td>
+                            <td ng-bind="u.usuario"></td>
+                            <td ng-bind="u.email"></td>
+                            <td ng-bind="u.telefone"></td>
+                            <td ng-bind="u.ativo"></td>
+                            <td ng-bind="u.perfil.nome"></td>
+                            <td ng-bind="u.dataCadastro"></td>
+                            <td ng-bind="u.dataEdicao"></td>
+                            <td class="text-right">
+                                <div class="btn-group">
+                                    <button class="btn-white btn btn-xs" ng-click="editarUsuario(u)"><i
+                                            class="fa fa-edit"></i>
+                                    </button>
+                                    <button class="btn-white btn btn-xs" ng-click="deletarUsuario(u)"><i
+                                            class="fa fa-close"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="6">
+                                <ul class="pagination pull-right"></ul>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--</div>-->
+</div>

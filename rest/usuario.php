@@ -19,10 +19,104 @@ switch ($_POST['metodo']) {
         ativarUsuario();
         break;
 
+    case 'listar':
+        listar_usuario();
+        break;
+
+    case 'cadastrar':
+        cadastrar_usuario();
+        break;
+
+    case 'atualizar':
+        alterar_usuario();
+        break;
+
+    case 'deletar':
+        deletar_usuario();
+        break;
+
     default;
         break;
 
 }
+
+function cadastrar_usuario()
+{
+    $data = $_POST['data'];
+
+    $usuario = new Usuario();
+    $usuario->setNome($data['nome'])
+        ->setUsuario($data['usuario'])
+        ->setEmail($data['email'])
+        ->setSenha($data['senha'])
+        ->setAtivo($data['ativo'])
+        ->setTelefone($data['telefone']);
+
+
+    $pControl = new UsuarioControl($usuario);
+    $id = $pControl->cadastrar();
+
+    if($id){
+        echo json_encode(array('result'=> true, 'data'=> $id));
+    }else{
+        echo json_encode(array('result'=> false));
+    }
+
+}
+
+function alterar_usuario()
+{
+    $data = $_POST['data'];
+
+    $usuario = new Usuario();
+    $usuario->setNome($data['nome'])
+        ->setId($data['id'])
+        ->setUsuario($data['usuario'])
+        ->setEmail($data['email'])
+        ->setSenha($data['senha'])
+        ->setAtivo($data['ativo'])
+        ->setTelefone($data['telefone']);
+
+
+    $pControl = new UsuarioControl($usuario);
+    $id = $pControl->atualizar();
+
+    if($id>0){
+        echo json_encode(array('result'=> true, 'data'=> $id));
+    }else{
+        echo json_encode(array('result'=> false));
+    }
+
+}
+
+function listar_usuario()
+{
+    $control = new UsuarioControl(new Usuario());
+    $listaDeUsuario = $control->listarTodos();
+
+    echo json_encode($listaDeUsuario);
+}
+
+function deletar_usuario()
+{
+    $data = $_POST['data'];
+
+    $usuario = new Usuario();
+    $usuario->setId($data['id']);
+
+    $pControl = new UsuarioControl($usuario);
+
+
+    if($pControl->deletar()){
+        echo json_encode(array('result'=> true));
+    }else{
+        echo json_encode(array('result'=> false));
+    }
+}
+
+
+
+
 
 function cadastrarUsuarioCupom() {
 
@@ -64,12 +158,12 @@ function cadastrarUsuarioCupom() {
 
                 /*-- LogSistema      class -               ID -  NIVEL  -   AÃ‡ÃƒO  - ANTES - DEPOIS --*/
                 // CadastraLogSistema( get_class($object), $idUsuario, 'BASICO', 'INCLUIR', $jsonAntes, $jsonDepois);
-            
+
                 $objControl = new UsuarioControl(new Usuario($idUsuario));
                 $obj = $objControl->buscarPorId();
 
                 $result = array(
-                    "success"   => true, 
+                    "success"   => true,
                     "msg"       => "Cadastrado com sucesso",
                     "data"      => $usuario = array('idusuario'=>$obj->getId(),'usuario'=>$obj->getUsuario(),'idpessoafisica'=> $obj->getObjPessoafisica()->getId(), 'idperfil'=>3, 'inatividade'=>'ativo')
                 );

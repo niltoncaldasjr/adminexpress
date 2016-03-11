@@ -1,5 +1,5 @@
 angular.module('admin-express')
-    .controller('perfilCtrl', function ($scope, $rootScope, $http, $location, genericAPI, SweetAlert, authenticationAPI) {
+    .controller('usuarioCtrl', function ($scope, $rootScope, $http, $location, genericAPI, SweetAlert, authenticationAPI) {
 
         if (!$rootScope.usuario) {
             $location.path('/login');
@@ -22,11 +22,11 @@ angular.module('admin-express')
                     closeOnCancel: false },
                 function (isConfirm) {
                     if (isConfirm) {
-                        var dados = {'session':true, 'metodo': 'deletar', 'data': obj, 'class': 'perfil'};
+                        var dados = {'session':true, 'metodo': 'deletar', 'data': obj, 'class': 'usuario'};
                         genericAPI.generic(dados)
                             .then(function successCallback(response) {
                                 if(response['data']){
-                                    listarPerfil();
+                                    listarUsuario();
                                 }else{
                                 }
                             }, function errorCallback(response) {
@@ -43,7 +43,7 @@ angular.module('admin-express')
          * Limpa os campos na tela
          */
         $scope.limparCampos = function(){
-            delete $scope.perfil;
+            delete $scope.usuario;
         };
 
         /**
@@ -51,52 +51,52 @@ angular.module('admin-express')
          * checa o obj.id se existe entao altera
          * @param obj
          */
-        $scope.cadastrarPerfil = function(obj){
+        $scope.cadastrarUsuario = function(obj){
             var dados;
 
             if(obj.id == undefined){
-                var dados = {'session': false, 'metodo': 'cadastrar', 'data': obj, 'class': 'perfil'};
+                var dados = {'session': false, 'metodo': 'cadastrar', 'data': obj, 'class': 'usuario'};
             }else{
-                var dados = {'session': false, 'metodo': 'atualizar', 'data': obj, 'class': 'perfil'};
+                var dados = {'session': false, 'metodo': 'atualizar', 'data': obj, 'class': 'usuario'};
             }
 
             genericAPI.generic(dados)
                 .then(function successCallback(response) {
                     if(response['data']){
-                        delete $scope.perfil;
-                        listarPerfil();
+                        delete $scope.usuario;
+                        listarUsuario();
                     }else{
                     }
                 }, function errorCallback(response) {
                 });
         };
 
-        $scope.editarPerfil = function(obj){
+        $scope.editarUsuario = function(obj){
 
             $scope.limparCampos();
-            $scope.perfil = obj;
+            $scope.usuario = obj;
         };
 
-        $scope.deletarPerfil = function(obj){
+        $scope.deletarUsuario = function(obj){
 
             confirmaDelete(obj);
         };
 
-        var listarPerfil = function(){
+        var listarUsuario = function(){
 
-            var dados = {'session':true, 'metodo': 'listar', 'data': null, 'class': 'perfil'};
+            var dados = {'session':true, 'metodo': 'listar', 'data': null, 'class': 'usuario'};
 
             genericAPI.generic(dados)
             .then(function successCallback(response) {
                 if(response['data']){
-                    $scope.perfils = response['data'];
+                    $scope.usuarios = response['data'];
                 }else{
                 }
             }, function errorCallback(response) {
             });
         };
 
-        listarPerfil();
+        listarUsuario();
 
 
 

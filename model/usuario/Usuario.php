@@ -6,17 +6,19 @@ class Usuario implements JsonSerializable {
 	private $senha;
 	private $email;
 	private $ativo;
+    private $telefone;
 	private $datacadastro;
 	private $dataedicao;
 	private $objPerfil;
 	
-	function __construct($id=null, $nome=null, $usuario=null, $senha=null, $email=null, $ativo=null, $datacadastro=null, $dataedicao=null, Perfil $objPerfil=null) {
+	function __construct($id=null, $nome=null, $usuario=null, $senha=null, $email=null, $ativo=null, $telefone=null, $datacadastro=null, $dataedicao=null, Perfil $objPerfil=null) {
             $this->id = $id;
             $this->nome = $nome;
             $this->usuario = $usuario;
             $this->senha = $senha;
             $this->email = $email;
             $this->ativo = $ativo;
+            $this->telefone = $telefone;
             $this->datacadastro = $datacadastro;
             $this->dataedicao = $dataedicao;
             $this->objPerfil = $objPerfil;
@@ -133,6 +135,24 @@ class Usuario implements JsonSerializable {
     /**
      * @return null
      */
+    public function getTelefone()
+    {
+        return $this->telefone;
+    }
+
+    /**
+     * @param null $telefone
+     * @return Usuario
+     */
+    public function setTelefone($telefone)
+    {
+        $this->telefone = $telefone;
+        return $this;
+    }
+
+    /**
+     * @return null
+     */
     public function getDatacadastro()
     {
         return $this->datacadastro;
@@ -183,6 +203,9 @@ class Usuario implements JsonSerializable {
         $this->objPerfil = $objPerfil;
         return $this;
     }
+
+
+
          
 	public function jsonSerialize() {
 		return 	[ 
@@ -192,9 +215,10 @@ class Usuario implements JsonSerializable {
 				'senha' => $this->senha,
 				'email' => $this->email,
 				'ativo' => $this->ativo,
+                'telefone' => $this->telefone,
 				'dataCadastro' => $this->datacadastro,
 				'dataEdicao' => $this->dataedicao,
-				'perfil' => $this->objPerfil
+				'perfil' => $this->objPerfil->jsonSerialize()
 		];
 	}
 }
