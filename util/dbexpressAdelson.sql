@@ -1,5 +1,5 @@
 # Host: localhost  (Version: 5.6.24)
-# Date: 2016-03-11 10:10:38
+# Date: 2016-03-11 12:23:50
 # Generator: MySQL-Front 5.3  (Build 5.19)
 
 /*!40101 SET NAMES latin1 */;
@@ -10,18 +10,19 @@
 
 DROP TABLE IF EXISTS `banco`;
 CREATE TABLE `banco` (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `descricao` varchar(50) DEFAULT NULL,
   `febran` varchar(4) DEFAULT NULL,
   `datacadastro` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `dataedicao` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "banco"
 #
 
+INSERT INTO `banco` VALUES (1,'asdasdads','asda','2016-03-11 12:04:28',NULL);
 
 #
 # Structure for table "contabanco"
@@ -29,7 +30,7 @@ CREATE TABLE `banco` (
 
 DROP TABLE IF EXISTS `contabanco`;
 CREATE TABLE `contabanco` (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `agencia` varchar(10) DEFAULT NULL,
   `digitoAgencia` char(1) DEFAULT NULL,
   `numeroConta` varchar(10) DEFAULT NULL,
@@ -42,9 +43,9 @@ CREATE TABLE `contabanco` (
   `idbanco` int(11) DEFAULT NULL,
   `datacadastro` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `dataedicao` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`Id`),
+  PRIMARY KEY (`id`),
   KEY `idbanco` (`idbanco`),
-  CONSTRAINT `contabanco_ibfk_1` FOREIGN KEY (`idbanco`) REFERENCES `banco` (`Id`)
+  CONSTRAINT `contabanco_ibfk_1` FOREIGN KEY (`idbanco`) REFERENCES `banco` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
@@ -58,7 +59,7 @@ CREATE TABLE `contabanco` (
 
 DROP TABLE IF EXISTS `indicacao`;
 CREATE TABLE `indicacao` (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(70) DEFAULT NULL,
   `cep` varchar(10) DEFAULT NULL,
   `endereco` varchar(150) DEFAULT NULL,
@@ -77,7 +78,7 @@ CREATE TABLE `indicacao` (
   `senhaweb` varchar(50) DEFAULT NULL,
   `datacadastro` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `dataedicao` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`Id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
@@ -91,11 +92,11 @@ CREATE TABLE `indicacao` (
 
 DROP TABLE IF EXISTS `servico`;
 CREATE TABLE `servico` (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(50) DEFAULT NULL,
   `datacadastro` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `dataedicao` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`Id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
@@ -109,12 +110,12 @@ CREATE TABLE `servico` (
 
 DROP TABLE IF EXISTS `statusprocesso`;
 CREATE TABLE `statusprocesso` (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(50) DEFAULT NULL,
   `web` enum('SIM',' NAO') DEFAULT NULL,
   `datacadastro` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `dataedicao` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`Id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #

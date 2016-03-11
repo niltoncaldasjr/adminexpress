@@ -88,6 +88,36 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                 }
             }
         })
+        .state('cadastro', {
+            abstract: true,
+            url: "/cadastro",
+            templateUrl: "views/common/content.html",
+        })
+        .state('cadastro.banco', {
+            url: '/banco',
+            templateUrl: "views/cadBanco.html",
+            controller: 'bancoCtrl',
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            files: ['libs/js/plugins/footable/footable.all.min.js', 'libs/css/plugins/footable/footable.core.css']
+                        },
+                        {
+                            name: 'ui.footable',
+                            files: ['libs/js/plugins/footable/angular-footable.js']
+                        },
+                        {
+                            files: ['libs/js/plugins/sweetalert/sweetalert.min.js', 'libs/css/plugins/sweetalert/sweetalert.css']
+                        },
+                        {
+                            name: 'oitozero.ngSweetAlert',
+                            files: ['libs/js/plugins/sweetalert/angular-sweetalert.min.js']
+                        }
+                    ]);
+                }
+            }
+        })
         .state('outra', {
             abstract: true,
             url: "/outra",

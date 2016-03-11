@@ -4,10 +4,10 @@
  	Projeto: AdminExpress.
  	Project Owner: Diego.
  	Gerente de Desenvolvimento: Nilton Caldas Jr.
- 	Desenvolverdor: Fabiano Ferreira da Silva Costa
+ 	Desenvolverdor: Fabiano Ferreira da Silva Costa.
  	Desenvolverdor: Adelson Guimarães Monteiro.
  	Data de início: 08/03/2016.
- 	Data Atual: 08/03/2016. 
+ 	Data Atual: 08/03/2016.
 */
 
 Class BancoDAO {
@@ -15,7 +15,7 @@ Class BancoDAO {
 	private $con;	//conexao
 	private $sql; 	//sql
 	private $obj; 	//obj da class
-	private $lista; //lista da class
+	private $lista = array(); //lista da class
 	
 	/* Construtor */
 	public function __construct($con) {
@@ -36,6 +36,7 @@ Class BancoDAO {
 	
 	/* Atualizar */
 	function atualizar (Banco $obj) {
+		var_dump($obj->getId());
 		$this->sql = sprintf("UPDATE banco SET descricao = '%s', febran = '%s', dataedicao = '%s' WHERE id = %d", 
 				mysqli_real_escape_string($this->con, $obj->getDescricao()),
 				mysqli_real_escape_string($this->con, $obj->getFebran()),
@@ -57,7 +58,6 @@ Class BancoDAO {
 		}
 		while($row = mysqli_fetch_object($resultSet)) {
 			$this->obj = new Banco($row->id, $row->descricao, $row->febran, $row->datacadastro, $row->dataedicao);
-			
 			array_push($this->lista, $this->obj);
 		}
 		return $this->lista;
@@ -83,7 +83,7 @@ Class BancoDAO {
 			die('[ERRO]: Class('.get_class($obj).') | Metodo(buscarPorId) | Erro('.mysqli_error($this->con).')');
 		}
 		while($row = mysqli_fetch_object($resultSet)) {
-			$this->obj = new Pais($row->id, $this->descricao, $row->febran, $row->datacadastro, $row->dataedicao);
+			$this->obj = new Banco($row->id, $this->descricao, $row->febran, $row->datacadastro, $row->dataedicao);
 		}
 		return $this->obj;
 	}

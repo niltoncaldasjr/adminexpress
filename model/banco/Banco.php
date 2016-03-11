@@ -19,7 +19,7 @@ Class Banco implements JsonSerializable {
 	private $dataedicao;
 
 	/* Construtor */
-	public function __constructor
+	public function __construct
 	(
 		$id					= NULL,
 		$descricao			= NULL,
@@ -87,11 +87,6 @@ Class Banco implements JsonSerializable {
 			"dataedicao" 			=> $this->dataedicao
 		];
 	}
-	
-	
-	
-	
-	
 	
 }
 

@@ -34,16 +34,40 @@ switch ($_POST['metodo']) {
 
 /* Metodos */
 function cadastrar () {
+	$data = $_POST['data'];
+	$obj = new Banco(
+			NULL,
+			stripslashes ( strip_tags( trim($data['descricao']) ) ),
+			stripslashes ( strip_tags( trim($data['febran']) ) )
+			);
+	$control = new BancoControl($obj);
+	$id = $control->cadastrar();
+	echo $id;
 	
 }
 function atualizar () {
-	
+	$data = $_POST['data'];
+	$obj = new Banco(
+			$data['id'],
+			stripslashes ( strip_tags( trim($data['descricao']) ) ),
+			stripslashes ( strip_tags( trim($data['febran']) ) )
+	);
+	$control = new BancoControl($obj);
+	echo $control->atualizar();
 }
 function listar () {
-	
+	$control = new BancoControl();
+	$lista = $control->listar();
+	if(!empty($lista)) {
+		echo json_encode($lista);
+	}
 }
 function deletar () {
-	
+	$data = $_POST['data'];
+	$banco = new Banco();
+	$banco->setId($data['id']);
+	$control = new BancoControl($banco);
+	echo $control->deletar();	
 }
 function buscarPorId () {
 	
