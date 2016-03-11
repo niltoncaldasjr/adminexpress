@@ -24,8 +24,8 @@ switch ($_POST['metodo']) {
         break;
 
     case 'cadastrar':
-        var_dump($_POST);
-//        cadastrar_usuario();
+//        var_dump($_POST);
+        cadastrar_usuario();
         break;
 
     case 'atualizar':
@@ -53,12 +53,12 @@ function cadastrar_usuario()
         ->setEmail($data['email'])
         ->setSenha($data['senha'])
         ->setAtivo($data['ativo'])
+        ->setObjPerfil(new Perfil($data['perfil']['id']))
         ->setTelefone($data['telefone']);
 
 
     $pControl = new UsuarioControl($usuario);
     $id = $pControl->cadastrar();
-
     if($id){
         echo json_encode(array('result'=> true, 'data'=> $id));
     }else{
@@ -76,19 +76,19 @@ function alterar_usuario()
         ->setId($data['id'])
         ->setUsuario($data['usuario'])
         ->setEmail($data['email'])
-        ->setSenha($data['senha'])
         ->setAtivo($data['ativo'])
+        ->setObjPerfil(new Perfil($data['perfil']['id']))
         ->setTelefone($data['telefone']);
 
 
-    $pControl = new UsuarioControl($usuario);
-    $id = $pControl->atualizar();
-
-    if($id>0){
-        echo json_encode(array('result'=> true, 'data'=> $id));
-    }else{
-        echo json_encode(array('result'=> false));
-    }
+//    $pControl = new UsuarioControl($usuario);
+//    $id = $pControl->atualizar();
+//
+//    if($id>0){
+//        echo json_encode(array('result'=> true, 'data'=> $id));
+//    }else{
+//        echo json_encode(array('result'=> false));
+//    }
 
 }
 

@@ -37,10 +37,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group">
+                                        <div class="form-group" ng-if="atualizacao">
                                             <label class="">Senha</label>
                                             <input type="password" class="form-control" id="senha" name="senha"
-                                                   placeholder="Senha" ng-model="user.senha" ng-required="true">
+                                                   placeholder="Senha" ng-model="user.senha">
 
                                             <div class="m-t-xs"
                                                  ng-show="usuarioForm.senha.$invalid && usuarioForm.$prestine">
@@ -51,11 +51,11 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-group">
+                                        <div class="form-group" ng-if="atualizacao">
                                             <label class="">Confirmar</label>
                                             <input type="password" class="form-control" id="confirmar" name="confirmar"
                                                    placeholder="Confirmar" ng-model="user.confirmar"
-                                                   ng-required="true">
+                                                   >
                                             <div class="m-t-xs"
                                                  ng-show="usuarioForm.confirmar.$invalid && usuarioForm.$prestine">
                                                 <small class="text-danger"
@@ -90,26 +90,42 @@
                                         </small>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label>Tornar Ativo</label>
-                                    <div>
-                                        <label class="checkbox-inline"><input type="radio"
-                                                                              value="ativo"
-                                                                              id="ativo"
-                                                                              name="ativo"
-                                                                              ng-model="user.ativo">
-                                            SIM
-                                        </label>
-                                        <label
-                                                class="checkbox-inline"> <input type="radio"
-                                                                                value="inativo"
-                                                                                id="inativo"
-                                                                                name="ativo"
-                                                                                ng-model="user.ativo">
-                                            NÃO
-                                        </label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Perfil</label> <select
+                                                class="form-control" required id="perfil"
+                                                name="perfil" ng-model="user.perfil"
+                                                ng-options="p as p.nome for p in perfils track by p.id">
+                                        </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Tornar Ativo</label>
+                                            <div>
+                                                <label class="checkbox-inline"><input type="radio"
+                                                                                      ng-model="user.ativo"
+                                                                                      ng-value="1"
+                                                                                      required
+                                                                                      id="ativo"
+                                                                                      name="ativo">
+                                                    SIM
+                                                </label>
+                                                <label
+                                                        class="checkbox-inline"> <input type="radio"
+                                                                                        ng-model="user.ativo"
+                                                                                        ng-value="0"
+                                                                                        required
+                                                                                        id="inativo"
+                                                                                        name="ativo">
+                                                    NÃO
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>

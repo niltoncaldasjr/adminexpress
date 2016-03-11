@@ -14,7 +14,7 @@ class UsuarioDAO
 
     function cadastrar(Usuario $o_usuario)
     {
-        $this->sql = sprintf("INSERT INTO usuario (nome, usuario, senha, email, ativo, telefone, idperfil) VALUES ('%s', '%s', '%s', '%s', %d, %d)",
+        $this->sql = sprintf("INSERT INTO usuario (nome, usuario, senha, email, ativo, telefone, idperfil) VALUES ('%s', '%s', '%s', '%s', %d, '%s', %d)",
             mysqli_real_escape_string($this->con, $o_usuario->getNome()),
             mysqli_real_escape_string($this->con, $o_usuario->getUsuario()),
             mysqli_real_escape_string($this->con, $o_usuario->getSenha()),
@@ -31,14 +31,14 @@ class UsuarioDAO
 
     function atualizar(Usuario $o_usuario)
     {
-        $this->sql = sprintf("UPDATE usuario SET nome= '%s', usuario= '%s', senha= '%s', email= '%s', ativo=%d, telefone=%s, dataedicao='%s', idperfil=%d WHERE id= %d",
+        $this->sql = sprintf("UPDATE usuario SET nome= '%s', usuario= '%s', email= '%s', ativo=%d, telefone=%s, dataedicao='%s', idperfil=%d WHERE id= %d",
             mysqli_real_escape_string($this->con, $o_usuario->getNome()),
             mysqli_real_escape_string($this->con, $o_usuario->getUsuario()),
-            mysqli_real_escape_string($this->con, $o_usuario->getSenha()),
+//            mysqli_real_escape_string($this->con, $o_usuario->getSenha()),
             mysqli_real_escape_string($this->con, $o_usuario->getEmail()),
             mysqli_real_escape_string($this->con, $o_usuario->getAtivo()),
             mysqli_real_escape_string($this->con, $o_usuario->getTelefone()),
-            mysqli_real_escape_string($this->con, $o_usuario->getDataedicao()),
+            mysqli_real_escape_string($this->con, date('Y-m-d H:i:s')),
             mysqli_real_escape_string($this->con, $o_usuario->getObjPerfil()->getId()),
             mysqli_real_escape_string($this->con, $o_usuario->getId()));
 

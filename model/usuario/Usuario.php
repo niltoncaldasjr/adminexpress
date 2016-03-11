@@ -212,7 +212,6 @@ class Usuario implements JsonSerializable {
 				'id' => $this->id,
 				'nome' => $this->nome,
 				'usuario' => $this->usuario,
-				'senha' => $this->senha,
 				'email' => $this->email,
 				'ativo' => $this->ativo,
                 'telefone' => $this->telefone,

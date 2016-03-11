@@ -1,7 +1,7 @@
 angular.module('admin-express')
     .controller('usuarioCtrl', function ($scope, $rootScope, $http, $location, genericAPI, SweetAlert, authenticationAPI) {
 
-
+        $scope.atualizacao = true;
 
         if (!$rootScope.usuario) {
             $location.path('/login');
@@ -45,6 +45,7 @@ angular.module('admin-express')
          * Limpa os campos na tela
          */
         $scope.limparCampos = function(){
+            $scope.atualizacao = true;
             delete $scope.usuario;
         };
 
@@ -54,6 +55,8 @@ angular.module('admin-express')
          * @param obj
          */
         $scope.cadastrarUsuario = function(obj){
+            obj.senha = MD5(obj.senha);
+
             var dados;
 
             if(obj.id == undefined){
@@ -65,7 +68,7 @@ angular.module('admin-express')
             genericAPI.generic(dados)
                 .then(function successCallback(response) {
                     if(response['data']){
-                        delete $scope.usuario;
+                        delete $scope.user;
                         listarUsuario();
                     }else{
                     }
@@ -74,9 +77,8 @@ angular.module('admin-express')
         };
 
         $scope.editarUsuario = function(obj){
-
-            $scope.limparCampos();
-            $scope.usuario = obj;
+            $scope.atualizacao = false;
+            $scope.user = obj;
         };
 
         $scope.deletarUsuario = function(obj){
@@ -84,21 +86,37 @@ angular.module('admin-express')
             confirmaDelete(obj);
         };
 
+        var listarPerfil = function(){
+
+            var dados = {'metodo': 'listar', 'data': null, 'class': 'perfil'};
+
+            genericAPI.generic(dados)
+                .then(function successCallback(response) {
+                    if(response['data']){
+                        $scope.perfils = response['data'];
+                    }else{
+                    }
+                }, function errorCallback(response) {
+                });
+        };
+
         var listarUsuario = function(){
 
             var dados = {'metodo': 'listar', 'data': null, 'class': 'usuario'};
 
             genericAPI.generic(dados)
-            .then(function successCallback(response) {
-                if(response['data']){
-                    $scope.usuarios = response['data'];
-                }else{
-                }
-            }, function errorCallback(response) {
-            });
+                .then(function successCallback(response) {
+                    if(response['data']){
+                        $scope.usuarios = response['data'];
+
+                    }else{
+                    }
+                }, function errorCallback(response) {
+                });
         };
 
         listarUsuario();
+        listarPerfil();
 
 
 
