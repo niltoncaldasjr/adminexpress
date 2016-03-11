@@ -21,7 +21,7 @@ class PerfilControl{
 	}
 
 	function deletar(){
-		$this->o_perfilDAO->deletar($this->o_perfil);
+		return $this->o_perfilDAO->deletar($this->o_perfil);
 	}
 
 	function buscarPorId(){

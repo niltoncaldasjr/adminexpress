@@ -105,10 +105,10 @@ function deletar_usuario()
     $usuario->setId($data['id']);
 
     $pControl = new UsuarioControl($usuario);
+    $usuario = $pControl->buscarPorId();
 
     $qtde = $pControl->listarTodos();
-    if(count($qtde) > 1){
-//        echo count($qtde);
+    if(count($qtde) > 1 && $usuario->getObjPerfil()->getId()!= 1){
         if($pControl->deletar()){
             echo json_encode(array('result'=> true));
         }else{
