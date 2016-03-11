@@ -10,7 +10,7 @@
  	Data Atual: 08/03/2016. 
 */
 
-Class ServicoDao {
+Class StatusProcessoDAO {
 	/* Atributos */
 	private $con;	//conexao
 	private $sql; 	//sql
@@ -23,10 +23,11 @@ Class ServicoDao {
 	}
 	
 	/* Cadastrar */
-	function cadastrar (Servico $obj) {
-		$this->sql = sprintf("INSERT INTO servico (nome)
-				VALUES('%s')", 
-				mysqli_real_escape_string($this->con, $obj->getNome()));
+	function cadastrar (StatusProcesso $obj) {
+		$this->sql = sprintf("INSERT INTO statusprocesso (nome, web)
+				VALUES('%s','%s')", 
+				mysqli_real_escape_string($this->con, $obj->getNome()),
+				mysqli_real_escape_string($this->con, $obj->getWeb()));
 		if(!mysqli_query($this->con, $this->sql)) {
 			die('[ERRO]: Class('.get_class($obj).') | Metodo(Cadastrar) | Erro('.mysqli_error($this->con).')');
 		}
@@ -34,9 +35,10 @@ Class ServicoDao {
 	}
 	
 	/* Atualizar */
-	function atualizar (Servico $obj) {
-		$this->sql = sprintf("UPDATE servico SET nome = '%s', dataedicao = '%s' WHERE id = %d", 
+	function atualizar (StatusProcesso $obj) {
+		$this->sql = sprintf("UPDATE statusprocesso SET nome = '%s', web = '%s', dataedicao = '%s' WHERE id = %d", 
 				mysqli_real_escape_string($this->con, $obj->getNome()),
+				mysqli_real_escape_string($this->con, $obj->getWeb()),
 				mysqli_real_escape_string($this->con, date('Y-m-d') ), //pega data atual
 				mysqli_real_escape_string($this->con, $obj->getId())
 				);
@@ -48,13 +50,13 @@ Class ServicoDao {
 	
 	/* Listar */
 	function listar () {
-		$this->sql = "SELECT * FROM servico";
+		$this->sql = "SELECT * FROM statusprocesso";
 		$resultSet = mysqli_query($this->con, $this->sql);
 		if(!$resultSet) {
-			die('[ERRO]: Class(Servico) | Metodo(Listar) | Erro('.mysqli_error($this->con).')');
+			die('[ERRO]: Class(StatusProcesso) | Metodo(Listar) | Erro('.mysqli_error($this->con).')');
 		}
 		while($row = mysqli_fetch_object($resultSet)) {
-			$this->obj = new Banco($row->id, $row->nome, $row->datacadastro, $row->dataedicao);
+			$this->obj = new Banco($row->id, $row->nome, $row->web, $row->datacadastro, $row->dataedicao);
 			
 			array_push($this->lista, $this->obj);
 		}
@@ -62,8 +64,8 @@ Class ServicoDao {
 	}
 	
 	/* Deletar */
-	function deletar (Servico $obj) {
-		$this->sql = sprintf("DELETE FROM servico WHERE id = %d",
+	function deletar (StatusProcesso $obj) {
+		$this->sql = sprintf("DELETE FROM statusprocesso WHERE id = %d",
 				mysqli_real_escape_string($this->con, $obj->getId()));
 		$resultSet = mysqli_query($this->con, $this->sql);
 		if(!$resultSet) {
@@ -73,15 +75,15 @@ Class ServicoDao {
 	}
 	
 	/* Buscar por ID */
-	function buscarPorId (Servico $obj) {
-		$this->sql = sprintf("SELECT * FROM servico WHERE id = %d",
+	function buscarPorId (StatusProcesso $obj) {
+		$this->sql = sprintf("SELECT * FROM statusprocesso WHERE id = %d",
 				mysqli_real_escape_string($this->con, $obj->getId()));
 		$resultSet = mysqli_query($this->con, $this->sql);
 		if(!$resultSet) {
 			die('[ERRO]: Class('.get_class($obj).') | Metodo(buscarPorId) | Erro('.mysqli_error($this->con).')');
 		}
 		while($row = mysqli_fetch_object($resultSet)) {
-			$this->obj = new Pais($row->id, $this->servico, $row->datacadastro, $row->dataedicao);
+			$this->obj = new Pais($row->id, $this->nome, $row->web, $row->datacadastro, $row->dataedicao);
 		}
 		return $this->obj;
 	}
