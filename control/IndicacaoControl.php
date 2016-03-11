@@ -14,30 +14,30 @@ class IndidcacaoControl {
 	/* Atributos */
 	protected $con;
 	protected $obj;
-	protected $objDao;
+	protected $objDAO;
 	
 	/* Contrutor */
 	function __construct (Indicacao $obj=NULL) {
 		$this->con = Conexao::getInstance()->getConexao();
-		$this->objDao = new IndicacaoDao($this->con);
+		$this->objDAO = new IndicacaoDAO($this->con);
 		$this->obj = $obj;
 	}
 	
 	 /* Metodos */
 	function cadastrar () {
-		return $this->objDao->cadastrar($this->obj);
+		return $this->objDAO->cadastrar($this->obj);
 	}
 	function atualizar () {
-		return $this->objDao->atualizar($this->obj);
+		return $this->objDAO->atualizar($this->obj);
 	}
 	function listar () {
-		return $this->objDao->listar();
+		return $this->objDAO->listar();
 	}
 	function deletar () {
-		return $this->objDao->deletar($this->obj);
+		return $this->objDAO->deletar($this->obj);
 	}
 function buscarPorId () {
-		return $this->objDao->buscarPorId($this->obj);
+		return $this->objDAO->buscarPorId($this->obj);
 	}
 }
 
