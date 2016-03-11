@@ -43,7 +43,7 @@ class UsuarioControl{
 	}
 
 	function deletar(){
-		$this->o_usuarioDAO->deletar($this->o_usuario);
+		return $this->o_usuarioDAO->deletar($this->o_usuario);
 	}
 
 	function buscarPorId(){

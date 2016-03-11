@@ -28,14 +28,20 @@ angular.module('admin-express')
                         genericAPI.generic(dados)
                             .then(function successCallback(response) {
                                 if(response['data']){
-                                    listarUsuario();
+                                    if(response.data.result == false){
+                                        SweetAlert.swal("Ops!!!", response.data.msg, "error");
+                                    }else{
+                                        SweetAlert.swal("Deletado!", "Essa informação foi deletada.", "success");
+                                        listarUsuario();
+                                    }
+
                                 }else{
                                 }
                             }, function errorCallback(response) {
                             });
-                        SweetAlert.swal("Deletado!", "Essa informação foi deletada.", "success");
+                        //SweetAlert.swal("Deletado!", "Essa informação foi deletada.", "success");
                     } else {
-                        SweetAlert.swal("Cancelado", "A informação foi mantida :)", "error");
+                        SweetAlert.swal("Cancelado", "Operação cancelado pelo usuário", "error");
                     }
                 });
         };

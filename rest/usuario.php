@@ -24,18 +24,15 @@ switch ($_POST['metodo']) {
         break;
 
     case 'cadastrar':
-//        var_dump($_POST);
         cadastrar_usuario();
         break;
 
     case 'atualizar':
-//        var_dump($_POST);
         alterar_usuario();
         break;
 
     case 'deletar':
-        var_dump($_POST);
-//        deletar_usuario();
+        deletar_usuario();
         break;
 
     default;
@@ -109,12 +106,19 @@ function deletar_usuario()
 
     $pControl = new UsuarioControl($usuario);
 
-
-    if($pControl->deletar()){
-        echo json_encode(array('result'=> true));
+    $qtde = $pControl->listarTodos();
+    if(count($qtde) > 1){
+//        echo count($qtde);
+        if($pControl->deletar()){
+            echo json_encode(array('result'=> true));
+        }else{
+            echo json_encode(array('result'=> false, 'msg'=> 'Não foi possivel deletar'));
+        }
     }else{
-        echo json_encode(array('result'=> false));
+        echo json_encode(array('result'=> false, 'msg'=> 'Necessário manter pelo menos 1(um) usuário.'));
     }
+
+
 }
 
 

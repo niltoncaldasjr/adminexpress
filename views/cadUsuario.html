@@ -55,7 +55,8 @@
                                             <label class="">Confirmar</label>
                                             <input type="password" class="form-control" id="confirmar" name="confirmar"
                                                    placeholder="Confirmar" ng-model="user.confirmar"
-                                                   >
+                                            >
+
                                             <div class="m-t-xs"
                                                  ng-show="usuarioForm.confirmar.$invalid && usuarioForm.$prestine">
                                                 <small class="text-danger"
@@ -83,6 +84,7 @@
                                     <label class="">Telefone</label>
                                     <input type="text" class="form-control" id="telefone" name="telefone"
                                            placeholder="Telefone" ng-model="user.telefone" ng-required="true">
+
                                     <div class="m-t-xs"
                                          ng-show="usuarioForm.telefone.$invalid && usuarioForm.$prestine">
                                         <small class="text-danger" ng-show="usuarioForm.telefone.$error.required">Insira
@@ -103,6 +105,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Tornar Ativo</label>
+
                                             <div>
                                                 <label class="checkbox-inline"><input type="radio"
                                                                                       ng-model="user.ativo"
@@ -182,13 +185,16 @@
                             <td class="text-right">
 
                                 <div class="btn-group">
-                                    <button title="Resetar senha" class="btn-info btn btn-xs" ng-click="resetarSenha(u)"><i
+                                    <button title="Resetar senha" class="btn-info btn btn-xs"
+                                            ng-click="resetarSenha(u)"><i
                                             class="fa fa-key"></i>
                                     </button>
-                                    <button title="Editar usuário" class="btn-white btn btn-xs" ng-click="editarUsuario(u)"><i
+                                    <button title="Editar usuário" class="btn-white btn btn-xs"
+                                            ng-click="editarUsuario(u)"><i
                                             class="fa fa-edit"></i>
                                     </button>
-                                    <button title="Deletar usuário" class="btn-danger btn btn-xs" ng-click="deletarUsuario(u)"><i
+                                    <button title="Deletar usuário" class="btn-danger btn btn-xs"
+                                            ng-click="deletarUsuario(u)"><i
                                             class="fa fa-close"></i>
                                     </button>
                                 </div>
@@ -197,7 +203,7 @@
                         </tbody>
                         <tfoot>
                         <tr>
-                            <td colspan="6">
+                            <td colspan="12">
                                 <ul class="pagination pull-right"></ul>
                             </td>
                         </tr>
