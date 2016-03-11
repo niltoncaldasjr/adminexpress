@@ -142,16 +142,21 @@ angular.module('admin-express')
                     closeOnCancel: false },
                 function (isConfirm) {
                     if (isConfirm) {
-                        var dados = {'metodo': 'resetsenha', 'data': obj, 'class': 'usuario'};
+                        var dados = {'metodo': 'resetar_senha', 'data': obj, 'class': 'usuario'};
                         genericAPI.generic(dados)
                             .then(function successCallback(response) {
                                 if(response['data']){
-                                    listarUsuario();
+                                    if(response.data.result == false){
+                                        SweetAlert.swal("Ops!!!", response.data.msg, "error");
+                                    }else{
+                                        SweetAlert.swal("Deletado!", "Essa informação foi deletada.", "success");
+                                        listarUsuario();
+                                    }
                                 }else{
                                 }
                             }, function errorCallback(response) {
                             });
-                        SweetAlert.swal("Resetado!", "O usuário será notificado.", "success");
+                        //SweetAlert.swal("Resetado!", "O usuário será notificado.", "success");
                     } else {
                         SweetAlert.swal("Cancelado", "A informação foi mantida :)", "error");
                     }

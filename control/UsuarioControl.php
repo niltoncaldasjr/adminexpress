@@ -39,7 +39,7 @@ class UsuarioControl{
 	}
 
 	function redefinir_senha(){
-		$this->o_usuarioDAO->redefinirSenha($this->o_usuario);
+		return $this->o_usuarioDAO->redefinirSenha($this->o_usuario);
 	}
 
 	function deletar(){
