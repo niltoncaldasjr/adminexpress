@@ -95,7 +95,7 @@ function alterar_usuario()
 
 function resetarSenha()
 {
-    $parametro['senha'] = "cartorioExpress123";
+    $parametro['senha'] = "cartorioexpress123";
     $data = $_POST['data'];
     $usuario = new Usuario($data['id']);
 
