@@ -1,11 +1,6 @@
-(function (global, factory) {'use strict';var fnc;fnc = (typeof exports === 'object' && typeof module !== 'undefined') ? module.exports = factory(require('angular'), require('moment')) :(typeof define === 'function' && define.amd) ? define(['angular', 'moment'], factory) :factory(global.angular, global.moment);}(this, function (angular, moment) {
-//(function (global, factory) {
-//  'use strict';
-//  var fnc;
-//  fnc = (typeof exports === 'object' && typeof module !== 'undefined') ? module.exports = factory(require('angular'), require('moment')) :
-//        (typeof define === 'function' && define.amd) ? define(['angular', 'moment'], factory) :
-//        factory(global.angular, global.moment);
-//}(this, function (angular, moment) {
+'use strict';
+(function(angular){
+    /* global moment */
     var Module = angular.module('datePicker', []);
 
     Module.constant('datePickerConfig', {
@@ -25,7 +20,8 @@
             hours: ['hours', 'isSameHour'],
             minutes: ['minutes', 'isSameMinutes'],
         },
-        step: 5
+        step: 5,
+        firstDay: 0 //Sunday is the first day by default.
     });
 
 //Moment format filter.
@@ -81,14 +77,7 @@
                     now = scope.now = createMoment(),
                     selected = scope.date = createMoment(scope.model || now),
                     autoclose = attrs.autoClose === 'true',
-                // Either gets the 1st day from the attributes, or asks moment.js to give it to us as it is localized.
-                    firstDay = attrs.firstDay && attrs.firstDay >= 0 && attrs.firstDay <= 6 ? parseInt(attrs.firstDay, 10) : moment().weekday(0).day(),
-                    setDate,
-                    prepareViewData,
-                    isSame,
-                    clipDate,
-                    isNow,
-                    inValidRange;
+                    firstDay = attrs.firstDay && attrs.firstDay >= 0 && attrs.firstDay <= 6 ? parseInt(attrs.firstDay, 10) : datePickerConfig.firstDay;
 
                 datePickerUtils.setParams(tz, firstDay);
 
@@ -137,7 +126,7 @@
                     }
                 };
 
-                setDate = function (date) {
+                function setDate(date) {
                     if (date) {
                         scope.model = date;
                         if (ngModel) {
@@ -150,7 +139,7 @@
                     if (scope.callbackOnSetDate) {
                         scope.callbackOnSetDate(attrs.datePicker, scope.date);
                     }
-                };
+                }
 
                 function update() {
                     var view = scope.view;
@@ -201,7 +190,7 @@
                     });
                 }
 
-                prepareViewData = function () {
+                function prepareViewData() {
                     var view = scope.view,
                         date = scope.date,
                         classes = [], classList = '',
@@ -249,7 +238,7 @@
                         }
                     }
                     scope.classes = classes;
-                };
+                }
 
                 scope.next = function (delta) {
                     var date = moment(scope.date);
@@ -278,7 +267,7 @@
                     }
                 };
 
-                inValidRange = function (date) {
+                function inValidRange(date) {
                     var valid = true;
                     if (minDate && minDate.isAfter(date)) {
                         valid = isSame(minDate, date);
@@ -287,13 +276,13 @@
                         valid &= isSame(maxDate, date);
                     }
                     return valid;
-                };
+                }
 
-                isSame = function (date1, date2) {
+                function isSame(date1, date2) {
                     return date1.isSame(date2, datePickerConfig.momentNames[scope.view]) ? true : false;
-                };
+                }
 
-                clipDate = function (date) {
+                function clipDate(date) {
                     if (minDate && minDate.isAfter(date)) {
                         return minDate;
                     } else if (maxDate && maxDate.isBefore(date)) {
@@ -301,9 +290,9 @@
                     } else {
                         return date;
                     }
-                };
+                }
 
-                isNow = function (date, view) {
+                function isNow(date, view) {
                     var is = true;
 
                     switch (view) {
@@ -323,7 +312,7 @@
                             is &= now.year() === date.year();
                     }
                     return is;
-                };
+                }
 
                 scope.prev = function (delta) {
                     return scope.next(-delta || -1);
@@ -366,15 +355,8 @@
             }
         };
     }]);
-//}));
+    /* global moment */
 
-//(function (global, factory) {
-//  'use strict';
-//  var fnc;
-//  fnc = (typeof exports === 'object' && typeof module !== 'undefined') ? module.exports = factory(require('angular'), require('moment')) :
-//    (typeof define === 'function' && define.amd) ? define(['angular', 'moment'], factory) :
-//      factory(global.angular, global.moment);
-//}(this, function (angular, moment) {
     angular.module('datePicker').factory('datePickerUtils', function () {
         var tz, firstDay;
         var createNewDate = function (year, month, day, hour, minute) {
@@ -391,7 +373,7 @@
                     offset = m.utcOffset() / 60,
                     minutes = [], minute;
 
-                for (minute = 0; minute < 60; minute += step) {
+                for (minute = 0 ; minute < 60 ; minute += step) {
                     pushedDate = createNewDate(year, month, day, hour - offset, minute);
                     minutes.push(pushedDate);
                 }
@@ -493,7 +475,7 @@
                     hour, pushedDate, actualOffset,
                     offset = m.utcOffset() / 60;
 
-                for (hour = 0; hour < 24; hour++) {
+                for (hour = 0 ; hour < 24 ; hour++) {
                     pushedDate = createNewDate(year, month, day, hour - offset, 0, false);
                     actualOffset = pushedDate.utcOffset() / 60;
                     if (actualOffset !== offset) {
@@ -559,14 +541,14 @@
             },
             findFunction: function (scope, name) {
                 //Search scope ancestors for a matching function.
-                return this.scopeSearch(scope, name, function (target) {
+                return this.scopeSearch(scope, name, function(target) {
                     //Property must also be a function
                     return angular.isFunction(target);
                 });
             },
             findParam: function (scope, name) {
                 //Search scope ancestors for a matching parameter.
-                return this.scopeSearch(scope, name, function () {
+                return this.scopeSearch(scope, name, function() {
                     //As long as the property exists, we're good
                     return true;
                 });
@@ -603,15 +585,7 @@
             }
         };
     });
-//}));
-
-//(function (global, factory) {
-//  'use strict';
-//  var fnc;
-//  fnc = (typeof exports === 'object' && typeof module !== 'undefined') ? module.exports = factory(require('angular'), require('moment')) :
-//    (typeof define === 'function' && define.amd) ? define(['angular', 'moment'], factory) :
-//      factory(global.angular, global.moment);
-//}(this, function (angular, moment) {
+    /* global moment */
     var Module = angular.module('datePicker');
 
     Module.directive('dateRange', ['$compile', 'datePickerUtils', 'dateTimeConfig', function ($compile, datePickerUtils, dateTimeConfig) {
@@ -695,15 +669,7 @@
             }
         };
     }]);
-//}));
-
-//(function (global, factory) {
-//  'use strict';
-//  var fnc;
-//  fnc = (typeof exports === 'object' && typeof module !== 'undefined') ? module.exports = factory(require('angular'), require('moment')) :
-//    (typeof define === 'function' && define.amd) ? define(['angular', 'moment'], factory) :
-//      factory(global.angular, global.moment);
-//}(this, function (angular, moment) {
+    /* global moment */
     var PRISTINE_CLASS = 'ng-pristine',
         DIRTY_CLASS = 'ng-dirty';
 
@@ -931,7 +897,7 @@
                         var pos = element[0].getBoundingClientRect();
                         // Support IE8
                         var height = pos.height || element[0].offsetHeight;
-                        picker.css({top: (pos.top + height) + 'px', left: pos.left + 'px', display: 'block', position: position});
+                        picker.css({ top: (pos.top + height) + 'px', left: pos.left + 'px', display: 'block', position: position });
                         body.append(picker);
                     } else {
                         // relative
@@ -940,7 +906,7 @@
                         container.append(picker);
                         //          this approach doesn't work
                         //          element.before(picker);
-                        picker.css({top: element[0].offsetHeight + 'px', display: 'block'});
+                        picker.css({ top: element[0].offsetHeight + 'px', display: 'block' });
                     }
                     picker.bind('mousedown', function (evt) {
                         evt.preventDefault();
@@ -953,7 +919,6 @@
             }
         };
     }]);
-//}));
 
     angular.module('datePicker').run(['$templateCache', function($templateCache) {
         $templateCache.put('templates/datepicker.html',
@@ -1173,4 +1138,4 @@
         );
 
     }]);
-}));
+})(angular);

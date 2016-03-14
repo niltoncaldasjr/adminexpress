@@ -38,7 +38,9 @@ class PerfilDAO {
 		$this->sql = "DELETE FROM perfil WHERE id='" . $id ."'" ;
 		if (!mysqli_query($this->con, $this->sql)) {
 			die('Error: ' . mysqli_error($this->con));
+//			$msg = 'Error: ' . mysqli_error($this->con);
 		}
+		return $id;
 	}
 	
 	function buscarPorId(Perfil $o_perfil){

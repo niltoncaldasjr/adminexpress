@@ -82,11 +82,15 @@ function deletar_perfil()
 
     $pControl = new PerfilControl($perfil);
 
+    if($perfil->getId() != 1) {
 
-    if($pControl->deletar()){
-        echo json_encode(array('result'=> true));
+        if ($msg = $pControl->deletar()) {
+            echo json_encode(array('result' => true));
+        } else {
+            echo json_encode(array('result' => false, 'msg'=> $msg));
+        }
     }else{
-        echo json_encode(array('result'=> false));
+        echo json_encode(array('result' => false, 'msg'=> 'Necessário manter o perfil Administrador!'));
     }
 }
 

@@ -11,6 +11,10 @@ switch ($_POST['metodo']) {
         cadastrarUsuarioCupom();
         break;
 
+    case 'resetar_senha':
+        resetarSenha();
+        break;
+
     case 'redefinir_senha':
         redefinirSenha();
         break;
@@ -89,6 +93,25 @@ function alterar_usuario()
 
 }
 
+function resetarSenha()
+{
+    $parametro['senha'] = "cartorioexpress123";
+    $data = $_POST['data'];
+    $usuario = new Usuario($data['id']);
+
+    $usuario->setSenha(md5($parametro['senha']))
+        ->setAtivo(1);
+
+    $uControl = new UsuarioControl($usuario);
+    if($uControl->redefinir_senha()){
+        echo json_encode(array('result'=> true));
+    }else{
+        echo json_encode(array('result'=> false, 'msg'=> 'Não foi possível resetar a senha!'));
+    }
+
+
+}
+
 function listar_usuario()
 {
     $control = new UsuarioControl(new Usuario());
@@ -105,10 +128,10 @@ function deletar_usuario()
     $usuario->setId($data['id']);
 
     $pControl = new UsuarioControl($usuario);
+    $usuario = $pControl->buscarPorId();
 
-    $qtde = $pControl->listarTodos();
-    if(count($qtde) > 1){
-//        echo count($qtde);
+//    $qtde = $pControl->listarTodos();
+    if($usuario->getId()!= 1){
         if($pControl->deletar()){
             echo json_encode(array('result'=> true));
         }else{
