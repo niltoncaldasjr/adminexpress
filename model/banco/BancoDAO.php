@@ -83,7 +83,7 @@ Class BancoDAO {
 			die('[ERRO]: Class('.get_class($obj).') | Metodo(buscarPorId) | Erro('.mysqli_error($this->con).')');
 		}
 		while($row = mysqli_fetch_object($resultSet)) {
-			$this->obj = new Banco($row->id, $this->descricao, $row->febran, $row->datacadastro, $row->dataedicao);
+			$this->obj = new Banco($row->id, $row->descricao, $row->febran, $row->datacadastro, $row->dataedicao);
 		}
 		return $this->obj;
 	}

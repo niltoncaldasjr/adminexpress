@@ -66,6 +66,7 @@ Class ContaBancoDAO {
 	
 	/* Listar */
 	function listar () {
+		
 		$this->sql = "SELECT * FROM contabanco";
 		$resultSet = mysqli_query($this->con, $this->sql);
 		if(!$resultSet) {
@@ -75,10 +76,11 @@ Class ContaBancoDAO {
 			$objBancoControl = new BancoControl(new Banco($row->idbanco));
 			$objBanco = $objBancoControl->buscarPorId();
 			
-			$this->obj = new Banco($row->id, $row->agencia, $row->digitoAgencia, $row->numeroConta, $row->digitoConta, $row->numeroCarteira, $row->numeroConvenio, $row->nomeContato, $row->telefoneContato, $row->endereco, $objBanco, $row->datacadastro, $row->dataedicao);
+			$this->obj = new ContaBanco($row->id, $row->agencia, $row->digitoAgencia, $row->numeroConta, $row->digitoConta, $row->numeroCarteira, $row->numeroConvenio, $row->nomeContato, $row->telefoneContato, $row->endereco, $objBanco, $row->datacadastro, $row->dataedicao);
 			
 			array_push($this->lista, $this->obj);
 		}
+		
 		return $this->lista;
 	}
 	
@@ -102,7 +104,10 @@ Class ContaBancoDAO {
 			die('[ERRO]: Class('.get_class($obj).') | Metodo(buscarPorId) | Erro('.mysqli_error($this->con).')');
 		}
 		while($row = mysqli_fetch_object($resultSet)) {
-			$this->obj = new Banco($row->id, $row->agencia, $row->digitoAgencia, $row->numeroConta, $row->digitoConta, $row->numeroCarteira, $row->numeroConvenio, $row->nomeContato, $row->telefoneContato, $row->endereco, $objBanco, $row->datacadastro, $row->dataedicao);
+			$objBancoControl = new BancoControl(new Banco($row->idbanco));
+			$objBanco = $objBancoControl->buscarPorId();
+			
+			$this->obj = new ContaBanco($row->id, $row->agencia, $row->digitoAgencia, $row->numeroConta, $row->digitoConta, $row->numeroCarteira, $row->numeroConvenio, $row->nomeContato, $row->telefoneContato, $row->endereco, $objBanco, $row->datacadastro, $row->dataedicao);
 		}
 		return $this->obj;
 	}

@@ -1,9 +1,7 @@
 angular.module('admin-express')
     .controller('contaBancoCtrl', function ($scope, $rootScope, $http, $location, genericAPI, SweetAlert, authenticationAPI) {
 
-        $scope.atualizacao = true;
-
-        if (!$rootScope.contaBanco) {
+        if (!$rootScope.usuario) {
             $location.path('/login');
         }
 
@@ -55,14 +53,14 @@ angular.module('admin-express')
          * @param obj
          */
         $scope.cadastrarContaBanco = function(obj){
-            obj.senha = MD5(obj.senha);
-
+            
             var dados;
+            console.log(obj);
 
             if(obj.id == undefined){
-                var dados = {'metodo': 'cadastrar', 'data': obj, 'class': 'contaBanco'};
+                var dados = {'metodo': 'cadastrar', 'data': obj, 'class': 'contabanco'};
             }else{
-                var dados = {'metodo': 'atualizar', 'data': obj, 'class': 'contaBanco'};
+                var dados = {'metodo': 'atualizar', 'data': obj, 'class': 'contabanco'};
             }
 
             genericAPI.generic(dados)
@@ -88,12 +86,12 @@ angular.module('admin-express')
 
         var listarBanco = function(){
 
-            var dados = {'metodo': 'listar', 'data': null, 'class': 'perfil'};
+            var dados = {'metodo': 'listar', 'data': null, 'class': 'banco'};
 
             genericAPI.generic(dados)
                 .then(function successCallback(response) {
                     if(response['data']){
-                        $scope.perfils = response['data'];
+                        $scope.bancos = response['data'];
                     }else{
                     }
                 }, function errorCallback(response) {
@@ -102,13 +100,12 @@ angular.module('admin-express')
 
         var listarContaBanco = function(){
 
-            var dados = {'metodo': 'listar', 'data': null, 'class': 'contaBanco'};
+            var dados = {'metodo': 'listar', 'data': null, 'class': 'contabanco'};
 
             genericAPI.generic(dados)
                 .then(function successCallback(response) {
                     if(response['data']){
                         $scope.contaBancos = response['data'];
-
                     }else{
                     }
                 }, function errorCallback(response) {

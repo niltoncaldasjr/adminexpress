@@ -95,7 +95,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('cadastro.banco', {
             url: '/banco',
-            templateUrl: "views/cadBanco.html",
+            templateUrl: "views/bancoTab.html",
             controller: 'bancoCtrl',
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {

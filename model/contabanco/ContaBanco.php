@@ -17,8 +17,6 @@ Class ContaBanco implements JsonSerializable {
 	private $digitoAgencia;
 	private $numeroConta;
 	private $digitoConta;
-	private $numeroConta;
-	private $digitoConta;
 	private $numeroCarteira;
 	private $numeroConvenio;
 	private $nomeContato;
@@ -34,8 +32,6 @@ Class ContaBanco implements JsonSerializable {
 		$id					= NULL,
 		$agencia			= NULL,
 		$digitoAgencia 		= NULL,
-		$numeroConta 		= NULL,
-		$digitoConta		= NULL,
 		$numeroConta		= NULL,
 		$digitoConta		= NULL,
 		$numeroCarteira		= NULL,
@@ -51,8 +47,6 @@ Class ContaBanco implements JsonSerializable {
 		$this->id					= $id;
 		$this->agencia 				= $agencia;
 		$this->digitoAgencia 		= $digitoAgencia;
-		$this->numeroConta 			= $numeroConta;
-		$this->digitoConta 			= $digitoConta;
 		$this->numeroConta 			= $numeroConta;
 		$this->digitoConta 			= $digitoConta;
 		$this->numeroCarteira 		= $numeroCarteira;
@@ -85,20 +79,6 @@ Class ContaBanco implements JsonSerializable {
 	}
 	public function setDigitoAgencia($digitoAgencia) {
 		$this->digitoAgencia = $digitoAgencia;
-		return $this;
-	}
-	public function getNumeroConta() {
-		return $this->numeroConta;
-	}
-	public function setNumeroConta($numeroConta) {
-		$this->numeroConta = $numeroConta;
-		return $this;
-	}
-	public function getDigitoConta() {
-		return $this->digitoConta;
-	}
-	public function setDigitoConta($digitoConta) {
-		$this->digitoConta = $digitoConta;
 		return $this;
 	}
 	public function getNumeroConta() {
@@ -184,8 +164,6 @@ Class ContaBanco implements JsonSerializable {
 			"id"					=> $this->id,
 			"agencia" 				=> $this->agencia,
 			"digitoAgencia"			=> $this->digitoAgencia,
-			"numeroConta"			=> $this->numeroConta,
-			"digitoConta"			=> $this->digitoConta,
 			"numeroConta"			=> $this->numeroConta,
 			"digitoConta"			=> $this->digitoConta,
 			"numeroCarteira"		=> $this->numeroCarteira,
