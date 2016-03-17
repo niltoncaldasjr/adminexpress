@@ -15,7 +15,7 @@ Class ContaBancoDAO {
 	private $con;	//conexao
 	private $sql; 	//sql
 	private $obj; 	//obj da class
-	private $lista; //lista da class
+	private $lista = array(); //lista da class
 	
 	/* Construtor */
 	public function __construct($con) {

@@ -32,7 +32,7 @@ Class Indicacao implements JsonSerializable {
 	private $dataedicao;
 
 	/* Construtor */
-	public function __constructor
+	public function __construct
 	(
 		$id					= NULL,
 		$nome				= NULL,

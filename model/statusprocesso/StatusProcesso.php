@@ -19,7 +19,7 @@ Class StatusProcesso implements JsonSerializable {
 	private $dataedicao;
 
 	/* Construtor */
-	public function __constructor
+	public function __construct
 	(
 		$id					= NULL,
 		$nome				= NULL,
@@ -29,8 +29,8 @@ Class StatusProcesso implements JsonSerializable {
 	)
 	{
 		$this->id					= $id;
-		$this->nome	 				= $descricao;
-		$this->web 					= $febran;
+		$this->nome	 				= $nome;
+		$this->web 					= $web;
 		$this->datacadastro 		= $datacadastro;
 		$this->dataedicao 			= $dataedicao;
 	}
