@@ -44,7 +44,7 @@ angular.module('admin-express')
          */
         $scope.limparCampos = function(){
             $scope.atualizacao = true;
-            delete $scope.contaBanco;
+            delete $scope.contabanco;
         };
 
         /**
@@ -55,8 +55,7 @@ angular.module('admin-express')
         $scope.cadastrarContaBanco = function(obj){
             
             var dados;
-            console.log(obj);
-
+            
             if(obj.id == undefined){
                 var dados = {'metodo': 'cadastrar', 'data': obj, 'class': 'contabanco'};
             }else{
@@ -66,7 +65,7 @@ angular.module('admin-express')
             genericAPI.generic(dados)
                 .then(function successCallback(response) {
                     if(response['data']){
-                        delete $scope.user;
+                        $scope.limparCampos();
                         listarContaBanco();
                     }else{
                     }
@@ -75,8 +74,7 @@ angular.module('admin-express')
         };
 
         $scope.editarContaBanco = function(obj){
-            $scope.atualizacao = false;
-            $scope.user = obj;
+            $scope.contabanco = obj;
         };
 
         $scope.deletarContaBanco = function(obj){

@@ -47,7 +47,7 @@ function cadastrar () {
 			stripslashes ( strip_tags( trim($data['nomeContato']) ) ),
 			stripslashes ( strip_tags( trim($data['telefoneContato']) ) ),
 			stripslashes ( strip_tags( trim($data['endereco']) ) ),
-			new Banco($data['banco']['id'])
+			new Banco($data['objbanco']['id'])
 			);
 	$control = new ContaBancoControl($obj);
 	$id = $control->cadastrar();
@@ -67,7 +67,7 @@ function atualizar () {
 			stripslashes ( strip_tags( trim($data['nomeContato']) ) ),
 			stripslashes ( strip_tags( trim($data['telefoneContato']) ) ),
 			stripslashes ( strip_tags( trim($data['endereco']) ) ),
-			new Banco($data['banco']['id'])
+			new Banco($data['objbanco']['id'])
 		);
 	$control = new ContaBancoControl($obj);
 	echo $control->atualizar();
