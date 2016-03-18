@@ -168,6 +168,34 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                 }
             }
         })
+        .state('cadastro.statusprocesso', {
+            url: '/statusprocesso',
+            templateUrl: "views/cadStatusProcesso.html",
+            controller: 'statusProcessoCtrl',
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            files: ['libs/js/plugins/footable/footable.all.min.js', 'libs/css/plugins/footable/footable.core.css']
+                        },
+                        {
+                            name: 'ui.footable',
+                            files: ['libs/js/plugins/footable/angular-footable.js']
+                        },
+                        {
+                            files: ['libs/js/plugins/sweetalert/sweetalert.min.js', 'libs/css/plugins/sweetalert/sweetalert.css']
+                        },
+                        {
+                            name: 'oitozero.ngSweetAlert',
+                            files: ['libs/js/plugins/sweetalert/angular-sweetalert.min.js']
+                        },
+                        {
+                            files: ['libs/css/plugins/iCheck/custom.css','libs/js/plugins/iCheck/icheck.min.js']
+                        }
+                    ]);
+                }
+            }
+        })
         .state('outra', {
             abstract: true,
             url: "/outra",

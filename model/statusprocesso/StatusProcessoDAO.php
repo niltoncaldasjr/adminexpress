@@ -56,7 +56,7 @@ Class StatusProcessoDAO {
 			die('[ERRO]: Class(StatusProcesso) | Metodo(Listar) | Erro('.mysqli_error($this->con).')');
 		}
 		while($row = mysqli_fetch_object($resultSet)) {
-			$this->obj = new Banco($row->id, $row->nome, $row->web, $row->datacadastro, $row->dataedicao);
+			$this->obj = new StatusProcesso($row->id, $row->nome, $row->web, $row->datacadastro, $row->dataedicao);
 			
 			array_push($this->lista, $this->obj);
 		}
@@ -83,7 +83,7 @@ Class StatusProcessoDAO {
 			die('[ERRO]: Class('.get_class($obj).') | Metodo(buscarPorId) | Erro('.mysqli_error($this->con).')');
 		}
 		while($row = mysqli_fetch_object($resultSet)) {
-			$this->obj = new Pais($row->id, $this->nome, $row->web, $row->datacadastro, $row->dataedicao);
+			$this->obj = new StatusProcesso($row->id, $row->nome, $row->web, $row->datacadastro, $row->dataedicao);
 		}
 		return $this->obj;
 	}

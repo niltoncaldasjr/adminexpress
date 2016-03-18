@@ -36,7 +36,7 @@ class StatusProcessoControl {
 	function deletar () {
 		return $this->objDAO->deletar($this->obj);
 	}
-function buscarPorId () {
+	function buscarPorId () {
 		return $this->objDAO->buscarPorId($this->obj);
 	}
 }
