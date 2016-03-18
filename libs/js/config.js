@@ -118,10 +118,10 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                 }
             }
         })
-        .state('cadastro.contabanco', {
-            url: '/contabanco',
-            templateUrl: "views/cadContaBanco.html",
-            controller: 'contaBancoCtrl',
+        .state('cadastro.indicacoes', {
+            url: '/indicacoes',
+            templateUrl: "views/cadIndicacao.html",
+            controller: 'indicacaoCtrl',
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([

@@ -28,6 +28,7 @@ Class Indicacao implements JsonSerializable {
 	private $celular2;
 	private $atividade;
 	private $observacao;
+	private $senhaweb;
 	private $datacadastro;
 	private $dataedicao;
 
@@ -50,6 +51,7 @@ Class Indicacao implements JsonSerializable {
 		$celular2			= NULL,
 		$atividade			= NULL,
 		$observacao			= NULL,
+		$senhaweb			= NULL,
 		$datacadastro		= NULL,
 		$dataedicao 		= NULL
 	)
@@ -70,6 +72,7 @@ Class Indicacao implements JsonSerializable {
 		$this->celular2 			= $celular2;
 		$this->atividade 			= $atividade;
 		$this->observacao 			= $observacao;
+		$this->senhaweb 			= $senhaweb;
 		$this->datacadastro 		= $datacadastro;
 		$this->dataedicao 			= $dataedicao;
 	}
@@ -187,6 +190,13 @@ Class Indicacao implements JsonSerializable {
 		$this->observacao = $observacao;
 		return $this;
 	}
+	public function getSenhaweb() {
+		return $this->senhaweb;
+	}
+	public function setSenhaweb($senhaweb) {
+		$this->senhaweb = $senhaweb;
+		return $this;
+	}
 	public function getDatacadastro() {
 		return $this->datacadastro;
 	}
@@ -226,6 +236,7 @@ Class Indicacao implements JsonSerializable {
 			"celular2"				=> $this->celular2,
 			"atividade"				=> $this->atividade,
 			"observacao"			=> $this->observacao,
+			"senhaweb"				=> $this->senhaweb,
 			"datacadastro" 			=> $this->datacadastro,
 			"dataedicao" 			=> $this->dataedicao
 		];

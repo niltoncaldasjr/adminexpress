@@ -22,7 +22,7 @@ angular.module('admin-express')
                     closeOnCancel: false },
                 function (isConfirm) {
                     if (isConfirm) {
-                        var dados = {'session':true, 'metodo': 'deletar', 'data': obj, 'class': 'contaBanco'};
+                        var dados = {'session':true, 'metodo': 'deletar', 'data': obj, 'class': 'contabanco'};
                         genericAPI.generic(dados)
                             .then(function successCallback(response) {
                                 if(response['data']){

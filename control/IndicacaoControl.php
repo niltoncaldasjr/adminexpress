@@ -10,7 +10,7 @@
  	Data Atual: 08/03/2016. 
 */
 
-class IndidcacaoControl {
+class IndicacaoControl {
 	/* Atributos */
 	protected $con;
 	protected $obj;
@@ -36,7 +36,7 @@ class IndidcacaoControl {
 	function deletar () {
 		return $this->objDAO->deletar($this->obj);
 	}
-function buscarPorId () {
+	function buscarPorId () {
 		return $this->objDAO->buscarPorId($this->obj);
 	}
 }

@@ -24,8 +24,8 @@ Class IndicacaoDAO {
 	
 	/* Cadastrar */
 	function cadastrar (Indicacao $obj) {
-		$this->sql = sprintf("INSERT INTO indicacao (nome, cep, endereco, numero, complemento, bairro, cidade, uf,telefone, email1, email2, celular1, celular2, atividade, observacao, senhaweb)
-				VALUES('%s','%s', '%s','%s', '%s','%s', '%s','%s', '%s','%s', '%s','%s', '%s','%s', '%s','%s', '%s','%s')", 
+		$this->sql = sprintf("INSERT INTO indicacao (nome, cep, endereco, numero, complemento, bairro, cidade, uf, telefone, email1, email2, celular1, celular2, atividade, observacao, senhaweb)
+				VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')", 
 				mysqli_real_escape_string($this->con, $obj->getNome()),
 				mysqli_real_escape_string($this->con, $obj->getCep()),
 				mysqli_real_escape_string($this->con, $obj->getEndereco()),
@@ -81,10 +81,10 @@ Class IndicacaoDAO {
 		$this->sql = "SELECT * FROM indicacao";
 		$resultSet = mysqli_query($this->con, $this->sql);
 		if(!$resultSet) {
-			die('[ERRO]: Class(Banco) | Metodo(Listar) | Erro('.mysqli_error($this->con).')');
+			die('[ERRO]: Class(Indicacao) | Metodo(Listar) | Erro('.mysqli_error($this->con).')');
 		}
 		while($row = mysqli_fetch_object($resultSet)) {
-			$this->obj = new Banco($row->id, $row->nome, $row->cep, $row->endereco, $row->numero, $row->complemento, $row->bairro, $row->cidade, $row->uf, $row->telefone, $row->email1, $row->email2, $row->celular1, $row->celular2, $row->atividade, $row->observacao, $row->senhaweb, $row->datacadastro, $row->dataedicao);
+			$this->obj = new Indicacao($row->id, $row->nome, $row->cep, $row->endereco, $row->numero, $row->complemento, $row->bairro, $row->cidade, $row->uf, $row->telefone, $row->email1, $row->email2, $row->celular1, $row->celular2, $row->atividade, $row->observacao, $row->senhaweb, $row->datacadastro, $row->dataedicao);
 			
 			array_push($this->lista, $this->obj);
 		}
@@ -111,7 +111,7 @@ Class IndicacaoDAO {
 			die('[ERRO]: Class('.get_class($obj).') | Metodo(buscarPorId) | Erro('.mysqli_error($this->con).')');
 		}
 		while($row = mysqli_fetch_object($resultSet)) {
-			$this->obj = new Banco($row->id, $row->nome, $row->cep, $row->endereco, $row->numero, $row->complemento, $row->bairro, $row->cidade, $row->uf, $row->telefone, $row->email1, $row->email2, $row->celular1, $row->celular2, $row->atividade, $row->observacao, $row->senhaweb, $row->datacadastro, $row->dataedicao);
+			$this->obj = new Indicacao($row->id, $row->nome, $row->cep, $row->endereco, $row->numero, $row->complemento, $row->bairro, $row->cidade, $row->uf, $row->telefone, $row->email1, $row->email2, $row->celular1, $row->celular2, $row->atividade, $row->observacao, $row->senhaweb, $row->datacadastro, $row->dataedicao);
 		}
 		return $this->obj;
 	}
