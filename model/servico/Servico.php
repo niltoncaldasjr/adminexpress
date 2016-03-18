@@ -27,7 +27,7 @@ Class Servico implements JsonSerializable {
 	)
 	{
 		$this->id					= $id;
-		$this->nome		 			= $descricao;
+		$this->nome		 			= $nome;
 		$this->datacadastro 		= $datacadastro;
 		$this->dataedicao 			= $dataedicao;
 	}
