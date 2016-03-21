@@ -1,0 +1,121 @@
+<div class="col-md-6"> 
+    <h3>Dados Pessoais</h3>
+    <div class="hr-line-dashed"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="label-control">Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome" ng-model="pessoafisica.nome" ng-required="true">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="label-control">CPF</label>
+                <input type="text" class="form-control" id="cpf" name="cpf" placeholder="CPF" ng-model="pessoafisica.cpf" ng-required="true">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="label-control">Nacionalidade</label>
+                <input type="text" class="form-control" id="nacionalidade" name="nacionalidade" placeholder="Nacionalidade" ng-model="pessoafisica.nacionalidade" ng-required="true">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="label-control">Data Nascimento</label>
+                <div class="form-group" id="data_1">
+                    <div class="input-group date">
+                        <input type="datetime" class="form-control" date-time id="datanascimento" name="datanascimento" ng-model="pessoafisica.datanascimento" view="date" auto-close="true" min-view="date" format="DD-MM-YYYY" ng-required="true" readonly>
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="label-control">Estado Civíl</label>
+                <select class="form-control" id="estadocivil" name="estadocivil" placeholder="Estado Civíl" ng-model="pessoafisica.estadocivil" ng-required="true">
+                    <option value>Selecione...</option>
+                    <option value="SOLTEIRO">SOLTEIRO</option>
+                    <option value="CASADO">CASADO</option>
+                    <option value="VIUVO">VIÚVO</option>
+                    <option value="DIVORCIADO">DIVORCIADO</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="label-control">Nome Cônjuge</label>
+                <input type="text" class="form-control" id="nomeconjuge" name="nomeconjuge" placeholder="Nome Cônjuge" ng-model="pessoafisica.nomeconjuge" ng-required="true">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="label-control">Profissão</label>
+                <select class="form-control" id="profissao" name="profissao" placeholder="Profissao" ng-model="pessoafisica.profissao" ng-required="true">
+                    <option value>Selecione...</option>
+                    <option value="Pedreiro">Pedreiro</option>
+                    <option value="Desenvolvedor">Desenvolvedor</option>
+                    <option value="Militar">Militar</option>
+                    <option value="OUTROS">OUTROS</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="label-control">Sexo</label>
+                <div>
+                    <label> <input icheck type="radio" name="sexo" ng-model="pessoafisica.sexo" checked="true" value="MASCULINO"> MASCULINO </label>
+                    <label> <input icheck type="radio" name="sexo" ng-model="pessoafisica.sexo" value="FEMININO"> FEMININO </label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="label-control">Pai</label>
+                <input type="text" class="form-control" id="pai" name="pai" placeholder="Nome Pai" ng-model="pessoafisica.pai" ng-required="true">
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="label-control">Mãe</label>
+                <input type="text" class="form-control" id="mae" name="mae" placeholder="Nome Mãe" ng-model="pessoafisica.mae" ng-required="true">
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="label-control">Tipo Doc.</label>
+                <select class="form-control" id="tipodoc" name="tipodoc" placeholder="Tipo Documento" ng-model="pessoafisica.tipodoc" ng-required="true">
+                    <option value>Selecione...</option>
+                    <option value="RG">RG</option>
+                    <option value="CNH">CNH</option>
+                    <option value="OAB">OAB</option>
+                    <option value="OUTROS">OUTROS</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="label-control">Número Documento</label>
+                <input type="text" class="form-control" id="numerodoc" name="numerodoc" placeholder="Número Documento" ng-model="pessoafisica.numerodoc" ng-required="true">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="label-control">Orgão Documento</label>
+                <input type="text" class="form-control" id="orgaodoc" name="orgaodoc" placeholder="Orgão Documento" ng-model="pessoafisica.orgaodoc" ng-required="true">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="label-control">Data Emissão</label>
+                <div class="form-group" id="data_1">
+                    <div class="input-group date">
+                        <input type="datetime" class="form-control" date-time id="dataemissaodoc" name="dataemissaodoc" ng-model="pessoafisica.dataemissaodoc" view="date" auto-close="true" min-view="date" format="DD-MM-YYYY" ng-required="true" readonly>
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
