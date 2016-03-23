@@ -11,13 +11,36 @@
 
                         <input type="hidden" class="form-control" id="id" name="id" ng-model="pessoafisica.id">
 
+                        <h3>Dados Cliente</h3>
+                        <div class="hr-line-dashed"></div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="label-control">Dado 1</label>
+                                    <input type="text" class="form-control" id="cep" name="cep" placeholder="Dado 1" ng-model="pessoa.cep" ng-required="true">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="label-control">Dado 2</label>
+                                    <input type="text" class="form-control" id="cep" name="cep" placeholder="Dado 2" ng-model="pessoa.cep" ng-required="true">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="label-control">Dado 3</label>
+                                    <input type="text" class="form-control" id="cep" name="cep" placeholder="Dado 3" ng-model="pessoa.cep" ng-required="true">
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="row">
 
                             <!-- Form Pessoa Fisica -->
-                            <div ng-include="'views/cadPessoaFisica.html'"></div>
+                            <div ng-include="'views/pessoa/cadPessoaFisica.html'"></div>
 
                             <!-- Form Pessoa -->
-                            <div ng-include="'views/cadPessoa.html'"></div>
+                            <div ng-include="'views/pessoa/cadPessoa.html'"></div>
                     
                         </div>
 

@@ -196,6 +196,41 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                 }
             }
         })
+        .state('cadastro.orgaos', {
+            url: '/orgaos',
+            templateUrl: "views/cadOrgao.html",
+            controller: 'orgaoCtrl',
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            files: ['libs/js/plugins/footable/footable.all.min.js', 'libs/css/plugins/footable/footable.core.css']
+                        },
+                        {
+                            name: 'ui.footable',
+                            files: ['libs/js/plugins/footable/angular-footable.js']
+                        },
+                        {
+                            files: ['libs/js/plugins/sweetalert/sweetalert.min.js', 'libs/css/plugins/sweetalert/sweetalert.css']
+                        },
+                        {
+                            name: 'oitozero.ngSweetAlert',
+                            files: ['libs/js/plugins/sweetalert/angular-sweetalert.min.js']
+                        },
+                        {
+                            files: ['libs/css/plugins/iCheck/custom.css','libs/js/plugins/iCheck/icheck.min.js']
+                        },
+                        {
+                            files: ['libs/js/plugins/moment/moment.min.js']
+                        },
+                        {
+                            name: 'datePicker',
+                            files: ['libs/css/plugins/datapicker/angular-datapicker.css','libs/js/plugins/datapicker/angular-datepicker.js']
+                        },
+                    ]);
+                }
+            }
+        })
         .state('admin', {
             abstract: true,
             url: "/admin",
@@ -205,6 +240,41 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             url: '/clientepf',
             templateUrl: "views/cadClientePF.html",
             controller: 'clientePFCtrl',
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            files: ['libs/js/plugins/footable/footable.all.min.js', 'libs/css/plugins/footable/footable.core.css']
+                        },
+                        {
+                            name: 'ui.footable',
+                            files: ['libs/js/plugins/footable/angular-footable.js']
+                        },
+                        {
+                            files: ['libs/js/plugins/sweetalert/sweetalert.min.js', 'libs/css/plugins/sweetalert/sweetalert.css']
+                        },
+                        {
+                            name: 'oitozero.ngSweetAlert',
+                            files: ['libs/js/plugins/sweetalert/angular-sweetalert.min.js']
+                        },
+                        {
+                            files: ['libs/css/plugins/iCheck/custom.css','libs/js/plugins/iCheck/icheck.min.js']
+                        },
+                        {
+                            files: ['libs/js/plugins/moment/moment.min.js']
+                        },
+                        {
+                            name: 'datePicker',
+                            files: ['libs/css/plugins/datapicker/angular-datapicker.css','libs/js/plugins/datapicker/angular-datepicker.js']
+                        },
+                    ]);
+                }
+            }
+        })
+        .state('admin.clientepj', {
+            url: '/clientepj',
+            templateUrl: "views/cadClientePJ.html",
+            controller: 'clientePJCtrl',
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
