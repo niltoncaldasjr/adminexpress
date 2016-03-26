@@ -132,17 +132,66 @@ function listar_permissoes(){
 
     $idperfil = $_POST['data'];
     $con = Conexao::getInstance()->getConexao();
-    $list = array();
-    $query = "SELECT * FROM permissoes WHERE id_perfil = '$idperfil'";
-    $result = mysqli_query($con, $query);
-    while($row = mysqli_fetch_assoc($result)){
-        $idmenu = $row['id_menu'];
-        $sqlmenu = "SELECT id, nome FROM menu WHERE id = '$idmenu'";
-        $resultmenu = mysqli_query($con, $sqlmenu);
-        while($menu = mysqli_fetch_assoc($resultmenu)){
-            $row['id_menu'] = $menu;
+//    $list = array();
+//    $query = "SELECT * FROM permissoes WHERE id_perfil = '$idperfil'";
+//    $result = mysqli_query($con, $query);
+//    while($row = mysqli_fetch_assoc($result)){
+//        $idmenu = $row['id_menu'];
+//        $sqlmenu = "SELECT id, nome FROM menu WHERE id = '$idmenu'";
+//        $resultmenu = mysqli_query($con, $sqlmenu);
+//        while($menu = mysqli_fetch_assoc($resultmenu)){
+//            $row['id_menu'] = $menu;
+//        }
+//        $list[] = $row;
+//    }
+//    echo json_encode($list);
+
+    $queryString = "SELECT e.* FROM perfil u ";
+    $queryString .= "INNER JOIN permissoes eu ON u.id = eu.id_perfil ";
+    $queryString .= "INNER JOIN menu e ON eu.id_menu = e.id ";
+    $queryString .= "WHERE u.id = '$idperfil' ";
+
+// var_dump($queryString);
+    $empresas	= array();
+    $empresas2 	= array();
+
+    if($resultdb = mysqli_query($con,$queryString)){
+
+        $empresaUsuario = "(";
+        while($user = mysqli_fetch_assoc($resultdb)){
+            $empresas[] = $user;
+            $empresaUsuario .= $user['id'] . ",";
+
         }
-        $list[] = $row;
+
+        $empresaUsuario = substr($empresaUsuario, 0, -1) . ")";
+
+        if($empresaUsuario == ")"){$empresaUsuario = "( 0 )";}
+
+        $query = "SELECT * FROM menu WHERE id NOT IN $empresaUsuario";
+
+        // echo $query;
+
+        if($resultdb = mysqli_query($con, $query)){
+
+            while($empresa = mysqli_fetch_assoc($resultdb)){
+                $empresas2[] = $empresa;
+            }
+
+        }
+
+        $success = 'true';
+        $msg = 'Sucesso';
+
+        /*-- Encodamos para o json --*/
+    }else{
+        $success = 'false';
+        $msg = 'Nenhum dado encontrado';
     }
-    echo json_encode($list);
+    echo json_encode(array(
+        "success" => $success,
+        "permissoes" => $empresas,
+        "menus" => $empresas2,
+        "msg" => $msg
+    ));
 }

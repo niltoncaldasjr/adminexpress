@@ -1,6 +1,10 @@
 angular.module('admin-express')
     .controller('perfilCtrl', function ($scope, $rootScope, $http, $location, genericAPI, SweetAlert, authenticationAPI) {
 
+        $scope.permissoes = {};
+        $scope.menus = {};
+        $scope.permissoesShow = false;
+
         if (!$rootScope.usuario) {
             $location.path('/login');
         }
@@ -49,6 +53,9 @@ angular.module('admin-express')
          */
         $scope.limparCampos = function(){
             delete $scope.perfil;
+            $scope.permissoesShow = false;
+            $scope.permissoes = {};
+            $scope.menus = {};
         };
 
         /**
@@ -57,31 +64,34 @@ angular.module('admin-express')
          * @param obj
          */
         $scope.cadastrarPerfil = function(obj){
-            console.log($scope.permissoes);
-            //var dados;
-            //
-            //if(obj.id == undefined){
-            //    var dados = {'session': false, 'metodo': 'cadastrar', 'data': obj, 'class': 'perfil'};
-            //}else{
-            //    var dados = {'session': false, 'metodo': 'atualizar', 'data': obj, 'class': 'perfil'};
-            //}
-            //
-            //genericAPI.generic(dados)
-            //    .then(function successCallback(response) {
-            //        if(response['data']){
-            //            delete $scope.perfil;
-            //            listarPerfil();
-            //        }else{
-            //        }
-            //    }, function errorCallback(response) {
-            //    });
+            //console.log($scope.permissoes);
+            var dados;
+
+            if(obj.id == undefined){
+                var dados = {'session': false, 'metodo': 'cadastrar', 'data': obj, 'class': 'perfil'};
+            }else{
+                var dados = {'session': false, 'metodo': 'atualizar', 'data': obj, 'class': 'perfil'};
+            }
+
+            genericAPI.generic(dados)
+                .then(function successCallback(response) {
+                    if(response['data']){
+                        delete $scope.perfil;
+                        listarPerfil();
+                    }else{
+                    }
+                }, function errorCallback(response) {
+                });
         };
 
+        $scope.gerenciarPermissoas = function(obj){
+            $scope.permissoesShow = true;
+            $scope.listarPermissoes(obj.id);
+        }
+
         $scope.editarPerfil = function(obj){
-            console.log(obj);
             $scope.limparCampos();
             $scope.perfil = obj;
-            $scope.listarPermissoes(obj.id);
         };
 
         $scope.deletarPerfil = function(obj){
@@ -108,13 +118,40 @@ angular.module('admin-express')
             genericAPI.generic(dados)
                 .then(function successCallback(response) {
                     if(response['data']){
-                        $scope.permissoes = response['data'];
+                        $scope.permissoes = response.data.permissoes;
+                        $scope.menus = response.data.menus;
                     }else{
                     }
                 }, function errorCallback(response) {
                 });
         };
-        //$scope.listarPermissoes();
+
+        $scope.removerPermissoes = function () {
+            var listaP = [];
+
+            for(var index in $scope.permissoes) {
+                if($scope.permissoes[index].class === true){
+                    listaP.push( $scope.permissoes[index]);
+                    //console.log($scope.permissoes[index]);
+                }
+
+            }
+            console.log(listaP);
+        };
+
+        $scope.addPermissoes = function () {
+            var listaM = [];
+
+            for(var index in $scope.menus) {
+                if($scope.menus[index].class === true){
+                    listaM.push( $scope.menus[index]);
+                    //console.log($scope.menus[index]);
+                }
+
+            }
+            console.log(listaM);
+
+        };
 
         listarPerfil();
 
