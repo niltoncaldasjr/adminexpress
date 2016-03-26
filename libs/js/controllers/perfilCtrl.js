@@ -57,29 +57,31 @@ angular.module('admin-express')
          * @param obj
          */
         $scope.cadastrarPerfil = function(obj){
-            var dados;
-
-            if(obj.id == undefined){
-                var dados = {'session': false, 'metodo': 'cadastrar', 'data': obj, 'class': 'perfil'};
-            }else{
-                var dados = {'session': false, 'metodo': 'atualizar', 'data': obj, 'class': 'perfil'};
-            }
-
-            genericAPI.generic(dados)
-                .then(function successCallback(response) {
-                    if(response['data']){
-                        delete $scope.perfil;
-                        listarPerfil();
-                    }else{
-                    }
-                }, function errorCallback(response) {
-                });
+            console.log($scope.permissoes);
+            //var dados;
+            //
+            //if(obj.id == undefined){
+            //    var dados = {'session': false, 'metodo': 'cadastrar', 'data': obj, 'class': 'perfil'};
+            //}else{
+            //    var dados = {'session': false, 'metodo': 'atualizar', 'data': obj, 'class': 'perfil'};
+            //}
+            //
+            //genericAPI.generic(dados)
+            //    .then(function successCallback(response) {
+            //        if(response['data']){
+            //            delete $scope.perfil;
+            //            listarPerfil();
+            //        }else{
+            //        }
+            //    }, function errorCallback(response) {
+            //    });
         };
 
         $scope.editarPerfil = function(obj){
-
+            console.log(obj);
             $scope.limparCampos();
             $scope.perfil = obj;
+            $scope.listarPermissoes(obj.id);
         };
 
         $scope.deletarPerfil = function(obj){
@@ -100,6 +102,19 @@ angular.module('admin-express')
             }, function errorCallback(response) {
             });
         };
+
+        $scope.listarPermissoes = function(id){
+            var dados = {'session': true, 'metodo':'listarpermissoes', 'data': id, 'class':'perfil'};
+            genericAPI.generic(dados)
+                .then(function successCallback(response) {
+                    if(response['data']){
+                        $scope.permissoes = response['data'];
+                    }else{
+                    }
+                }, function errorCallback(response) {
+                });
+        };
+        //$scope.listarPermissoes();
 
         listarPerfil();
 

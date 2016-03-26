@@ -13,6 +13,10 @@ switch ($_POST['metodo']) {
         listar_perfil();
         break;
 
+    case 'listarpermissoes':
+        listar_permissoes();
+        break;
+
     case 'cadastrar':
         cadastrar_perfil();
         break;
@@ -122,6 +126,23 @@ function trazer_perfil()
     );
 
     echo json_encode( $data );
+}
 
+function listar_permissoes(){
 
+    $idperfil = $_POST['data'];
+    $con = Conexao::getInstance()->getConexao();
+    $list = array();
+    $query = "SELECT * FROM permissoes WHERE id_perfil = '$idperfil'";
+    $result = mysqli_query($con, $query);
+    while($row = mysqli_fetch_assoc($result)){
+        $idmenu = $row['id_menu'];
+        $sqlmenu = "SELECT id, nome FROM menu WHERE id = '$idmenu'";
+        $resultmenu = mysqli_query($con, $sqlmenu);
+        while($menu = mysqli_fetch_assoc($resultmenu)){
+            $row['id_menu'] = $menu;
+        }
+        $list[] = $row;
+    }
+    echo json_encode($list);
 }
