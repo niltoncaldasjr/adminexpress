@@ -24,7 +24,7 @@ require_once("../util/Conexao.php");
 	tenta-se criar uma nova instancia de uma Classe.
 	Exemplo: new Cupom(), new UsuarioDAO(), new EmpresaControl()... 
 */
-function carregaClasses($class){ 
+function carregaClasses($class){
 	/*
 		Verifica se existe "Control" no nome da classe
 	*/
@@ -48,7 +48,6 @@ function carregaClasses($class){
  		$bean = strtolower($class);
  		/*	require na model */
  		require_once "../model/".$bean."/".$class.".php";
-		require_once "../model/certidao/Certidao.php";
  	}
 }
 
