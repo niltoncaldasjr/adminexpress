@@ -28,16 +28,17 @@ function carregaClasses($class){
 	/*
 		Verifica se existe "Control" no nome da classe
 	*/
- 	if(strripos($class, "Control")) {
- 		/*	require na Control */
+//  	if(strripos($class, "Control")) {
+	if(strrpos($class, "Control")) {
+ 		/*	require na Control */ 
  		require_once("../control/".$class.".php");
  	}
  	/*
 		Verifica se existe "Control" no nome da classe
 	*/
- 	else if(strripos($class, "DAO")) {
+ 	else if(strrpos($class, "DAO")) {
  		/* Monta o nome da Bean */
- 		$bean = strtolower(substr($class, 0, strripos($class, "DAO")));
+ 		$bean = strtolower(substr($class, 0, strrpos($class, "DAO")));
  		/*	require na DAO */
  		require_once "../model/".$bean."/".$class.".php";
  	/*
