@@ -5,8 +5,8 @@
  	Project Owner: Diego.
  	Gerente de Desenvolvimento: Nilton Caldas Jr.
  	Desenvolverdor: Fabiano Ferreira da Silva Costa
- 	Desenvolverdor: Adelson Guimarães Monteiro.
- 	Data de início: 08/03/2016.
+ 	Desenvolverdor: Adelson Guimarï¿½es Monteiro.
+ 	Data de inï¿½cio: 08/03/2016.
  	Data Atual: 08/03/2016. 
 */
 
@@ -81,7 +81,7 @@ Class ServicoDAO {
 			die('[ERRO]: Class('.get_class($obj).') | Metodo(buscarPorId) | Erro('.mysqli_error($this->con).')');
 		}
 		while($row = mysqli_fetch_object($resultSet)) {
-			$this->obj = new Servico($row->id, $this->descricao, $row->datacadastro, $row->dataedicao);
+			$this->obj = new Servico($row->id, $row->nome, $row->datacadastro, $row->dataedicao);
 		}
 		return $this->obj;
 	}

@@ -38,7 +38,7 @@ function cadastrar () {
 
     $obj = new Honorario(
         NULL,
-        new Servico($data['idservico']),
+        new Servico($data['idservico']['id']),
         stripslashes ( strip_tags( trim($data['valor']) ) )
     );
     $control = new HonorarioControl($obj);
@@ -50,7 +50,7 @@ function atualizar () {
     $data = $_POST['data'];
     $obj = new Honorario(
         $data['id'],
-        new Servico($data['idservico']),
+        new Servico($data['idservico']['id']),
         stripslashes ( strip_tags( trim($data['valor']) ) )
     );
     $control = new HonorarioControl($obj);

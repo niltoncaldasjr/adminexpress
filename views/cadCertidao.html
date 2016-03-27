@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
-                    <form name="certidaoForm" class="form" ng-submit="cadastrarCertidap(certidao)"
+                    <form name="certidaoForm" class="form" ng-submit="cadastrarCertidao(certidao)"
                           novalidate>
                         <p>Preencha os dados com atenção.</p>
 
@@ -14,7 +14,7 @@
                         <div class="form-group" >
                             <label class="">Descrição</label>
                             <input type="text" class="form-control" name="descricao" placeholder="Descrição" ng-model="certidao.descricao" ng-required="true">
-                            <div class="m-t-xs" ng-show="perfilForm.nome.$invalid && perfilForm.$prestine">
+                            <div class="m-t-xs" ng-show="certidaoForm.descricao.$invalid && certidaoForm.$prestine">
                                 <small class="text-danger" ng-show="certidaoForm.descricao.$error.required">Insira a descrição</small>
                             </div>
                         </div>
@@ -23,17 +23,17 @@
                                 <div class="form-group" >
                                     <label class="">Prazo</label>
                                     <input type="text" class="form-control" name="Prazo" placeholder="Prazo" ng-model="certidao.prazo" ng-required="true">
-                                    <div class="m-t-xs" ng-show="perfilForm.nome.$invalid && perfilForm.$prestine">
-                                        <small class="text-danger" ng-show="certidaoForm.descricao.$error.required">Insira o Prazo</small>
+                                    <div class="m-t-xs" ng-show="certidaoForm.prazo.$invalid && certidaoForm.$prestine">
+                                        <small class="text-danger" ng-show="certidaoForm.prazo.$error.required">Insira o Prazo</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group" >
                                     <label class="">Valor</label>
-                                    <input type="text" class="form-control" name="Valor" placeholder="Valor" ng-model="certidao.Valor" ng-required="true">
-                                    <div class="m-t-xs" ng-show="perfilForm.nome.$invalid && perfilForm.$prestine">
-                                        <small class="text-danger" ng-show="certidaoForm.descricao.$error.required">Insira o Valor</small>
+                                    <input type="text" class="form-control" name="Valor" placeholder="Valor" ng-model="certidao.valor" ng-required="true">
+                                    <div class="m-t-xs" ng-show="certidaoForm.valor.$invalid && certidaoForm.$prestine">
+                                        <small class="text-danger" ng-show="certidaoForm.valor.$error.required">Insira o Valor</small>
                                     </div>
                                 </div>
                             </div>
@@ -68,25 +68,27 @@
                         <thead>
                         <tr>
                             <th data-toggle="true">ID</th>
-                            <th data-hide="phone">Nome</th>
-                            <th data-hide="all">Ativo</th>
+                            <th data-hide="tablet">Descrição</th>
+                            <th data-hide="phone">Prazo</th>
+                            <th data-hide="phone">Valor</th>
                             <th data-hide="phone">Data de Cadastro</th>
-                            <th data-hide="phone">Data de Edição</th>
+                            <th data-hide="all">Data de Edição</th>
                             <th class="text-right" data-sort-ignore="true">Ações</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="p in perfils" reiniciar-footable>
-                            <td ng-bind="p.id"></td>
-                            <td ng-bind="p.nome"></td>
-                            <td ng-bind="p.ativo"></td>
-                            <td ng-bind="p.dataCadastro"></td>
-                            <td ng-bind="p.dataEdicao"></td>
+                        <tr ng-repeat="c in certidoes" reiniciar-footable>
+                            <td ng-bind="c.id"></td>
+                            <td ng-bind="c.descricao"></td>
+                            <td ng-bind="c.prazo"></td>
+                            <td ng-bind="c.valor"></td>
+                            <td ng-bind="c.datacadastro"></td>
+                            <td ng-bind="c.dataedicao"></td>
                             <td class="text-right">
                                 <div class="btn-group">
-                                    <button class="btn-white btn btn-xs" ng-click="editarPerfil(p)"><i class="fa fa-edit"></i>
+                                    <button class="btn-white btn btn-xs" ng-click="editarCertidao(c)"><i class="fa fa-edit"></i>
                                     </button>
-                                    <button class="btn-white btn btn-xs" ng-click="deletarPerfil(p)"><i class="fa fa-close"></i>
+                                    <button class="btn-white btn btn-xs" ng-click="deletarCertidao(c)"><i class="fa fa-close"></i>
                                     </button>
                                 </div>
                             </td>

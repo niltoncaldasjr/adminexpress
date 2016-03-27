@@ -27,9 +27,6 @@ switch ($_POST['metodo']) {
     case 'deletar':
         deletar();
         break;
-    case 'buscarPorId':
-        buscarPorId();
-        break;
 }
 
 /* Metodos */
@@ -71,13 +68,4 @@ function deletar () {
     $obj->setId($data['id']);
     $control = new CertidaoControl($obj);
     echo $control->deletar();
-}
-function buscarPorId () {
-
-    $data = $_POST['data'];
-    $control = new CertidaoControl(new Certidao($data[id]));
-    $lista = $control->buscarPorId();
-    if(!empty($lista)) {
-        echo json_encode($lista);
-    }
 }

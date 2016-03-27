@@ -144,7 +144,7 @@ class Checklist implements JsonSerializable
 
         return [
             "id"            => $this->id,
-            "servico"       => $this->objServico,
+            "idservico"       => $this->objServico,
             "ordem"         => $this->ordem,
             "item"          => $this->item,
             "datacadastro"  => $this->datacadastro,

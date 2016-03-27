@@ -38,7 +38,7 @@ function cadastrar () {
 
     $obj = new Checklist(
         NULL,
-        new Servico($data['idservico']),
+        new Servico($data['idservico']['id']),
         stripslashes ( strip_tags( trim($data['ordem']) )),
         stripslashes ( strip_tags( trim($data['item']) ) )
     );
@@ -51,7 +51,7 @@ function atualizar () {
     $data = $_POST['data'];
     $obj = new Checklist(
         $data['id'],
-        new Servico($data['idservico']),
+        new Servico($data['idservico']['id']),
         stripslashes ( strip_tags( trim($data['ordem']) )),
         stripslashes ( strip_tags( trim($data['item']) ) )
     );

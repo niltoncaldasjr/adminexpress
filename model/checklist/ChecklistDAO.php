@@ -42,6 +42,7 @@ Class ChecklistDAO {
             mysqli_real_escape_string($this->con, $obj->getObjServico()->getId()),
             mysqli_real_escape_string($this->con, $obj->getOrdem()),
             mysqli_real_escape_string($this->con, $obj->getItem()),
+            mysqli_real_escape_string($this->con, date('Y-m-d H:i:s')),
             mysqli_real_escape_string($this->con, $obj->getId())
         );
         if(!mysqli_query($this->con, $this->sql)) {
@@ -59,7 +60,13 @@ Class ChecklistDAO {
         }
         while($row = mysqli_fetch_object($resultSet)) {
 
-            $this->lista[] = $row;
+            $objServico = new Servico($row->idservico);
+            $controle = new ServicoControl($objServico);
+            $objServico =  $controle->buscarPorId();
+
+            $this->obj = new Checklist($row->id, $objServico, $row->ordem, $row->item, $row->datacadastro, $row->dataedicao);
+
+            $this->lista[] = $this->obj;
         }
         return $this->lista;
     }

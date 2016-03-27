@@ -121,7 +121,7 @@ class Honorario implements JsonSerializable
 
         return [
             "id"            => $this->id,
-            "servico"       => $this->objServico,
+            "idservico"       => $this->objServico,
             "valor"         => $this->valor,
             "datacadastro"  => $this->datacadastro,
             "dataedicao"    => $this->dataedicao

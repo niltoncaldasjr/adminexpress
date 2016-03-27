@@ -1,7 +1,7 @@
 angular.module('admin-express')
-    .controller('perfilCtrl', function ($scope, $rootScope, $http, $location, genericAPI, SweetAlert, authenticationAPI) {
+    .controller('certidaoCtrl', function ($scope, $rootScope, $http, $location, genericAPI, SweetAlert, authenticationAPI) {
 
-        $scope.permissoes = {};
+        $scope.certidoes = {};
         $scope.menus = {};
         $scope.permissoesShow = false;
 
@@ -26,7 +26,7 @@ angular.module('admin-express')
                     closeOnCancel: false },
                 function (isConfirm) {
                     if (isConfirm) {
-                        var dados = {'session':true, 'metodo': 'deletar', 'data': obj, 'class': 'perfil'};
+                        var dados = {'session':true, 'metodo': 'deletar', 'data': obj, 'class': 'certidao'};
                         genericAPI.generic(dados)
                             .then(function successCallback(response) {
                                 if(response['data']){
@@ -34,7 +34,7 @@ angular.module('admin-express')
                                         SweetAlert.swal("Ops!!!", response.data.msg, "error");
                                     }else{
                                         SweetAlert.swal("Deletado!", "Essa informação foi deletada.", "success");
-                                        listarPerfil();
+                                        listarCertidao();
                                     }
                                 }else{
                                 }
@@ -52,10 +52,7 @@ angular.module('admin-express')
          * Limpa os campos na tela
          */
         $scope.limparCampos = function(){
-            delete $scope.perfil;
-            $scope.permissoesShow = false;
-            $scope.permissoes = {};
-            $scope.menus = {};
+            delete $scope.certidao;
         };
 
         /**
@@ -63,100 +60,52 @@ angular.module('admin-express')
          * checa o obj.id se existe entao altera
          * @param obj
          */
-        $scope.cadastrarPerfil = function(obj){
+        $scope.cadastrarCertidao = function(obj){
             //console.log($scope.permissoes);
             var dados;
 
             if(obj.id == undefined){
-                var dados = {'session': false, 'metodo': 'cadastrar', 'data': obj, 'class': 'perfil'};
+                var dados = {'session': true, 'metodo': 'cadastrar', 'data': obj, 'class': 'certidao'};
             }else{
-                var dados = {'session': false, 'metodo': 'atualizar', 'data': obj, 'class': 'perfil'};
+                var dados = {'session': true, 'metodo': 'atualizar', 'data': obj, 'class': 'certidao'};
             }
 
             genericAPI.generic(dados)
                 .then(function successCallback(response) {
                     if(response['data']){
-                        delete $scope.perfil;
-                        listarPerfil();
+                        delete $scope.certidao;
+                        listarCertidao();
                     }else{
                     }
                 }, function errorCallback(response) {
                 });
         };
 
-        $scope.editarPerfil = function(obj){
+        $scope.editarCertidao = function(obj){
             $scope.limparCampos();
-            $scope.perfil = obj;
+            $scope.certidao = obj;
         };
 
-        $scope.deletarPerfil = function(obj){
+        $scope.deletarCertidao = function(obj){
 
             confirmaDelete(obj);
         };
 
-        var listarPerfil = function(){
+        var listarCertidao = function(){
 
-            var dados = {'session':true, 'metodo': 'listar', 'data': null, 'class': 'perfil'};
+            var dados = {'session':true, 'metodo': 'listar', 'data': null, 'class': 'certidao'};
 
             genericAPI.generic(dados)
             .then(function successCallback(response) {
                 if(response['data']){
-                    $scope.perfils = response['data'];
+                    $scope.certidoes = response['data'];
                 }else{
                 }
             }, function errorCallback(response) {
             });
         };
 
-        $scope.listarPermissoes = function(id){
-            var dados = {'session': true, 'metodo':'listarpermissoes', 'data': id, 'class':'perfil'};
-            genericAPI.generic(dados)
-                .then(function successCallback(response) {
-                    if(response['data']){
-                        $scope.permissoes = response.data.permissoes;
-                        $scope.menus = response.data.menus;
-                    }else{
-                    }
-                }, function errorCallback(response) {
-                });
-        };
-
-        $scope.gerenciarPermissoas = function(obj){
-            $scope.per = obj;
-            $scope.permissoesShow = true;
-            $scope.listarPermissoes(obj.id);
-        }
-
-        $scope.removerPermissoes = function () {
-            var listaP = [];
-
-            for(var index in $scope.permissoes) {
-                if($scope.permissoes[index].class === true){
-                    //$scope.permissoes[index].push({'idperfil': $scope.per.id});
-                    listaP.push( $scope.permissoes[index]);
-
-                    //console.log($scope.permissoes[index]);
-                }
-
-            }
-            console.log(listaP);
-        };
-
-        $scope.addPermissoes = function () {
-            var listaM = [];
-
-            for(var index in $scope.menus) {
-                if($scope.menus[index].class === true){
-                    listaM.push( $scope.menus[index]);
-                    //console.log($scope.menus[index]);
-                }
-
-            }
-            console.log(listaM);
-
-        };
-
-        listarPerfil();
+        listarCertidao();
 
 
 

@@ -5,8 +5,8 @@
  	Project Owner: Diego.
  	Gerente de Desenvolvimento: Nilton Caldas Jr.
  	Desenvolverdor: Fabiano Ferreira da Silva Costa
- 	Desenvolverdor: Adelson Guimarães Monteiro.
- 	Data de início: 08/03/2016.
+ 	Desenvolverdor: Adelson Guimarï¿½es Monteiro.
+ 	Data de inï¿½cio: 08/03/2016.
  	Data Atual: 08/03/2016. 
 */
 
@@ -15,12 +15,12 @@ if(!$_POST){ $_POST =  file_get_contents ( "php://input" ); }
 $_POST = json_decode ($_POST, true);
 
 /*
-	Require da Conexão
+	Require da Conexï¿½o
 */
 require_once("../util/Conexao.php");
 
 /*
-	Função AutoLoad, Carrega as Classes quando
+	Funï¿½ï¿½o AutoLoad, Carrega as Classes quando
 	tenta-se criar uma nova instancia de uma Classe.
 	Exemplo: new Cupom(), new UsuarioDAO(), new EmpresaControl()... 
 */
@@ -39,15 +39,16 @@ function carregaClasses($class){
  		/* Monta o nome da Bean */
  		$bean = strtolower(substr($class, 0, strripos($class, "DAO")));
  		/*	require na DAO */
- 		require_once("../model/".$bean."/".$class.".php");
+ 		require_once "../model/".$bean."/".$class.".php";
  	/*
-		Se não for DAO nem Control é Model.
+		Se nï¿½o for DAO nem Control ï¿½ Model.
 	*/
  	}else{
  		/* Monta o nome da Bean */
  		$bean = strtolower($class);
  		/*	require na model */
- 		require_once("../model/".$bean."/".$class.".php");
+ 		require_once "../model/".$bean."/".$class.".php";
+		require_once "../model/certidao/Certidao.php";
  	}
 }
 
@@ -66,7 +67,7 @@ function getRest($class) {
 }
 
 /*
-	Chama a função GetRest
+	Chama a funï¿½ï¿½o GetRest
 */
 getRest($_POST['class']);
 

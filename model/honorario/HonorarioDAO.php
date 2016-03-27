@@ -25,7 +25,7 @@ Class HonorarioDAO {
     /* Cadastrar */
     function cadastrar (Honorario $obj) {
         $this->sql = sprintf("INSERT INTO honorario (idservico, valor)
-				VALUES('%s', %d, %f)",
+				VALUES(%d, %f)",
             mysqli_real_escape_string($this->con, $obj->getObjServico()->getId()),
             mysqli_real_escape_string($this->con, $obj->getValor())
         );
@@ -40,7 +40,7 @@ Class HonorarioDAO {
         $this->sql = sprintf("UPDATE honorario SET idservico = %d, valor = %f, dataedicao = '%s' WHERE id = %d",
             mysqli_real_escape_string($this->con, $obj->getObjServico()->getId()),
             mysqli_real_escape_string($this->con, $obj->getValor()),
-            mysqli_real_escape_string($this->con, date('Y-m-d') ),
+            mysqli_real_escape_string($this->con, date('Y-m-d H:i:s') ),
             mysqli_real_escape_string($this->con, $obj->getId())
         );
         if(!mysqli_query($this->con, $this->sql)) {
@@ -58,7 +58,14 @@ Class HonorarioDAO {
         }
         while($row = mysqli_fetch_object($resultSet)) {
 
-            $this->lista[] = $row;
+            $objServico = new Servico($row->idservico);
+            $controle = new ServicoControl($objServico);
+            $objServico = $controle->buscarPorId();
+
+            $row->idservico = $objServico;
+            $this->obj = new Honorario($row->id, $objServico, $row->valor, $row->datacadastro, $row->dataedicao);
+
+            $this->lista[] = $this->obj;
         }
         return $this->lista;
     }

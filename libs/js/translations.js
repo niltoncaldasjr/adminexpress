@@ -39,7 +39,9 @@ function config($translateProvider) {
             PROCESSOS: 'Processos',
             SEARCH: 'Buscar por algo...',
             LANGUAGE: 'Idioma',
-            LOGOUT: 'Sair'
+            LOGOUT: 'Sair',
+            HONORARIO: 'Honorário',
+            CHECKLIST: 'Checklist'
 
 
         })
@@ -77,7 +79,9 @@ function config($translateProvider) {
             PROCESSOS: 'Processos',
             SEARCH: 'Buscar por algo...',
             LANGUAGE: 'Language',
-            LOGOUT: 'Log out'
+            LOGOUT: 'Log out',
+            HONORARIO: 'Honorário',
+            CHECKLIST: 'Checklist'
         });
 
     $translateProvider.preferredLanguage('pt');
