@@ -132,14 +132,19 @@ angular.module('admin-express')
 
             for(var index in $scope.permissoes) {
                 if($scope.permissoes[index].class === true){
-                    //$scope.permissoes[index].push({'idperfil': $scope.per.id});
-                    listaP.push( $scope.permissoes[index]);
-
-                    //console.log($scope.permissoes[index]);
+                    listaP.push( {'idmenu':$scope.permissoes[index]['id'], 'idperfil': $scope.per.id});
                 }
-
             }
-            console.log(listaP);
+            var dados = {'session': true, 'metodo':'delpermissoes', 'data': listaP, 'class':'perfil'};
+            genericAPI.generic(dados)
+                .then(function successCallback(response) {
+                    if(response['data']){
+                        $scope.permissoes = response.data.permissoes;
+                        $scope.menus = response.data.menus;
+                    }else{
+                    }
+                }, function errorCallback(response) {
+                });
         };
 
         $scope.addPermissoes = function () {
@@ -147,13 +152,19 @@ angular.module('admin-express')
 
             for(var index in $scope.menus) {
                 if($scope.menus[index].class === true){
-                    listaM.push( $scope.menus[index]);
-                    //console.log($scope.menus[index]);
+                    listaM.push( {'idmenu':$scope.menus[index]['id'], 'idperfil': $scope.per.id});
                 }
-
             }
-            console.log(listaM);
-
+            var dados = {'session': true, 'metodo':'addpermissoes', 'data': listaM, 'class':'perfil'};
+            genericAPI.generic(dados)
+                .then(function successCallback(response) {
+                    if(response['data']){
+                        $scope.permissoes = response.data.permissoes;
+                        $scope.menus = response.data.menus;
+                    }else{
+                    }
+                }, function errorCallback(response) {
+                });
         };
 
         listarPerfil();
