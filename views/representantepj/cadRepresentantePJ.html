@@ -1,0 +1,20 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <i class="fa fa-male modal-icon"></i>
+        <h4 class="modal-title">Cadastro de Representante</h4>
+        <!-- <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small> -->
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <!-- Form Pessoa Fisica -->
+            <div class="col-md-12" ng-include="'views/representantepj/cadPessoaFisica.html'"></div>
+            <!-- Form Pessoa -->
+            <div class="col-md-12" ng-include="'views/representantepj/cadPessoa.html'"></div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" ng-click="cancel()">Cancelar</button>
+        <button type="button" class="btn btn-primary" ng-click="ok(gpes.reppessoa,gpes.reppessoapf)">Salvar</button>
+    </div>
+</div>
+
