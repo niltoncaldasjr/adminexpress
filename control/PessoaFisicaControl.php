@@ -10,16 +10,16 @@
  	Data Atual: 16/03/2016. 
 */
 
-class PessoaControl {
+class PessoaFisicaControl {
 	/* Atributos */
 	protected $con;
 	protected $obj;
 	protected $objDAO;
 	
 	/* Contrutor */
-	function __construct (Pessoa $obj=NULL) {
+	function __construct (PessoaFisica $obj=NULL) {
 		$this->con = Conexao::getInstance()->getConexao();
-		$this->objDAO = new PessoaDAO($this->con);
+		$this->objDAO = new PessoaFisicaDAO($this->con);
 		$this->obj = $obj;
 	}
 	

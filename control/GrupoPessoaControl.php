@@ -7,19 +7,19 @@
  	Desenvolverdor: Fabiano Ferreira da Silva Costa
  	Desenvolverdor: Adelson Guimarães Monteiro.
  	Data de início: 08/03/2016.
- 	Data Atual: 16/03/2016. 
+ 	Data Atual: 31/03/2016. 
 */
 
-class PessoaControl {
+class GrupoPessoaControl {
 	/* Atributos */
 	protected $con;
 	protected $obj;
 	protected $objDAO;
 	
 	/* Contrutor */
-	function __construct (Pessoa $obj=NULL) {
+	function __construct (GrupoPessoa $obj=NULL) {
 		$this->con = Conexao::getInstance()->getConexao();
-		$this->objDAO = new PessoaDAO($this->con);
+		$this->objDAO = new GrupoPessoaDAO($this->con);
 		$this->obj = $obj;
 	}
 	
@@ -36,7 +36,7 @@ class PessoaControl {
 	function deletar () {
 		return $this->objDAO->deletar($this->obj);
 	}
-	function buscarPorId () {
+function buscarPorId () {
 		return $this->objDAO->buscarPorId($this->obj);
 	}
 }

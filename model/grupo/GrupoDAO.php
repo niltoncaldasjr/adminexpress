@@ -4,10 +4,10 @@
  	Projeto: AdminExpress.
  	Project Owner: Diego.
  	Gerente de Desenvolvimento: Nilton Caldas Jr.
- 	Desenvolverdor: Fabiano Ferreira da Silva Costa.
+ 	Desenvolverdor: Fabiano Ferreira da Silva Costa
  	Desenvolverdor: Adelson Guimarães Monteiro.
  	Data de início: 08/03/2016.
- 	Data Atual: 08/03/2016.
+ 	Data Atual: 30/03/2016. 
 */
 
 Class GrupoDAO {

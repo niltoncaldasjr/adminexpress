@@ -12,11 +12,13 @@ angular.module('admin-express')
         */
         function createScopes () {
             $rootScope.gpes = {
-                "pessoa":       {"tipo":""},
-                "pessoapf":     {"sexo":"MASCULINO"},
-                "pessoapj":     {"representantes":[]},
-                "reppessoa":    {},
-                "reppessoapf":  {"sexo":"MASCULINO"}
+                "grupo"         : {},
+                "grupopessoa"   : {},
+                "pessoa"        : {"tipo":""},
+                "pessoapf"      : {"sexo":"MASCULINO"},
+                "pessoapj"      : {"representantes":[]},
+                "reppessoa"     : {},
+                "reppessoapf"   : {"sexo":"MASCULINO"}
             };
         }
         createScopes();
@@ -29,17 +31,14 @@ angular.module('admin-express')
             var href = window.location.href; href = href.split('/'); href = href[href.length-1];
 
             /* Consulta tipos de pessoa */
-            var dados = {'metodo': 'buscarPorDescricao', 'data': href, 'class': 'grupo'};
-
-            /* Grupo Pessoa */
-            $scope.grupo = href;
+            var dados = {'session': true, 'metodo': 'buscarPorDescricao', 'data': href, 'class': 'grupo'};
 
             genericAPI.generic(dados)
             .then(function successCallback(response) {
                 if(response['data']){
                     var tipo = response['data']['tipo'];
                     /* Variável que controla o que aparece no form */
-                    $scope.tipopessoa = tipo;
+                    $rootScope.gpes.grupo = response['data'];
                     /* Variável que diz o se é PJ ou PF */
                     if(response['data']['tipo'] === 'AMBOS') {$rootScope.gpes.pessoa.tipo = 'PF';}
                     else {$rootScope.gpes.pessoa.tipo = tipo;}
@@ -100,28 +99,33 @@ angular.module('admin-express')
          * checa o obj.id se existe entao altera
          * @param obj
          */
-        $scope.cadastrar = function(objPessoa, objPF, objPJ, objCliente){
-            
-            console.log(objPessoa);
-            if($scope.p === 'PF') { console.log(objPF); }
-            else { console.log(objPJ); }
-            // var dados;
-            
-            // if(obj.id == undefined){
-            //     var dados = {'metodo': 'cadastrar', 'data': obj, 'class': 'orgao'};
-            // }else{
-            //     var dados = {'metodo': 'atualizar', 'data': obj, 'class': 'orgao'};
-            // }
+        $scope.cadastrar = function(obj){
+            // Caso seja um tipo PJ verificamos se há representantes
+            if(obj.pessoa.tipo === 'PJ') {
+                if(obj.pessoapj.representantes.length<=0) {
+                    alert('Cadastre pelomenos 1 representante');
+                    return false;
+                }
+            }
 
-            // genericAPI.generic(dados)
-            //     .then(function successCallback(response) {
-            //         if(response['data']){
-            //             $scope.limparCampos();
-            //             listarorgao();
-            //         }else{
-            //         }
-            //     }, function errorCallback(response) {
-            //     });
+            var dados;
+            
+            if(obj.grupopessoa.id === undefined){
+                var dados = {'session': true, 'metodo': 'cadastrar', 'data': obj, 'class': 'grupopessoa'};
+            }else{
+                var dados = {'session': true, 'metodo': 'atualizar', 'data': obj, 'class': 'grupopessoa'};
+            }
+
+            genericAPI.generic(dados)
+            .then(function successCallback(response) {
+                if(response['data']){
+                    console.log(response['data']);
+                    $scope.limparCampos();
+                    // listarorgao();
+                }else{
+                }
+            }, function errorCallback(response) {
+            });
         };
 
         $scope.editar = function(obj){
@@ -151,7 +155,7 @@ angular.module('admin-express')
         
 
         /*
-            Adiciona Representante
+            Adiciona Representante Modal
         */
         $scope.addRepresentante = function () {
             var modalInstance = $uibModal.open({
@@ -162,22 +166,45 @@ angular.module('admin-express')
         }
 
         /*
-            Ctrl Representante
+            Ctrl Representante Modal
         */
         function representanteCtrl ($scope, $uibModalInstance) {
-
             $scope.ok = function (objP, objPF) {
+                // Adiciona obj pessoa ao atributo pessoa de PessoaFisica
                 objPF.pessoa = objP;
-                $rootScope.gpes.pessoapj.representantes.push(objPF);
-                console.log($rootScope.gpes.pessoapj);
+                // Pega o scope representantes
+                var reps = $rootScope.gpes.pessoapj.representantes;
+                // verifica se é uma edição ou atuaçização
+                if(reps.indexOf(objPF)>=0) { reps.splice(reps.indexOf(objPF),1, objPF);}
+                else{reps.push(objPF);}
+                // reinicia obj reppessoa
+                $rootScope.gpes.reppessoa = {};
+                // reinicia obj reppessoapf
+                $rootScope.gpes.reppessoapf = {"sexo":"MASCULINO"}; 
+                // fecha o modal
                 $uibModalInstance.close();
             };
 
             $scope.cancel = function () {
                 $uibModalInstance.dismiss('cancel');
             };
+        }
 
-            
+        /*
+            Deleta representante
+        */
+        $scope.deletaRep = function (obj) {
+            var reps = $rootScope.gpes.pessoapj.representantes;
+            reps.splice(reps.indexOf(obj),1);
+        }
+
+        /*
+            Edita representante
+        */
+        $scope.editarRep = function (obj) {
+            $scope.addRepresentante();
+            $rootScope.gpes.reppessoa = obj.pessoa;
+            $rootScope.gpes.reppessoapf = obj;
         }
 
     });

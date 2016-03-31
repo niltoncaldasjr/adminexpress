@@ -4,7 +4,7 @@
         <!--        DIREITA FORMULARIO     -->
         <div class="col-md-12">
             <div class="ibox float-e-margins">
-                <div class="ibox-content" ng-if="tipopessoa=='AMBOS'">
+                <div class="ibox-content" ng-if="gpes.grupo.tipo=='AMBOS'">
                     <h3>Selecione o tipo de Pesssoa</h3>
                     <div class="hr-line-dashed"></div>
                     <button class="btn" ng-click="gpes.pessoa.tipo='PF'" ng-class="{'btn-success':gpes.pessoa.tipo == 'PF', 'btn-default':gpes.pessoa.tipo == 'PJ'}">
@@ -15,10 +15,10 @@
                     </button>
                 </div>
                 <div class="ibox-content">
-                    <form name="gpesForm" class="form" ng-submit="cadastrar(gpes.pessoa, gpes.pessoafisica, gpes.pessoajuridica)"
+                    <form name="gpesForm" class="form" ng-submit="cadastrar(gpes)"
                           novalidate>
                         
-                        <input type="hidden" class="form-control" id="id" name="id" ng-model="grupogpes.pessoa.id">
+                        <input type="hidden" class="form-control" id="id" name="id" ng-model="gpes.grupopessoa.id">
 
                         <div class="row">
 
@@ -46,7 +46,8 @@
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <div class="">
-                                <button class="btn btn-info" type="submit" ng-disabled="gpesForm.$invalid">
+                                <button class="btn btn-info" type="submit" >
+                                    <!-- ng-disabled="gpesForm.$invalid" -->
                                     Salvar
                                 </button>
                                 <button class="btn btn-primary" type="button" ng-click="limparCampos()">
