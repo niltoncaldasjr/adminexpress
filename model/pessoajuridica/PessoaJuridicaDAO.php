@@ -24,7 +24,7 @@ Class PessoaJuridicaDAO {
 	
 	/* Cadastrar */
 	function cadastrar (PessoaJuridica $obj) {
-		$this->sql = sprintf("INSERT INTO pessoajuridica (idpessooa, razao, cnpj, nire, inscestadual, inscmunicipal, representante)
+		$this->sql = sprintf("INSERT INTO pessoajuridica (idpessoa, razao, cnpj, nire, inscestadual, inscmunicipal, representante)
 				VALUES(%d, '%s', '%s' , '%s', '%s' , '%s', '%s')", 
 				mysqli_real_escape_string($this->con, $obj->getObjpessoa()->getId()),
 				mysqli_real_escape_string($this->con, $obj->getRazao()),
@@ -42,7 +42,7 @@ Class PessoaJuridicaDAO {
 	/* Atualizar */
 	function atualizar (PessoaJuridica $obj) {
 		var_dump($obj->getId());
-		$this->sql = sprintf("UPDATE pessoajuridica SET idpessooa = %d, razao = '%s', cnpj = '%s', nire = '%s', inscestadual = '%s', inscmunicipal = '%s', representante = '%s', dataedicao = '%s' WHERE id = %d", 
+		$this->sql = sprintf("UPDATE pessoajuridica SET idpessoa = %d, razao = '%s', cnpj = '%s', nire = '%s', inscestadual = '%s', inscmunicipal = '%s', representante = '%s', dataedicao = '%s' WHERE id = %d", 
 				mysqli_real_escape_string($this->con, $obj->getObjpessoa()->getId()),
 				mysqli_real_escape_string($this->con, $obj->getRazao()),
 				mysqli_real_escape_string($this->con, $obj->getCnpj()),

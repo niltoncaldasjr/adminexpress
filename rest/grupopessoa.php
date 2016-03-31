@@ -35,18 +35,18 @@ function cadastrar () {
 	$data = $_POST['data'];
 	
 	$idpessoa = cadPessoa($data);
-	echo $idpessoa;exit;
 	
 	if($data['grupo']['tipo']=='PJ') {
-		cadPJ($data, $idpessoa);
+		$idpj = cadPJ($data, $idpessoa);
+		cadRepPJ($data, $idpj);
 	}else{
 		cadPF($data, $idpessoa);
 	}
 	
 	$obj = new GrupoPessoa(
 			NULL,
-			$data['objgrupo'],
-			$idpessoa,
+			new Grupo($data['objgrupo']['id']),
+			new Pessoa($idpessoa),
 			stripslashes ( strip_tags( trim($data['descricao']) ) ),
 			stripslashes ( strip_tags( trim($data['febran']) ) )
 			);
@@ -109,7 +109,7 @@ function cadPessoa ($data) {
 function cadPF ($data, $idpessoa) {
 	$objPF = new PessoaFisica(
 			NULL,
-			$idpessoa,
+			new Pessoa($idpessoa),
 			stripslashes ( strip_tags( trim($data['pessoapf']['nome']) ) ),
 			stripslashes ( strip_tags( trim($data['pessoapf']['cpf']) ) ),
 			stripslashes ( strip_tags( trim($data['pessoapf']['nacionalidade']) ) ),
@@ -131,13 +131,13 @@ function cadPF ($data, $idpessoa) {
 function cadPJ ($data, $idpessoa) {
 	$objPJ = new PessoaJuridica(
 			NULL,
-			$idpessoa,
+			new Pessoa($idpessoa),
 			stripslashes ( strip_tags( trim($data['pessoapj']['razao']) ) ),
 			stripslashes ( strip_tags( trim($data['pessoapj']['cnpj']) ) ),
 			stripslashes ( strip_tags( trim($data['pessoapj']['nire']) ) ),
 			stripslashes ( strip_tags( trim($data['pessoapj']['inscestadual']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoapj']['inscmunicipal']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoapj']['representante']) ) )
+			stripslashes ( strip_tags( trim($data['pessoapj']['inscmunicipal']) ) )
+// 			stripslashes ( strip_tags( trim($data['pessoapj']['representante']) ) )
 			);
 	$pjControl = new PessoaJuridicaControl($objPJ);
 	return $pjControl->cadastrar();
@@ -152,8 +152,8 @@ function cadRepPJ ($data, $idpj) {
 		
 		$objRepPJ = new RepresentantePJ(
 				NULL,
-				$idpj,
-				$idpf,
+				new Pessoa($idpj),
+				new Pessoa($idpf),
 				stripslashes ( strip_tags( trim($key['funcao']) ) ),
 				stripslashes ( strip_tags( trim($key['representante']) ) )
 		);
