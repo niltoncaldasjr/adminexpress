@@ -34,7 +34,7 @@ Class PessoaFisicaDAO {
 				mysqli_real_escape_string($this->con, $obj->getDatanascimento()),
 				mysqli_real_escape_string($this->con, $obj->getEstadocivil()),
 				mysqli_real_escape_string($this->con, $obj->getNomeconjuge()),
-				mysqli_real_escape_string($this->con, $obj->getObjprofissao()),
+				mysqli_real_escape_string($this->con, $obj->getObjprofissao()->getId()),
 				mysqli_real_escape_string($this->con, $obj->getTipodoc()),
 				mysqli_real_escape_string($this->con, $obj->getNumerodoc()),
 				mysqli_real_escape_string($this->con, $obj->getOrgaodoc()),

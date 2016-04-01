@@ -15,13 +15,35 @@ angular.module('admin-express')
                 "grupo"         : {},
                 "grupopessoa"   : {},
                 "pessoa"        : {"tipo":""},
-                "pessoapf"      : {"sexo":"MASCULINO"},
+                "pessoapf"      : {"sexo":"MASCULINO", "datanascimento":moment(), "dataemissaodoc":moment()},
                 "pessoapj"      : {"representantes":[]},
                 "reppessoa"     : {},
-                "reppessoapf"   : {"sexo":"MASCULINO"}
+                "reppessoapf"   : {"sexo":"MASCULINO", "datanascimento":moment(), "dataemissaodoc":moment()}
             };
         }
         createScopes();
+
+
+        /*
+            Carrega Profissões
+        */
+        function carregaProfissoes () {
+        /* Consulta tipos de pessoa */
+            var dados = {'session': true, 'metodo': 'listar', 'data': null, 'class': 'profissao'};
+
+            genericAPI.generic(dados)
+            .then(function successCallback(response) {
+                if(response['data']){
+                    $rootScope.profissoes = response['data'];
+                    console.log(response['data']);
+                }else{
+                    alert('Ainda não existe este Grupo!');
+                }
+            }, function errorCallback(response) {
+            });
+        }
+
+        carregaProfissoes();
 
         /*
             Consulta o tipo de pessoa na tebale Grupo a partir do final da url
@@ -120,7 +142,7 @@ angular.module('admin-express')
             .then(function successCallback(response) {
                 if(response['data']){
                     console.log(response['data']);
-                    $scope.limparCampos();
+                    // $scope.limparCampos();
                     // listarorgao();
                 }else{
                 }
@@ -161,7 +183,8 @@ angular.module('admin-express')
             var modalInstance = $uibModal.open({
                 templateUrl: 'views/representantepj/cadRepresentantePJ.html',
                 controller: representanteCtrl,
-                size: 'lg'
+                size: 'lg',
+                backdrop: 'static'
             });
         }
 
@@ -169,7 +192,11 @@ angular.module('admin-express')
             Ctrl Representante Modal
         */
         function representanteCtrl ($scope, $uibModalInstance) {
+
             $scope.ok = function (objP, objPF) {
+                objPF.datanascimento = objPF.datanascimento.format('YYYY-MM-DD');
+                objPF.dataemissaodoc = objPF.dataemissaodoc.format('YYYY-MM-DD');
+           
                 // Adiciona obj pessoa ao atributo pessoa de PessoaFisica
                 objPF.pessoa = objP;
                 // Pega o scope representantes
@@ -180,7 +207,7 @@ angular.module('admin-express')
                 // reinicia obj reppessoa
                 $rootScope.gpes.reppessoa = {};
                 // reinicia obj reppessoapf
-                $rootScope.gpes.reppessoapf = {"sexo":"MASCULINO"}; 
+                $rootScope.gpes.reppessoapf = {"sexo":"MASCULINO", "datanascimento":moment(), "dataemissaodoc":moment()};
                 // fecha o modal
                 $uibModalInstance.close();
             };
@@ -202,7 +229,10 @@ angular.module('admin-express')
             Edita representante
         */
         $scope.editarRep = function (obj) {
+            // Abre o form modal
             $scope.addRepresentante();
+            obj.datanascimento = moment(obj.datanascimento);
+            obj.dataemissaodoc = moment(obj.dataemissaodoc);
             $rootScope.gpes.reppessoa = obj.pessoa;
             $rootScope.gpes.reppessoapf = obj;
         }

@@ -21,7 +21,7 @@ Class PessoaFisica implements JsonSerializable {
 	private $datanascimento;
 	private $estadocivil;
 	private $nomeconjuge;
-	private $objobjprofissao;
+	private $objprofissao;
 	private $tipodoc;
 	private $numerodoc;
 	private $orgaodoc;
@@ -35,25 +35,25 @@ Class PessoaFisica implements JsonSerializable {
 	/* Construtor */
 	public function __construct
 	(
-		$id						= NULL,
-		Pessoa $objpessoa		= NULL,
-		$nome					= NULL,
-		$cpf					= NULL,
-		$nacionalidade			= NULL,
-		$naturaldade 			= NULL,
-		$datanascimento			= NULL,
-		$estadocivil			= NULL,
-		$nomeconjuge			= NULL,
-		Objprofissao $objobjprofissao	= NULL,
-		$tipodoc				= NULL,
-		$numerodoc				= NULL,
-		$orgaodoc				= NULL,
-		$dataemissaodoc			= NULL,
-		$pai					= NULL,
-		$mae					= NULL,
-		$sexo					= NULL,
-		$datacadastro			= NULL,
-		$dataedicao 			= NULL
+		$id							= NULL,
+		Pessoa $objpessoa			= NULL,
+		$nome						= NULL,
+		$cpf						= NULL,
+		$nacionalidade				= NULL,
+		$naturaldade 				= NULL,
+		$datanascimento				= NULL,
+		$estadocivil				= NULL,
+		$nomeconjuge				= NULL,
+		Profissao $objprofissao		= NULL,
+		$tipodoc					= NULL,
+		$numerodoc					= NULL,
+		$orgaodoc					= NULL,
+		$dataemissaodoc				= NULL,
+		$pai						= NULL,
+		$mae						= NULL,
+		$sexo						= NULL,
+		$datacadastro				= NULL,
+		$dataedicao 				= NULL
 	)
 	{
 		$this->id					= $id;
@@ -65,7 +65,7 @@ Class PessoaFisica implements JsonSerializable {
 		$this->datanascimento		= $datanascimento;
 		$this->estadocivil			= $estadocivil;
 		$this->nomeconjuge 			= $nomeconjuge;
-		$this->objprofissao 			= $objprofissao;
+		$this->objprofissao 		= $objprofissao;
 		$this->tipodoc 				= $tipodoc;
 		$this->numerodoc 			= $numerodoc;
 		$this->orgaodoc 			= $orgaodoc;
@@ -229,7 +229,7 @@ Class PessoaFisica implements JsonSerializable {
 			"datanascimento"		=> $this->datanascimento,
 			"estadocivil"			=> $this->estadocivil,
 			"nomeconjuge"			=> $this->nomeconjuge,
-			"objprofissao"			=> $this->objprofissao,
+			"objprofissao"			=> $this->objprofissao->jsonSerialize(),
 			"tipodoc"				=> $this->tipodoc,
 			"numerodoc"				=> $this->numerodoc,
 			"orgaodoc" 				=> $this->orgaodoc,
