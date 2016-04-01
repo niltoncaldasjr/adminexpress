@@ -114,7 +114,6 @@ class PessoafisicaDAO extends PessoaDAO{
         parent::setCon($con);
     }
 
-
     public function cadastrarPessoaFisica(Pessoafisica $pf){
 
         $idP = self::cadastrarPessoa($pf->getTipo());
@@ -138,6 +137,7 @@ class PessoafisicaDAO extends PessoaDAO{
 
         }
     }
+
 }
 
 /**

@@ -150,24 +150,44 @@ class PessoaDAO{
     /**
                     ****************** METODO QUE AJUDA A LISTAR TODAS PESSOAS
      *              ****************** ESPECIFICANDO DADOS TANTO DE PF QUANTO PJ
-     * * @param $tipo
+     * * @param $p
      * @return array|null
      */
-    public function especificarTipo($tipo){
+    public function especificarTipo(Pessoa $p){
         $classe = null;
 
-        if($tipo == 'PJ') {
+        if($p->getTipo() == 'PJ') {
             $classe = 'pessoajuridica';
-        }else if($tipo == 'PF') {
+        }else if($p->getTipo() == 'PF') {
             $classe = 'pessoafisica';
         }
-
-        $this->sql = sprintf("SELECT * FROM $classe");
+        $id = $p->getId();
+        $this->sql = sprintf("SELECT * FROM $classe WHERE id = $id");
         $result = mysqli_query($this->con, $this->sql);
         while($row = mysqli_fetch_assoc($result)){
             $pessoa = $row;
         }
         return $pessoa;
+    }
+
+    public function buscarPessoaPorId(Pessoa $p){
+        $pf = array();
+        $pj = array();
+        $id = $p->getId();
+        $this->sql = sprintf("SELECT * FROM pessoa WHERE id = $id");
+        $result = mysqli_query($this->con, $this->sql);
+        while($row = mysqli_fetch_assoc($result)){
+            if($row['tipo'] == 'PJ'){
+                $p->setTipo('PJ');
+                $row['pj'] = self::especificarTipo($p);
+                $pj = $row;
+            }else if($row['tipo'] == 'PF'){
+                $p->setTipo('PF');
+                $row['pf'] = self::especificarTipo($p);
+                $pf = $row;
+            }
+        }
+        return array('pf' => $pf, 'pj' => $pj);
     }
 
     /**
@@ -184,9 +204,11 @@ class PessoaDAO{
         while($row = mysqli_fetch_assoc($result)){
 
             if($row['tipo'] == 'PJ'){
-               $pj[] = self::especificarTipo($row['tipo']);
+                $row['pj'] = self::especificarTipo(new Pessoa($row['id'], $row['tipo']));
+                $pj[] = $row;
             }else if($row['tipo'] == 'PF'){
-               $pf[] = self::especificarTipo($row['tipo']);
+                $row['pf'] = self::especificarTipo(new Pessoa($row['id'], $row['tipo']));
+                $pf[] = $row;
             }
         }
         return array('pf' => $pf, 'pj' => $pj);
@@ -211,5 +233,9 @@ class PessoaControl
 
     function listarPessoas(){
         return $this->dao->listarPessoas($this->obj);
+    }
+
+    function buscarPessoaPorId(){
+        return $this->dao->buscarPessoaPorId($this->obj);
     }
 }
