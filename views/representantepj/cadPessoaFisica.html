@@ -55,12 +55,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label class="label-control">Profissão</label>
-                <select class="form-control" id="profissao" name="profissao" placeholder="Profissao" ng-model="gpes.reppessoapf.profissao" ng-required="true">
-                    <option value>Selecione...</option>
-                    <option value="Pedreiro">Pedreiro</option>
-                    <option value="Desenvolvedor">Desenvolvedor</option>
-                    <option value="Militar">Militar</option>
-                    <option value="OUTROS">OUTROS</option>
+                <select class="form-control" id="profissao" name="profissao" placeholder="Profissao" ng-model="gpes.reppessoapf.profissao" ng-required="true" ng-options="prof as prof.descricao for prof in profissoes track by p.id">
                 </select>
             </div>
         </div>
