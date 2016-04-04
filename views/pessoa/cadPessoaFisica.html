@@ -25,6 +25,12 @@
         </div>
         <div class="col-md-3">
             <div class="form-group">
+                <label class="label-control">Naturalidade</label>
+                <input type="text" class="form-control" id="naturalidade" name="naturalidade" placeholder="Naturalidade" ng-model="gpes.pessoapf.naturalidade" ng-required="true">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
                 <label class="label-control">Data Nascimento</label>
                 <div class="form-group" id="data_1">
                     <div class="input-group date">
@@ -46,21 +52,11 @@
                 </select>
             </div>
         </div>
-        <div class="col-md-12">
-            <div class="form-group">
-                <label class="label-control">Nome Cônjuge</label>
-                <input type="text" class="form-control" id="nomeconjuge" name="nomeconjuge" placeholder="Nome Cônjuge" ng-model="gpes.pessoapf.nomeconjuge" ng-required="true">
-            </div>
-        </div>
         <div class="col-md-4">
             <div class="form-group">
                 <label class="label-control">Profissão</label>
-                <select class="form-control" id="profissao" name="profissao" placeholder="Profissao" ng-model="gpes.pessoapf.profissao" ng-required="true">
+                <select class="form-control" id="profissao" name="profissao" placeholder="Profissao" ng-model="gpes.pessoapf.profissao" ng-required="true" ng-options="prof as prof.descricao for prof in profissoes track by prof.id">
                     <option value>Selecione...</option>
-                    <option value="Pedreiro">Pedreiro</option>
-                    <option value="Desenvolvedor">Desenvolvedor</option>
-                    <option value="Militar">Militar</option>
-                    <option value="OUTROS">OUTROS</option>
                 </select>
             </div>
         </div>
@@ -71,6 +67,12 @@
                     <label> <input icheck type="radio" name="sexo" ng-model="gpes.pessoapf.sexo" checked="true" value="MASCULINO"> MASCULINO </label>
                     <label> <input icheck type="radio" name="sexo" ng-model="gpes.pessoapf.sexo" value="FEMININO"> FEMININO </label>
                 </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="label-control">Nome Cônjuge</label>
+                <input type="text" class="form-control" id="nomeconjuge" name="nomeconjuge" placeholder="Nome Cônjuge" ng-model="gpes.pessoapf.nomeconjuge" ng-required="true">
             </div>
         </div>
         <div class="col-md-12">

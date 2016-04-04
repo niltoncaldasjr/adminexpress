@@ -40,15 +40,14 @@ function cadastrar () {
 		$idpj = cadPJ($data['pessoapj'], $idpessoa);
 		cadRepPJ($data['pessoapj']['representantes'], $idpj);
 	}else{
-		cadPF($data, $idpessoa);
+		cadPF($data['pessoapf'], $idpessoa);
 	}
 	
 	$obj = new GrupoPessoa(
 			NULL,
-			new Grupo($data['objgrupo']['id']),
+			new Grupo($data['grupo']['id']),
 			new Pessoa($idpessoa),
-			stripslashes ( strip_tags( trim($data['descricao']) ) ),
-			stripslashes ( strip_tags( trim($data['febran']) ) )
+			stripslashes ( strip_tags( trim($data['grupopessoa']['informacao']) ) )
 			);
 	$control = new GrupoPessoaControl($obj);
 	$id = $control->cadastrar();
@@ -107,16 +106,18 @@ function cadPessoa ($pessoa) {
 	return $idpessoa;
 }
 function cadPF ($pf, $idpessoa) {
+	
 	$objPF = new PessoaFisica(
 			NULL,
 			new Pessoa($idpessoa),
 			stripslashes ( strip_tags( trim($pf['nome']) ) ),
 			stripslashes ( strip_tags( trim($pf['cpf']) ) ),
 			stripslashes ( strip_tags( trim($pf['nacionalidade']) ) ),
+			stripslashes ( strip_tags( trim($pf['naturalidade']) ) ),
 			stripslashes ( strip_tags( trim($pf['datanascimento']) ) ),
 			stripslashes ( strip_tags( trim($pf['estadocivil']) ) ),
 			stripslashes ( strip_tags( trim($pf['nomeconjuge']) ) ),
-			stripslashes ( strip_tags( trim($pf['profissao']) ) ),
+			new Profissao($pf['profissao']['id']),
 			stripslashes ( strip_tags( trim($pf['tipodoc']) ) ),
 			stripslashes ( strip_tags( trim($pf['numerodoc']) ) ),
 			stripslashes ( strip_tags( trim($pf['orgaodoc']) ) ),
