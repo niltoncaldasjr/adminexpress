@@ -24,8 +24,8 @@ Class PessoaFisicaDAO {
 	
 	/* Cadastrar */
 	function cadastrar (PessoaFisica $obj) {
-		$this->sql = sprintf("INSERT INTO pessoafisica (idpessoa, nome, cpf, nacionalidade, naturalidade, datanascimento, estadocivil, nomeconjuge, profissao, tipodoc, numerodoc, orgaodoc, dataemissaodoc, pai, mae, sexo)
-				VALUES(%d, '%s', '%s', '%s', '%s', '%s' , '%s', '%s' , '%s', '%s' , '%s', '%s', '%s', '%s', '%s', '%s')", 
+		$this->sql = sprintf("INSERT INTO pessoafisica (idpessoa, nome, cpf, nacionalidade, naturalidade, datanascimento, estadocivil, nomeconjuge, idprofissao, tipodoc, numerodoc, orgaodoc, dataemissaodoc, pai, mae, sexo)
+				VALUES(%d, '%s', '%s', '%s', '%s', '%s' , '%s', '%s' , %d, '%s' , '%s', '%s', '%s', '%s', '%s', '%s')", 
 				mysqli_real_escape_string($this->con, $obj->getObjpessoa()->getId()),
 				mysqli_real_escape_string($this->con, $obj->getNome()),
 				mysqli_real_escape_string($this->con, $obj->getCpf()),
@@ -34,7 +34,7 @@ Class PessoaFisicaDAO {
 				mysqli_real_escape_string($this->con, $obj->getDatanascimento()),
 				mysqli_real_escape_string($this->con, $obj->getEstadocivil()),
 				mysqli_real_escape_string($this->con, $obj->getNomeconjuge()),
-				mysqli_real_escape_string($this->con, $obj->getObjprofissao()),
+				mysqli_real_escape_string($this->con, $obj->getObjprofissao()->getId()),
 				mysqli_real_escape_string($this->con, $obj->getTipodoc()),
 				mysqli_real_escape_string($this->con, $obj->getNumerodoc()),
 				mysqli_real_escape_string($this->con, $obj->getOrgaodoc()),
@@ -51,7 +51,7 @@ Class PessoaFisicaDAO {
 	/* Atualizar */
 	function atualizar (PessoaFisica $obj) {
 		var_dump($obj->getId());
-		$this->sql = sprintf("UPDATE pessoafisica SET idpessoa = %d, nome = '%s', cpf = '%s', nacionalidade = '%s', naturalidade = '%s', datanascimento = '%s', estadocivil = '%s', nomeconjuge = '%s', profissao = '%s', tipodoc = '%s', numerodoc = '%s', orgaodoc = '%s', dataemissaodoc = '%s', pai = '%s', mae = '%s', sexo = '%s', dataedicao = '%s' WHERE id = %d", 
+		$this->sql = sprintf("UPDATE pessoafisica SET idpessoa = %d, nome = '%s', cpf = '%s', nacionalidade = '%s', naturalidade = '%s', datanascimento = '%s', estadocivil = '%s', nomeconjuge = '%s', idprofissao = %d, tipodoc = '%s', numerodoc = '%s', orgaodoc = '%s', dataemissaodoc = '%s', pai = '%s', mae = '%s', sexo = '%s', dataedicao = '%s' WHERE id = %d", 
 				mysqli_real_escape_string($this->con, $obj->getObjpessoa()),
 				mysqli_real_escape_string($this->con, $obj->getCpf()),
 				mysqli_real_escape_string($this->con, $obj->getNacionalidade()),
@@ -87,7 +87,7 @@ Class PessoaFisicaDAO {
 			$objPessoaControl = new PessoaControl(new Pessoa($row->idpesoa));
 			$objPessoa = $objPessoaControl->buscarPorId();
 			
-			$this->obj = new PessoaFisica($row->id, $objPessoa, $row->nome, $row->cpf, $row->nacionalidade, $row->naturalidade, $row->datanascimento, $row->estadocivil, $row->nomeconjuge, $row->profissao, $row->tipodoc, $row->numerodoc, $row->orgaodoc, $row->dataemissaodoc, $row->pai, $row->mae, $row->sexo, $row->datacadastro, $row->dataedicao);
+			$this->obj = new PessoaFisica($row->id, $objPessoa, $row->nome, $row->cpf, $row->nacionalidade, $row->naturalidade, $row->datanascimento, $row->estadocivil, $row->nomeconjuge, $row->idprofissao, $row->tipodoc, $row->numerodoc, $row->orgaodoc, $row->dataemissaodoc, $row->pai, $row->mae, $row->sexo, $row->datacadastro, $row->dataedicao);
 			
 			array_push($this->lista, $this->obj);
 		}
@@ -117,7 +117,7 @@ Class PessoaFisicaDAO {
 			$objPessoaControl = new PessoaControl(new Pessoa($row->idpesoa));
 			$objPessoa = $objPessoaControl->buscarPorId();
 			
-			$this->obj = new PessoaFisica($row->id, $objPessoa, $row->nome, $row->cpf, $row->nacionalidade, $row->naturalidade, $row->datanascimento, $row->estadocivil, $row->nomeconjuge, $row->profissao, $row->tipodoc, $row->numerodoc, $row->orgaodoc, $row->dataemissaodoc, $row->pai, $row->mae, $row->sexo, $row->datacadastro, $row->dataedicao);
+			$this->obj = new PessoaFisica($row->id, $objPessoa, $row->nome, $row->cpf, $row->nacionalidade, $row->naturalidade, $row->datanascimento, $row->estadocivil, $row->nomeconjuge, $row->idprofissao, $row->tipodoc, $row->numerodoc, $row->orgaodoc, $row->dataemissaodoc, $row->pai, $row->mae, $row->sexo, $row->datacadastro, $row->dataedicao);
 		}
 		return $this->obj;
 	}

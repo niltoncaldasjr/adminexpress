@@ -7,7 +7,7 @@
  	Desenvolverdor: Fabiano Ferreira da Silva Costa
  	Desenvolverdor: Adelson Guimarães Monteiro.
  	Data de início: 08/03/2016.
- 	Data Atual: 08/03/2016. 
+ 	Data Atual: 01/03/2016. 
 */
 
 /* Metodo requisitado */
@@ -34,21 +34,20 @@ function cadastrar () {
 	
 	$data = $_POST['data'];
 	
-	$idpessoa = cadPessoa($data);
+	$idpessoa = cadPessoa($data['pessoa']);
 	
 	if($data['grupo']['tipo']=='PJ') {
-		$idpj = cadPJ($data, $idpessoa);
-		cadRepPJ($data, $idpj);
+		$idpj = cadPJ($data['pessoapj'], $idpessoa);
+		cadRepPJ($data['pessoapj']['representantes'], $idpj);
 	}else{
-		cadPF($data, $idpessoa);
+		cadPF($data['pessoapf'], $idpessoa);
 	}
 	
 	$obj = new GrupoPessoa(
 			NULL,
-			new Grupo($data['objgrupo']['id']),
+			new Grupo($data['grupo']['id']),
 			new Pessoa($idpessoa),
-			stripslashes ( strip_tags( trim($data['descricao']) ) ),
-			stripslashes ( strip_tags( trim($data['febran']) ) )
+			stripslashes ( strip_tags( trim($data['grupopessoa']['informacao']) ) )
 			);
 	$control = new GrupoPessoaControl($obj);
 	$id = $control->cadastrar();
@@ -86,69 +85,69 @@ function buscarPorId () {
 /*
 	Cadastros das classes Pessoa
 */
-function cadPessoa ($data) {
+function cadPessoa ($pessoa) {
 	$objPessoa = new Pessoa(
 			NULL,
-			stripslashes ( strip_tags( trim($data['pessoa']['CEP']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoa']['endereco']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoa']['endereco']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoa']['numero']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoa']['complemento']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoa']['bairro']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoa']['telefone']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoa']['fax']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoa']['celular']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoa']['email1']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoa']['email2']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoa']['site']) ) )
+			stripslashes ( strip_tags( trim($pessoa['CEP']) ) ),
+			stripslashes ( strip_tags( trim($pessoa['endereco']) ) ),
+			stripslashes ( strip_tags( trim($pessoa['endereco']) ) ),
+			stripslashes ( strip_tags( trim($pessoa['numero']) ) ),
+			stripslashes ( strip_tags( trim($pessoa['complemento']) ) ),
+			stripslashes ( strip_tags( trim($pessoa['bairro']) ) ),
+			stripslashes ( strip_tags( trim($pessoa['telefone']) ) ),
+			stripslashes ( strip_tags( trim($pessoa['fax']) ) ),
+			stripslashes ( strip_tags( trim($pessoa['celular']) ) ),
+			stripslashes ( strip_tags( trim($pessoa['email1']) ) ),
+			stripslashes ( strip_tags( trim($pessoa['email2']) ) ),
+			stripslashes ( strip_tags( trim($pessoa['site']) ) )
 	);
 	$pessoaControl = new PessoaControl($objPessoa);
 	$idpessoa = $pessoaControl->cadastrar();
 	return $idpessoa;
 }
-function cadPF ($data, $idpessoa) {
+function cadPF ($pf, $idpessoa) {
+	
 	$objPF = new PessoaFisica(
 			NULL,
 			new Pessoa($idpessoa),
-			stripslashes ( strip_tags( trim($data['pessoapf']['nome']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoapf']['cpf']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoapf']['nacionalidade']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoapf']['datanascimento']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoapf']['estadocivil']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoapf']['nomeconjuge']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoapf']['profissao']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoapf']['tipodoc']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoapf']['numerodoc']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoapf']['orgaodoc']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoapf']['dataemissaodoc']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoapf']['pai']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoapf']['mae']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoapf']['sexo']) ) )
+			stripslashes ( strip_tags( trim($pf['nome']) ) ),
+			stripslashes ( strip_tags( trim($pf['cpf']) ) ),
+			stripslashes ( strip_tags( trim($pf['nacionalidade']) ) ),
+			stripslashes ( strip_tags( trim($pf['naturalidade']) ) ),
+			stripslashes ( strip_tags( trim($pf['datanascimento']) ) ),
+			stripslashes ( strip_tags( trim($pf['estadocivil']) ) ),
+			stripslashes ( strip_tags( trim($pf['nomeconjuge']) ) ),
+			new Profissao($pf['profissao']['id']),
+			stripslashes ( strip_tags( trim($pf['tipodoc']) ) ),
+			stripslashes ( strip_tags( trim($pf['numerodoc']) ) ),
+			stripslashes ( strip_tags( trim($pf['orgaodoc']) ) ),
+			stripslashes ( strip_tags( trim($pf['dataemissaodoc']) ) ),
+			stripslashes ( strip_tags( trim($pf['pai']) ) ),
+			stripslashes ( strip_tags( trim($pf['mae']) ) ),
+			stripslashes ( strip_tags( trim($pf['sexo']) ) )
 	);
 	$pfControl = new PessoaFisicaControl($objPF);
 	return $pfControl->cadastrar();
 }
-function cadPJ ($data, $idpessoa) {
+function cadPJ ($pj, $idpessoa) {
 	$objPJ = new PessoaJuridica(
 			NULL,
 			new Pessoa($idpessoa),
-			stripslashes ( strip_tags( trim($data['pessoapj']['razao']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoapj']['cnpj']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoapj']['nire']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoapj']['inscestadual']) ) ),
-			stripslashes ( strip_tags( trim($data['pessoapj']['inscmunicipal']) ) )
+			stripslashes ( strip_tags( trim($pj['razao']) ) ),
+			stripslashes ( strip_tags( trim($pj['cnpj']) ) ),
+			stripslashes ( strip_tags( trim($pj['nire']) ) ),
+			stripslashes ( strip_tags( trim($pj['inscestadual']) ) ),
+			stripslashes ( strip_tags( trim($pj['inscmunicipal']) ) )
 // 			stripslashes ( strip_tags( trim($data['pessoapj']['representante']) ) )
 			);
 	$pjControl = new PessoaJuridicaControl($objPJ);
 	return $pjControl->cadastrar();
 }
-function cadRepPJ ($data, $idpj) {
-	
-	$reps = $data['pessoapj']['representantes'];
+function cadRepPJ ($reps, $idpj) {
 	
 	foreach ($reps as $key) {
-		$idpessoa = cadPessoa($data);
-		$idpf = cadPF ($data, $idpessoa);
+		$idpessoa = cadPessoa($key['pessoa']);
+		$idpf = cadPF ($key, $idpessoa);
 		
 		$objRepPJ = new RepresentantePJ(
 				NULL,
@@ -158,7 +157,7 @@ function cadRepPJ ($data, $idpj) {
 				stripslashes ( strip_tags( trim($key['representante']) ) )
 		);
 		$repControl = new RepresentantePJControl($objRepPJ);
-		$repControl->cadastrar();
+		echo $repControl->cadastrar();
 	}
 }
 
