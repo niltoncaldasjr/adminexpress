@@ -36,36 +36,6 @@ CREATE TABLE `pessoa` (
 # Structure for table "pessoafisica"
 #
 
-DROP TABLE IF EXISTS `pessoafisica`;
-CREATE TABLE `pessoafisica` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `idpessoa` int(11) DEFAULT NULL,
-  `nome` varchar(100) DEFAULT NULL,
-  `cpf` varchar(15) DEFAULT NULL,
-  `nacionalidade` varchar(100) DEFAULT NULL,
-  `datanascimento` timestamp NULL DEFAULT NULL,
-  `estadocivil` enum('SOLTEIRO','CASADO','VIUVO','DIVORCIADO') DEFAULT NULL,
-  `nomeconjuge` varchar(100) DEFAULT NULL,
-  `profissao` int(11) DEFAULT NULL,
-  `tipodoc` enum('RG',' CNH',' OAB',' OUTROS') DEFAULT NULL,
-  `numerodoc` varchar(30) DEFAULT NULL,
-  `orgaodoc` varchar(60) DEFAULT NULL,
-  `dataemissaodoc` timestamp NULL DEFAULT NULL,
-  `pai` varchar(100) DEFAULT NULL,
-  `mae` varchar(100) DEFAULT NULL,
-  `sexo` enum('MASCULINO','FEMININO') DEFAULT NULL,
-  `datacadastro` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `dataedicao` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idpessoa` (`idpessoa`),
-  CONSTRAINT `pessoafisica_ibfk_1` FOREIGN KEY (`idpessoa`) REFERENCES `pessoa` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-#
-# Data for table "pessoafisica"
-#
-
-
 #
 # Structure for table "pessoajuridica"
 #
