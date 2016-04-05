@@ -18,7 +18,8 @@ angular.module('admin-express')
                 "pessoapf"      : {"sexo":"MASCULINO", "datanascimento":moment(), "dataemissaodoc":moment()},
                 "pessoapj"      : {"representantes":[]},
                 "reppessoa"     : {},
-                "reppessoapf"   : {"sexo":"MASCULINO", "datanascimento":moment(), "dataemissaodoc":moment()}
+                "reppessoapf"   : {"sexo":"MASCULINO", "datanascimento":moment(), "dataemissaodoc":moment()},
+                "rep"           : {"representante":"SIM"}
             };
         }
         createScopes();
@@ -193,12 +194,14 @@ angular.module('admin-express')
         */
         function representanteCtrl ($scope, $uibModalInstance) {
 
-            $scope.ok = function (objP, objPF) {
+            $scope.ok = function (objP, objPF, objRep) {
                 objPF.datanascimento = objPF.datanascimento.format('YYYY-MM-DD');
                 objPF.dataemissaodoc = objPF.dataemissaodoc.format('YYYY-MM-DD');
            
                 // Adiciona obj pessoa ao atributo pessoa de PessoaFisica
                 objPF.pessoa = objP;
+                // Adiciona obj representante a pessoa
+                objPF.rep = objRep;
                 // Pega o scope representantes
                 var reps = $rootScope.gpes.pessoapj.representantes;
                 // verifica se é uma edição ou atuaçização
@@ -208,6 +211,8 @@ angular.module('admin-express')
                 $rootScope.gpes.reppessoa = {};
                 // reinicia obj reppessoapf
                 $rootScope.gpes.reppessoapf = {"sexo":"MASCULINO", "datanascimento":moment(), "dataemissaodoc":moment()};
+                // reinicia o obj rep
+                $rootScope.gpes.rep = {"representante":"SIM"};
                 // fecha o modal
                 $uibModalInstance.close();
             };
@@ -233,7 +238,11 @@ angular.module('admin-express')
             $scope.addRepresentante();
             obj.datanascimento = moment(obj.datanascimento);
             obj.dataemissaodoc = moment(obj.dataemissaodoc);
+            // Obj pessoa
             $rootScope.gpes.reppessoa = obj.pessoa;
+            // Obj rep
+            $rootScope.gpes.rep = obj.rep;
+            // Obj pessoa fisica
             $rootScope.gpes.reppessoapf = obj;
         }
 

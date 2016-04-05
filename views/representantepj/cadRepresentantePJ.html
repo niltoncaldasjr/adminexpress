@@ -10,11 +10,38 @@
             <div class="col-md-12" ng-include="'views/representantepj/cadPessoaFisica.html'"></div>
             <!-- Form Pessoa -->
             <div class="col-md-12" ng-include="'views/representantepj/cadPessoa.html'"></div>
+            <!-- Form RepPJ Pessoa -->
+            <div class="col-md-12">
+                <h3>Informaçoões de Representante</h3>
+                <div class="hr-line-dashed"></div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="label-control">Função</label>
+                            <select class="form-control" id="funcao" name="funcao" ng-model="gpes.rep.funcao" ng-required="true">
+                                <option value>Selecione...</option>
+                                <option value="PRESIDENTE">PRESIDENTE</option>
+                                <option value="SOCIO">SÓCIO</option>
+                                <option value="GERENTE">GERENTE</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="label-control">Representante</label>
+                            <div>
+                                <label> <input icheck type="radio" name="representante" ng-model="gpes.rep.representante" checked="true" value="SIM"> SIM </label>
+                                <label> <input icheck type="radio" name="representante" ng-model="gpes.rep.representante" value="NAO"> NÃO </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-white" ng-click="cancel()">Cancelar</button>
-        <button type="button" class="btn btn-primary" ng-click="ok(gpes.reppessoa,gpes.reppessoapf)">Salvar</button>
+        <button type="button" class="btn btn-primary" ng-click="ok(gpes.reppessoa,gpes.reppessoapf,gpes.rep)">Salvar</button>
     </div>
 </div>
 

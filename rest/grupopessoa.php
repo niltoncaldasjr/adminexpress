@@ -127,7 +127,8 @@ function cadPF ($pf, $idpessoa) {
 			stripslashes ( strip_tags( trim($pf['sexo']) ) )
 	);
 	$pfControl = new PessoaFisicaControl($objPF);
-	return $pfControl->cadastrar();
+	$pfControl->cadastrar();
+	return $idpessoa;
 }
 function cadPJ ($pj, $idpessoa) {
 	$objPJ = new PessoaJuridica(
@@ -141,7 +142,8 @@ function cadPJ ($pj, $idpessoa) {
 // 			stripslashes ( strip_tags( trim($data['pessoapj']['representante']) ) )
 			);
 	$pjControl = new PessoaJuridicaControl($objPJ);
-	return $pjControl->cadastrar();
+	$pjControl->cadastrar();
+	return $idpessoa;
 }
 function cadRepPJ ($reps, $idpj) {
 	
@@ -153,11 +155,11 @@ function cadRepPJ ($reps, $idpj) {
 				NULL,
 				new Pessoa($idpj),
 				new Pessoa($idpf),
-				stripslashes ( strip_tags( trim($key['funcao']) ) ),
-				stripslashes ( strip_tags( trim($key['representante']) ) )
+				stripslashes ( strip_tags( trim($key['rep']['funcao']) ) ),
+				stripslashes ( strip_tags( trim($key['rep']['representante']) ) )
 		);
 		$repControl = new RepresentantePJControl($objRepPJ);
-		echo $repControl->cadastrar();
+		return $repControl->cadastrar();
 	}
 }
 
