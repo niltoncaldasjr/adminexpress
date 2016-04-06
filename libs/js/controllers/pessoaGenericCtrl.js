@@ -36,7 +36,6 @@ angular.module('admin-express')
             .then(function successCallback(response) {
                 if(response['data']){
                     $rootScope.profissoes = response['data'];
-                    console.log(response['data']);
                 }else{
                     alert('Ainda não existe este Grupo!');
                 }
@@ -65,6 +64,9 @@ angular.module('admin-express')
                     /* Variável que diz o se é PJ ou PF */
                     if(response['data']['tipo'] === 'AMBOS') {$rootScope.gpes.pessoa.tipo = 'PF';}
                     else {$rootScope.gpes.pessoa.tipo = tipo;}
+
+                    listaGrupoPessoa(response['data']);
+
                 }else{
                     alert('Ainda não existe este Grupo!');
                 }
@@ -73,6 +75,26 @@ angular.module('admin-express')
         }
 
         consultaTipoPessoaGrupo();
+
+        /*
+            Consulta grupospessoa
+        */
+        function listaGrupoPessoa (obj) {
+            /* Consulta tipos de pessoa */
+            var dados = {'session': true, 'metodo': 'listarPorGrupo', 'data': obj, 'class': 'grupopessoa'};
+
+            genericAPI.generic(dados)
+            .then(function successCallback(response) {
+                if(response['data']){
+                    $scope.grupoPF = response['data']['grupoPF'];
+                    $scope.grupoPJ = response['data']['grupoPJ'];
+                }else{
+                }
+            }, function errorCallback(response) {
+            });
+        }
+
+        
 
         /**
          * Funcao de alert para confirmar
@@ -152,7 +174,12 @@ angular.module('admin-express')
         };
 
         $scope.editar = function(obj){
-            // $scope.generic = obj;
+            console.log(obj);
+            $rootScope.gpes.grupopessoa = obj;
+            // $rootScope.gpes.pessoa = obj.pes.objpessoa;
+            // $rootScope.gpes.pessoapf = obj.pes;
+            // $rootScope.gpes.pessoapj = obj.pes;
+            // $rootScope.gpes.pessoapj.representantes = obj.representantes;
         };
 
         $scope.deletar = function(obj){
@@ -160,23 +187,7 @@ angular.module('admin-express')
             confirmaDelete(obj);
         };
 
-        var listar = function(){
-
-            var dados = {'metodo': 'listar', 'data': null, 'class': 'orgao'};
-
-            genericAPI.generic(dados)
-                .then(function successCallback(response) {
-                    if(response['data']){
-                        $scope.orgaos = response['data'];
-                    }else{
-                    }
-                }, function errorCallback(response) {
-                });
-        };
-
-        // listarorgao();
         
-
         /*
             Adiciona Representante Modal
         */

@@ -58,6 +58,7 @@ Class GrupoPessoaDAO {
 		if(!$resultSet) {
 			die('[ERRO]: Class(GrupoPessoa) | Metodo(Listar) | Erro('.mysqli_error($this->con).')');
 		}
+		$grupoPF = array(); $grupoPJ = array();
 		while($row = mysqli_fetch_object($resultSet)) {
 			$grupoControl = new GrupoControl(new Grupo($row->idgrupo));
 			$objGrupo = $grupoControl->buscarPorId();
@@ -65,10 +66,63 @@ Class GrupoPessoaDAO {
 			$pessoaControl = new PessoaControl(new Pessoa($row->idpessoa));
 			$objPessoa = $pessoaControl->buscarPorId();
 			
-			$this->obj = new GrupoPessoa($row->id, $objGrupo, $objPessoa, $row->informacao, $row->datacadastro, $row->dataedicao);
-			array_push($this->lista, $this->obj);
+			if($objGrupo->getTipo() == 'PF') {
+				$objPF = new Pessoafisica(); $objPF->setObjpessoa($objPessoa);
+				$pfControl = new PessoaFisicaControl($objPF);
+				$objPF = $pfControl->buscaPorPessoa();
+				$row->pf = $objPF;
+				array_push($grupoPF, $row);
+			}else{
+				$objPJ = new PessoaJuridica(); $objPJ->setObjpessoa($objPessoa);
+				$pjControl = new PessoaJuridicaControl($objPJ);
+				$objPJ = $pjControl->buscarPorPessoa();
+				
+				$objRep = new RepresentantePJ(); $objRep->setObjpessoapj($objPJ);
+				$repControl = new RepresentantePJControl($objRep);
+				$listaRep = $repControl->listarPorPJ();
+				$row->pj = $objPJ;
+				$row->representantes = $listaRep;
+				array_push($grupoPJ, $row);
+			}
 		}
-		return $this->lista;
+		return array('grupoPF'=>$grupoPF,'grupoPJ'=>$grupoPJ);
+	}
+	
+	/* Listar por Grupo */
+	function listarPorGrupo (GrupoPessoa $obj) {
+		$this->sql = sprintf("SELECT * FROM grupopessoa WHERE idgrupo = %d",
+				mysqli_real_escape_string($this->con, $obj->getObjgrupo()->getId()));
+		$resultSet = mysqli_query($this->con, $this->sql);
+		if(!$resultSet) {
+			die('[ERRO]: Class(GrupoPessoa) | Metodo(Listar) | Erro('.mysqli_error($this->con).')');
+		}
+		$grupoPF = array(); $grupoPJ = array();
+		while($row = mysqli_fetch_object($resultSet)) {
+			$pessoaControl = new PessoaControl(new Pessoa($row->idpessoa));
+			$objPessoa = $pessoaControl->buscarPorId();
+			
+			// busca em pessoa
+			$objPF = new Pessoafisica(); $objPF->setObjpessoa($objPessoa);
+			$pfControl = new PessoaFisicaControl($objPF);
+			$objPF = $pfControl->buscarPorPessoa();
+			
+			if($objPF) {
+				$row->pes = $objPF;
+				array_push($grupoPF, $row);
+			}else{
+				$objPJ = new PessoaJuridica(); $objPJ->setObjpessoa($objPessoa);
+				$pjControl = new PessoaJuridicaControl($objPJ);
+				$objPJ = $pjControl->buscarPorPessoa();
+					
+				$objRep = new RepresentantePJ(); $objRep->setObjpessoapj($objPJ);
+				$repControl = new RepresentantePJControl($objRep);
+				$listaRep = $repControl->listarPorPJ();
+				$row->pes = $objPJ;
+				$row->representantes = $listaRep;
+				array_push($grupoPJ, $row);
+			}
+		}
+		return array('grupoPF'=>$grupoPF,'grupoPJ'=>$grupoPJ);
 	}
 	
 	/* Deletar */

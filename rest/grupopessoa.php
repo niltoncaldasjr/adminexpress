@@ -21,6 +21,9 @@ switch ($_POST['metodo']) {
 	case 'listar':
 		listar();
 		break;
+	case 'listarPorGrupo':
+		listarPorGrupo();
+		break;
 	case 'deletar':
 		deletar();
 		break;
@@ -67,6 +70,15 @@ function atualizar () {
 function listar () {
 	$control = new GrupoPessoaControl();
 	$lista = $control->listar();
+	if(!empty($lista)) {
+		echo json_encode($lista);
+	}
+}
+function listarPorGrupo () {
+	$data = $_POST['data'];
+	$obj = new GrupoPessoa(); $obj->setObjgrupo(new Grupo($data['id']));
+	$control = new GrupoPessoaControl($obj);
+	$lista = $control->listarPorGrupo();
 	if(!empty($lista)) {
 		echo json_encode($lista);
 	}

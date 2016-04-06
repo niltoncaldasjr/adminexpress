@@ -39,6 +39,9 @@ class PessoaFisicaControl {
 	function buscarPorId () {
 		return $this->objDAO->buscarPorId($this->obj);
 	}
+	function buscarPorPessoa () {
+		return $this->objDAO->buscarPorPessoa($this->obj);
+	}
 }
 
 ?>

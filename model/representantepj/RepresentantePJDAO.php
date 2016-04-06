@@ -73,6 +73,29 @@ Class RepresentantePJDAO {
 		return $this->lista;
 	}
 	
+	/* Listar por PJ*/
+	function listarPorPJ (RepresentantePJ $obj) {
+		$this->sql = sprintf("SELECT * FROM representantepj WHERE idpessoapj = %d",
+				mysqli_real_escape_string($this->con, $obj->getObjpessoapj()->getId()));
+		$resultSet = mysqli_query($this->con, $this->sql);
+		if(!$resultSet) {
+			die('[ERRO]: Class(RepresentantePJ) | Metodo(Listar) | Erro('.mysqli_error($this->con).')');
+		}
+		while($row = mysqli_fetch_object($resultSet)) {
+			$pessoaPJControl = new PessoaControl(new Pessoa($row->idpessoapj));
+			$objPJ = $pessoaPJControl->buscarPorId();
+				
+			$pessoaPFControl = new PessoaControl(new Pessoa($row->idpessoapf));
+			$objPF = $pessoaPFControl->buscarPFPorId();
+			
+			$row->idpessoapj = $objPJ;
+			$row->pf = $objPF;
+			
+			array_push($this->lista, $row);
+		}
+		return $this->lista;
+	}
+	
 	/* Deletar */
 	function deletar (RepresentantePJ $obj) {
 		$this->sql = sprintf("DELETE FROM representantepj WHERE id = %d",

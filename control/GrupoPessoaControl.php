@@ -33,6 +33,9 @@ class GrupoPessoaControl {
 	function listar () {
 		return $this->objDAO->listar();
 	}
+	function listarPorGrupo () {
+		return $this->objDAO->listarPorGrupo($this->obj);
+	}
 	function deletar () {
 		return $this->objDAO->deletar($this->obj);
 	}

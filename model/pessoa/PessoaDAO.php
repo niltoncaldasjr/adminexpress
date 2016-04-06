@@ -105,6 +105,38 @@ Class PessoaDAO {
 		}
 		return $this->obj;
 	}
+	
+	/* Buscar por ID Pessoa Fisica */
+	function buscarPFPorId (Pessoa $obj) {
+		$this->sql = sprintf("SELECT * FROM pessoa WHERE id = %d",
+				mysqli_real_escape_string($this->con, $obj->getId()));
+		$resultSet = mysqli_query($this->con, $this->sql);
+		if(!$resultSet) {
+			die('[ERRO]: Class('.get_class($obj).') | Metodo(buscarPorId) | Erro('.mysqli_error($this->con).')');
+		}
+		while($row = mysqli_fetch_object($resultSet)) {
+			$objPF = new PessoaFisica(); $objPF->setObjpessoa(new Pessoa($row->id));
+			$pfControl = new PessoaFisicaControl($objPF);
+			$this->obj = $pfControl->buscarPorPessoa();
+		}
+		return $this->obj;
+	}
+	
+	/* Buscar por ID Pessoa Juridica */
+	function buscarPJPorId (Pessoa $obj) {
+		$this->sql = sprintf("SELECT * FROM pessoa WHERE id = %d",
+				mysqli_real_escape_string($this->con, $obj->getId()));
+		$resultSet = mysqli_query($this->con, $this->sql);
+		if(!$resultSet) {
+			die('[ERRO]: Class('.get_class($obj).') | Metodo(buscarPorId) | Erro('.mysqli_error($this->con).')');
+		}
+		while($row = mysqli_fetch_object($resultSet)) {
+			$objPJ = new PessoaJuridica(); $objPJ->setObjpessoa(new Pessoa($row->id));
+			$pjControl = new PessoaFisicaControl($objPJ);
+			$this->obj = $pjControl->buscarPorPessoa();
+		}
+		return $this->obj;
+	}
 }
 
 ?>

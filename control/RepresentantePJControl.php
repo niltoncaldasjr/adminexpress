@@ -33,10 +33,13 @@ class RepresentantePJControl {
 	function listar () {
 		return $this->objDAO->listar();
 	}
+	function listarPorPJ () {
+		return $this->objDAO->listarPorPJ($this->obj);
+	}
 	function deletar () {
 		return $this->objDAO->deletar($this->obj);
 	}
-function buscarPorId () {
+	function buscarPorId () {
 		return $this->objDAO->buscarPorId($this->obj);
 	}
 }

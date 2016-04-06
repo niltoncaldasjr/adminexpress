@@ -39,6 +39,12 @@ class PessoaControl {
 	function buscarPorId () {
 		return $this->objDAO->buscarPorId($this->obj);
 	}
+	function buscarPFPorId () {
+		return $this->objDAO->buscarPFPorId($this->obj);
+	}
+	function buscarPJPorId () {
+		return $this->objDAO->buscarPJPorId($this->obj);
+	}
 }
 
 ?>

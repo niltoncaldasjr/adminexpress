@@ -114,10 +114,33 @@ Class PessoaFisicaDAO {
 			die('[ERRO]: Class('.get_class($obj).') | Metodo(buscarPorId) | Erro('.mysqli_error($this->con).')');
 		}
 		while($row = mysqli_fetch_object($resultSet)) {
-			$objPessoaControl = new PessoaControl(new Pessoa($row->idpesoa));
+			$objPessoaControl = new PessoaControl(new Pessoa($row->idpessoa));
 			$objPessoa = $objPessoaControl->buscarPorId();
 			
-			$this->obj = new PessoaFisica($row->id, $objPessoa, $row->nome, $row->cpf, $row->nacionalidade, $row->naturalidade, $row->datanascimento, $row->estadocivil, $row->nomeconjuge, $row->idprofissao, $row->tipodoc, $row->numerodoc, $row->orgaodoc, $row->dataemissaodoc, $row->pai, $row->mae, $row->sexo, $row->datacadastro, $row->dataedicao);
+			$profissaoControl = new ProfissaoControl(new Profissao($row->idprofissao));
+			$objProfissao = $profissaoControl->buscarPorId();
+			
+			$this->obj = new PessoaFisica($row->id, $objPessoa, $row->nome, $row->cpf, $row->nacionalidade, $row->naturalidade, $row->datanascimento, $row->estadocivil, $row->nomeconjuge, $objProfissao, $row->tipodoc, $row->numerodoc, $row->orgaodoc, $row->dataemissaodoc, $row->pai, $row->mae, $row->sexo, $row->datacadastro, $row->dataedicao);
+		}
+		return $this->obj;
+	}
+	
+	/* Buscar por Pessoa */
+	function buscarPorPessoa (PessoaFisica $obj) {
+		$this->sql = sprintf("SELECT * FROM pessoafisica WHERE idpessoa = %d",
+				mysqli_real_escape_string($this->con, $obj->getObjpessoa()->getId()));
+		$resultSet = mysqli_query($this->con, $this->sql);
+		if(!$resultSet) {
+			die('[ERRO]: Class('.get_class($obj).') | Metodo(buscarPorId) | Erro('.mysqli_error($this->con).')');
+		}
+		while($row = mysqli_fetch_object($resultSet)) {
+			$objPessoaControl = new PessoaControl(new Pessoa($row->idpessoa));
+			$objPessoa = $objPessoaControl->buscarPorId();
+				
+			$profissaoControl = new ProfissaoControl(new Profissao($row->idprofissao));
+			$objProfissao = $profissaoControl->buscarPorId();
+				
+			$this->obj = new PessoaFisica($row->id, $objPessoa, $row->nome, $row->cpf, $row->nacionalidade, $row->naturalidade, $row->datanascimento, $row->estadocivil, $row->nomeconjuge, $objProfissao, $row->tipodoc, $row->numerodoc, $row->orgaodoc, $row->dataemissaodoc, $row->pai, $row->mae, $row->sexo, $row->datacadastro, $row->dataedicao);
 		}
 		return $this->obj;
 	}
