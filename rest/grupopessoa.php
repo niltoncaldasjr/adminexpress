@@ -98,6 +98,9 @@ function buscarPorId () {
 	Cadastros das classes Pessoa
 */
 function cadPessoa ($pessoa) {
+	
+	if(empty($pessoa['tipo'])) $pessoa['tipo'] = 'PF';
+	
 	$objPessoa = new Pessoa(
 			NULL,
 			stripslashes ( strip_tags( trim($pessoa['CEP']) ) ),
@@ -161,7 +164,7 @@ function cadPJ ($pj, $idpessoa) {
 function cadRepPJ ($reps, $idpj) {
 	
 	foreach ($reps as $rep) {
-		$idpessoa = cadPessoa($rep['pf']['pessoa']);
+		$idpessoa = cadPessoa($rep['pf']['objpessoa']);
 		$idpf = cadPF ($rep['pf'], $idpessoa);
 		
 		$objRepPJ = new RepresentantePJ(

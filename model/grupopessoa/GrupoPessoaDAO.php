@@ -117,6 +117,7 @@ Class GrupoPessoaDAO {
 				$objRep = new RepresentantePJ(); $objRep->setObjpessoapj($objPJ);
 				$repControl = new RepresentantePJControl($objRep);
 				$listaRep = $repControl->listarPorPJ();
+// 				echo $objPJ->getId().' - '.$listaRep[0]->idpessoapf.'<br/>';
 				$row->pes = $objPJ;
 				$row->representantes = $listaRep;
 				array_push($grupoPJ, $row);

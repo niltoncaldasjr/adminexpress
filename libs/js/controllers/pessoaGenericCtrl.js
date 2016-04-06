@@ -148,31 +148,31 @@ angular.module('admin-express')
             // Caso seja um tipo PJ verificamos se há representantes
             console.log(obj);
 
-            // if(obj.pessoa.tipo === 'PJ') {
-            //     if(obj.pessoapj.representantes.length<=0) {
-            //         alert('Cadastre pelomenos 1 representante');
-            //         return false;
-            //     }
-            // }
+            if(obj.pessoa.tipo === 'PJ') {
+                if(obj.pessoapj.representantes.length<=0) {
+                    alert('Cadastre pelomenos 1 representante');
+                    return false;
+                }
+            }
 
-            // var dados;
+            var dados;
             
-            // if(obj.grupopessoa.id === undefined){
-            //     var dados = {'session': true, 'metodo': 'cadastrar', 'data': obj, 'class': 'grupopessoa'};
-            // }else{
-            //     var dados = {'session': true, 'metodo': 'atualizar', 'data': obj, 'class': 'grupopessoa'};
-            // }
+            if(obj.grupopessoa.id === undefined){
+                var dados = {'session': true, 'metodo': 'cadastrar', 'data': obj, 'class': 'grupopessoa'};
+            }else{
+                var dados = {'session': true, 'metodo': 'atualizar', 'data': obj, 'class': 'grupopessoa'};
+            }
 
-            // genericAPI.generic(dados)
-            // .then(function successCallback(response) {
-            //     if(response['data']){
-            //         console.log(response['data']);
-            //         // $scope.limparCampos();
-            //         // listarorgao();
-            //     }else{
-            //     }
-            // }, function errorCallback(response) {
-            // });
+            genericAPI.generic(dados)
+            .then(function successCallback(response) {
+                if(response['data']){
+                    console.log(response['data']);
+                    // $scope.limparCampos();
+                    // listarorgao();
+                }else{
+                }
+            }, function errorCallback(response) {
+            });
         };
 
         $scope.editar = function(obj){
@@ -210,7 +210,7 @@ angular.module('admin-express')
             $scope.ok = function (objP, objPF, objRep) {
                 objPF.datanascimento = objPF.datanascimento.format('YYYY-MM-DD');
                 objPF.dataemissaodoc = objPF.dataemissaodoc.format('YYYY-MM-DD');
-           
+                
                 // Adiciona obj pessoa ao atributo pessoa de PessoaFisica
                 objPF.objpessoa = objP;
                 objRep.pf = objPF;
