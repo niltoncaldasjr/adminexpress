@@ -24,9 +24,10 @@ Class PessoaDAO {
 	
 	/* Cadastrar */
 	function cadastrar (Pessoa $obj) {
-		$this->sql = sprintf("INSERT INTO pessoa (CEP, endereco, numero, complemento, bairro, telefone, fax, celular, email1, email2, site)
-				VALUES('%s', '%s', '%s', '%s', '%s' , '%s', '%s' , '%s', '%s' , '%s', '%s')", 
+		$this->sql = sprintf("INSERT INTO pessoa (CEP, tipo, endereco, numero, complemento, bairro, telefone, fax, celular, email1, email2, site)
+				VALUES('%s', '%s', '%s', '%s', '%s', '%s' , '%s', '%s' , '%s', '%s' , '%s', '%s')", 
 				mysqli_real_escape_string($this->con, $obj->getCEP()),
+				mysqli_real_escape_string($this->con, $obj->getTipo()),
 				mysqli_real_escape_string($this->con, $obj->getEndereco()),
 				mysqli_real_escape_string($this->con, $obj->getNumero()),
 				mysqli_real_escape_string($this->con, $obj->getComplemento()),
@@ -46,8 +47,9 @@ Class PessoaDAO {
 	/* Atualizar */
 	function atualizar (Pessoa $obj) {
 		var_dump($obj->getId());
-		$this->sql = sprintf("UPDATE pessoa SET CEP, endereco = '%s', numero = '%s', complemento = '%s', bairro = '%s', telefone = '%s', fax = '%s', celular = '%s', email1 = '%s', email2 = '%s', site = '%s', dataedicao = '%s' WHERE id = %d", 
+		$this->sql = sprintf("UPDATE pessoa SET CEP, tipo = '%s', endereco = '%s', numero = '%s', complemento = '%s', bairro = '%s', telefone = '%s', fax = '%s', celular = '%s', email1 = '%s', email2 = '%s', site = '%s', dataedicao = '%s' WHERE id = %d", 
 				mysqli_real_escape_string($this->con, $obj->getCEP()),
+				mysqli_real_escape_string($this->con, $obj->getTipo()),
 				mysqli_real_escape_string($this->con, $obj->getEndereco()),
 				mysqli_real_escape_string($this->con, $obj->getNumero()),
 				mysqli_real_escape_string($this->con, $obj->getComplemento()),
@@ -75,7 +77,7 @@ Class PessoaDAO {
 			die('[ERRO]: Class(Pessoa) | Metodo(Listar) | Erro('.mysqli_error($this->con).')');
 		}
 		while($row = mysqli_fetch_object($resultSet)) {
-			$this->obj = new Pessoa($row->id, $row->CEP, $row->endereco, $row->numero, $row->complemento, $row->bairro, $row->telefone, $row->fax, $row->celular, $row->email1, $row->email2, $row->site, $row->datacadastro, $row->dataedicao);
+			$this->obj = new Pessoa($row->id, $row->tipo, $row->CEP, $row->endereco, $row->numero, $row->complemento, $row->bairro, $row->telefone, $row->fax, $row->celular, $row->email1, $row->email2, $row->site, $row->datacadastro, $row->dataedicao);
 			array_push($this->lista, $this->obj);
 		}
 		return $this->lista;
@@ -101,7 +103,7 @@ Class PessoaDAO {
 			die('[ERRO]: Class('.get_class($obj).') | Metodo(buscarPorId) | Erro('.mysqli_error($this->con).')');
 		}
 		while($row = mysqli_fetch_object($resultSet)) {
-			$this->obj = new Pessoa($row->id, $row->CEP, $row->endereco, $row->numero, $row->complemento, $row->bairro, $row->telefone, $row->fax, $row->celular, $row->email1, $row->email2, $row->site, $row->datacadastro, $row->dataedicao);
+			$this->obj = new Pessoa($row->id, $row->tipo, $row->CEP, $row->endereco, $row->numero, $row->complemento, $row->bairro, $row->telefone, $row->fax, $row->celular, $row->email1, $row->email2, $row->site, $row->datacadastro, $row->dataedicao);
 		}
 		return $this->obj;
 	}

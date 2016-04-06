@@ -13,6 +13,7 @@
 Class Pessoa implements JsonSerializable {
 	/* Atributos */
 	private $id;
+	private $tipo;
 	private $CEP;
 	private $endereco;
 	private $numero;
@@ -31,6 +32,7 @@ Class Pessoa implements JsonSerializable {
 	public function __construct
 	(
 		$id					= NULL,
+		$tipo				= NULL,
 		$CEP				= NULL,
 		$endereco 			= NULL,
 		$numero				= NULL,
@@ -47,6 +49,7 @@ Class Pessoa implements JsonSerializable {
 	)
 	{
 		$this->id					= $id;
+		$this->tipo 				= $tipo;
 		$this->CEP					= $CEP;
 		$this->endereco 			= $endereco;
 		$this->numero 				= $numero;
@@ -68,6 +71,13 @@ Class Pessoa implements JsonSerializable {
 	}
 	public function setId($id) {
 		$this->id = $id;
+		return $this;
+	}
+	public function getTipo() {
+		return $this->tipo;
+	}
+	public function setTipo($tipo) {
+		$this->tipo = $tipo;
 		return $this;
 	}
 	public function getCEP() {
@@ -171,6 +181,7 @@ Class Pessoa implements JsonSerializable {
 	public function jsonSerialize () {
 		return [
 			"id"					=> $this->id,
+			"tipo"					=> $this->tipo,
 			"CEP"					=> $this->CEP,
 			"endereco"				=> $this->endereco,
 			"numero" 				=> $this->numero,

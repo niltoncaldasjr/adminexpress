@@ -146,40 +146,42 @@ angular.module('admin-express')
          */
         $scope.cadastrar = function(obj){
             // Caso seja um tipo PJ verificamos se há representantes
-            if(obj.pessoa.tipo === 'PJ') {
-                if(obj.pessoapj.representantes.length<=0) {
-                    alert('Cadastre pelomenos 1 representante');
-                    return false;
-                }
-            }
+            console.log(obj);
 
-            var dados;
+            // if(obj.pessoa.tipo === 'PJ') {
+            //     if(obj.pessoapj.representantes.length<=0) {
+            //         alert('Cadastre pelomenos 1 representante');
+            //         return false;
+            //     }
+            // }
+
+            // var dados;
             
-            if(obj.grupopessoa.id === undefined){
-                var dados = {'session': true, 'metodo': 'cadastrar', 'data': obj, 'class': 'grupopessoa'};
-            }else{
-                var dados = {'session': true, 'metodo': 'atualizar', 'data': obj, 'class': 'grupopessoa'};
-            }
+            // if(obj.grupopessoa.id === undefined){
+            //     var dados = {'session': true, 'metodo': 'cadastrar', 'data': obj, 'class': 'grupopessoa'};
+            // }else{
+            //     var dados = {'session': true, 'metodo': 'atualizar', 'data': obj, 'class': 'grupopessoa'};
+            // }
 
-            genericAPI.generic(dados)
-            .then(function successCallback(response) {
-                if(response['data']){
-                    console.log(response['data']);
-                    // $scope.limparCampos();
-                    // listarorgao();
-                }else{
-                }
-            }, function errorCallback(response) {
-            });
+            // genericAPI.generic(dados)
+            // .then(function successCallback(response) {
+            //     if(response['data']){
+            //         console.log(response['data']);
+            //         // $scope.limparCampos();
+            //         // listarorgao();
+            //     }else{
+            //     }
+            // }, function errorCallback(response) {
+            // });
         };
 
         $scope.editar = function(obj){
             console.log(obj);
             $rootScope.gpes.grupopessoa = obj;
-            // $rootScope.gpes.pessoa = obj.pes.objpessoa;
-            // $rootScope.gpes.pessoapf = obj.pes;
-            // $rootScope.gpes.pessoapj = obj.pes;
-            // $rootScope.gpes.pessoapj.representantes = obj.representantes;
+            $rootScope.gpes.pessoa = obj.pes.objpessoa;
+            $rootScope.gpes.pessoapf = obj.pes;
+            $rootScope.gpes.pessoapj = obj.pes;
+            $rootScope.gpes.pessoapj.representantes = obj.representantes;
         };
 
         $scope.deletar = function(obj){
@@ -210,14 +212,16 @@ angular.module('admin-express')
                 objPF.dataemissaodoc = objPF.dataemissaodoc.format('YYYY-MM-DD');
            
                 // Adiciona obj pessoa ao atributo pessoa de PessoaFisica
-                objPF.pessoa = objP;
+                objPF.objpessoa = objP;
+                objRep.pf = objPF;
                 // Adiciona obj representante a pessoa
-                objPF.rep = objRep;
                 // Pega o scope representantes
                 var reps = $rootScope.gpes.pessoapj.representantes;
                 // verifica se é uma edição ou atuaçização
-                if(reps.indexOf(objPF)>=0) { reps.splice(reps.indexOf(objPF),1, objPF);}
-                else{reps.push(objPF);}
+                if(reps.indexOf(objRep)>=0) { reps.splice(reps.indexOf(objRep),1, objRep);}
+                else{reps.push(objRep);}
+
+                console.log(objRep);
                 // reinicia obj reppessoa
                 $rootScope.gpes.reppessoa = {};
                 // reinicia obj reppessoapf
@@ -245,16 +249,17 @@ angular.module('admin-express')
             Edita representante
         */
         $scope.editarRep = function (obj) {
+            console.log(obj);
             // Abre o form modal
             $scope.addRepresentante();
-            obj.datanascimento = moment(obj.datanascimento);
-            obj.dataemissaodoc = moment(obj.dataemissaodoc);
+            obj.pf.datanascimento = moment(obj.pf.datanascimento);
+            obj.pf.dataemissaodoc = moment(obj.pf.dataemissaodoc);
             // Obj pessoa
-            $rootScope.gpes.reppessoa = obj.pessoa;
+            $rootScope.gpes.reppessoa = obj.pf.objpessoa;
             // Obj rep
-            $rootScope.gpes.rep = obj.rep;
+            $rootScope.gpes.rep = obj;
             // Obj pessoa fisica
-            $rootScope.gpes.reppessoapf = obj;
+            $rootScope.gpes.reppessoapf = obj.pf;
         }
 
     });
