@@ -30,6 +30,9 @@ switch ($_POST['metodo']) {
 	case 'buscarPorId':
 		buscarPorId();
 		break;
+	case 'buscarPessoa':
+		buscarPessoa();
+		break;
 }
 
 /* Metodos */
@@ -104,6 +107,10 @@ function deletar () {
 }
 function buscarPorId () {
 	
+}
+function buscarPessoa() {
+	$data = $_POST['data'];
+	echo count($data);
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------------//
@@ -297,7 +304,5 @@ function deletaRepPJ ($reps) {
 		}
 	}
 }
-
-
 
 ?>

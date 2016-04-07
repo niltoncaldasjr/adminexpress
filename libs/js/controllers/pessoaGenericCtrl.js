@@ -1,5 +1,5 @@
 angular.module('admin-express')
-    .controller('pessoaGenericCtrl', function ($scope, $rootScope, $http, $location, genericAPI, SweetAlert, authenticationAPI, $timeout, $uibModal) {
+    .controller('pessoaGenericCtrl', function ($scope, $rootScope, $http, $location, genericAPI, SweetAlert, authenticationAPI, $timeout, $interval, $uibModal) {
 
         if (!$rootScope.usuario) {
             $location.path('/login');
@@ -12,13 +12,13 @@ angular.module('admin-express')
         */
         function createScopes () {
             $rootScope.gpes = {
-                "grupo"         : {"id":null,"descricao":null,"tipo":null},
-                "grupopessoa"   : {"id":null,"idgrupo":null,"idpessoa":null,"informacao":null},
-                "pessoa"        : {"id":null,"tipo":null,"CEP":null,"endereco":null,"numero":null,"complemento":null,"bairro":null,"telefone":null,"fax":null,"celular":null,"email1":null,"email2":null,"site":null},
-                "pessoapf"      : {"id":null, "objpessoa":{}, "nome":null,"cpf":null,"nacionalidade":null,"naturalidade":null, "datanascimento":moment(), "estadocivil":null, "nomeconjuge":null, "objprofissao":{}, "tipodoc":null, "numerodoc":null, "orgaodoc":null, "dataemissaodoc":moment(), "pai":null, "mae":null, "sexo":"MASCULINO"},
-                "pessoapj"      : {"id":null, "objpessoa":{},"razao":null, "cnpj":null, "nire":null, "inscestadual":null, "inscmunicipal":null, "representantes":[]},
-                "reppessoa"     : {"id":null,"tipo":null,"CEP":null,"endereco":null,"numero":null,"complemento":null,"bairro":null,"telefone":null,"fax":null,"celular":null,"email1":null,"email2":null,"site":null},
-                "reppessoapf"   : {"id":null, "objpessoa":{}, "nome":null,"cpf":null,"nacionalidade":null,"naturalidade":null, "datanascimento":moment(), "estadocivil":null, "nomeconjuge":null, "objprofissao":{}, "tipodoc":null, "numerodoc":null, "orgaodoc":null, "dataemissaodoc":moment(), "pai":null, "mae":null, "sexo":"MASCULINO"},
+                "grupo"         : {"id":"","descricao":"","tipo":""},
+                "grupopessoa"   : {"id":"","idgrupo":"","idpessoa":"","informacao":""},
+                "pessoa"        : {"id":"","tipo":"","CEP":"","endereco":"","numero":"","complemento":"","bairro":"","telefone":"","fax":"","celular":"","email1":"","email2":"","site":""},
+                "pessoapf"      : {"id":"", "objpessoa":{}, "nome":"","cpf":"","nacionalidade":"","naturalidade":"", "datanascimento":moment(), "estadocivil":"", "nomeconjuge":"", "objprofissao":{}, "tipodoc":"", "numerodoc":"", "orgaodoc":"", "dataemissaodoc":moment(), "pai":"", "mae":"", "sexo":"MASCULINO"},
+                "pessoapj"      : {"id":"", "objpessoa":{},"razao":"", "cnpj":"", "nire":"", "inscestadual":"", "inscmunicipal":"", "representantes":[]},
+                "reppessoa"     : {"id":"","tipo":"","CEP":"","endereco":"","numero":"","complemento":"","bairro":"","telefone":"","fax":"","celular":"","email1":"","email2":"","site":""},
+                "reppessoapf"   : {"id":"", "objpessoa":{}, "nome":"","cpf":"","nacionalidade":"","naturalidade":"", "datanascimento":moment(), "estadocivil":"", "nomeconjuge":"", "objprofissao":{}, "tipodoc":"", "numerodoc":"", "orgaodoc":"", "dataemissaodoc":moment(), "pai":"", "mae":"", "sexo":"MASCULINO"},
                 "rep"           : {"representante":"SIM"},
                 "repsdel"       : []
             };
@@ -226,7 +226,7 @@ angular.module('admin-express')
                 // reinicia obj reppessoa
                 $rootScope.gpes.reppessoa = {};
                 // reinicia obj reppessoapf
-                $rootScope.gpes.reppessoapf = {"sexo":"MASCULINO", "datanascimento":moment(), "dataemissaodoc":moment()};
+                $rootScope.gpes.reppessoapf = {"id":null, "objpessoa":{}, "nome":null,"cpf":null,"nacionalidade":null,"naturalidade":null, "datanascimento":moment(), "estadocivil":null, "nomeconjuge":null, "objprofissao":{}, "tipodoc":null, "numerodoc":null, "orgaodoc":null, "dataemissaodoc":moment(), "pai":null, "mae":null, "sexo":"MASCULINO"},
                 // reinicia o obj rep
                 $rootScope.gpes.rep = {"representante":"SIM"};
                 // fecha o modal
@@ -251,7 +251,6 @@ angular.module('admin-express')
             Edita representante
         */
         $scope.editarRep = function (obj) {
-            console.log(obj);
             // Abre o form modal
             $scope.addRepresentante();
             obj.pf.datanascimento = moment(obj.pf.datanascimento);
@@ -262,6 +261,36 @@ angular.module('admin-express')
             $rootScope.gpes.rep = obj;
             // Obj pessoa fisica
             $rootScope.gpes.reppessoapf = obj.pf;
+        }
+
+        /*
+            Buscar
+        */
+        var conta;
+
+        $scope.buscar = function (obj) {
+            $interval.cancel(conta);
+
+            conta = $interval(
+                function() {
+                    if(obj.length>=10 && obj!==undefined) { 
+                        $interval.cancel(conta);
+                        buscaPessoa(obj);
+                    }         
+                }, 2000);
+
+            function buscaPessoa (obj) {
+                var dados = {'session': true, 'metodo': 'buscarPessoa', 'data': obj, 'class': 'grupopessoa'};
+                
+                genericAPI.generic(dados)
+                .then(function successCallback(response) {
+                    if(response['data']){
+                        console.log(response['data']);
+                    }else{
+                    }
+                }, function errorCallback(response) {
+                });
+                }           
         }
 
     });
