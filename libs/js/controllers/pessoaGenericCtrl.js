@@ -15,10 +15,10 @@ angular.module('admin-express')
                 "grupo"         : {"id":null,"descricao":null,"tipo":null},
                 "grupopessoa"   : {"id":null,"idgrupo":null,"idpessoa":null,"informacao":null},
                 "pessoa"        : {"id":null,"tipo":null,"CEP":null,"endereco":null,"numero":null,"complemento":null,"bairro":null,"telefone":null,"fax":null,"celular":null,"email1":null,"email2":null,"site":null},
-                "pessoapf"      : {"id":null,"nome":null,"cpf":null,"idpessoa","sexo":"MASCULINO", "datanascimento":moment(), "dataemissaodoc":moment()},
-                "pessoapj"      : {"representantes":[]},
-                "reppessoa"     : {},
-                "reppessoapf"   : {"sexo":"MASCULINO", "datanascimento":moment(), "dataemissaodoc":moment()},
+                "pessoapf"      : {"id":null, "objpessoa":{}, "nome":null,"cpf":null,"nacionalidade":null,"naturalidade":null, "datanascimento":moment(), "estadocivil":null, "nomeconjuge":null, "objprofissao":{}, "tipodoc":null, "numerodoc":null, "orgaodoc":null, "dataemissaodoc":moment(), "pai":null, "mae":null, "sexo":"MASCULINO"},
+                "pessoapj"      : {"id":null, "objpessoa":{},"razao":null, "cnpj":null, "nire":null, "inscestadual":null, "inscmunicipal":null, "representantes":[]},
+                "reppessoa"     : {"id":null,"tipo":null,"CEP":null,"endereco":null,"numero":null,"complemento":null,"bairro":null,"telefone":null,"fax":null,"celular":null,"email1":null,"email2":null,"site":null},
+                "reppessoapf"   : {"id":null, "objpessoa":{}, "nome":null,"cpf":null,"nacionalidade":null,"naturalidade":null, "datanascimento":moment(), "estadocivil":null, "nomeconjuge":null, "objprofissao":{}, "tipodoc":null, "numerodoc":null, "orgaodoc":null, "dataemissaodoc":moment(), "pai":null, "mae":null, "sexo":"MASCULINO"},
                 "rep"           : {"representante":"SIM"},
                 "repsdel"       : []
             };
