@@ -114,10 +114,13 @@ Class GrupoPessoaDAO {
 				$pjControl = new PessoaJuridicaControl($objPJ);
 				$objPJ = $pjControl->buscarPorPessoa();
 					
-				$objRep = new RepresentantePJ(); $objRep->setObjpessoapj($objPJ);
+				$objRep = new RepresentantePJ(); $objRep->setObjpessoapj($objPessoa);
 				$repControl = new RepresentantePJControl($objRep);
 				$listaRep = $repControl->listarPorPJ();
-// 				echo $objPJ->getId().' - '.$listaRep[0]->idpessoapf.'<br/>';
+				
+// 				if(empty($listaRep)) echo 'vazio ';
+// 				echo $objPJ->getId().' - '.$listaRep[0]->idpessoapf.' ';
+				
 				$row->pes = $objPJ;
 				$row->representantes = $listaRep;
 				array_push($grupoPJ, $row);

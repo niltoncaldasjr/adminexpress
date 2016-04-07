@@ -59,13 +59,14 @@ function cadastrar () {
 }
 function atualizar () {
 	$data = $_POST['data'];
-	$obj = new GrupoPessoa(
-			$data['id'],
-			stripslashes ( strip_tags( trim($data['descricao']) ) ),
-			stripslashes ( strip_tags( trim($data['febran']) ) )
-	);
-	$control = new GrupoPessoaControl($obj);
-	echo $control->atualizar();
+	var_dump($data);
+// 	$obj = new GrupoPessoa(
+// 			$data['id'],
+// 			stripslashes ( strip_tags( trim($data['descricao']) ) ),
+// 			stripslashes ( strip_tags( trim($data['febran']) ) )
+// 	);
+// 	$control = new GrupoPessoaControl($obj);
+// 	echo $control->atualizar();
 }
 function listar () {
 	$control = new GrupoPessoaControl();
@@ -103,9 +104,8 @@ function cadPessoa ($pessoa) {
 	
 	$objPessoa = new Pessoa(
 			NULL,
-			stripslashes ( strip_tags( trim($pessoa['CEP']) ) ),
 			stripslashes ( strip_tags( trim($pessoa['tipo']) ) ),
-			stripslashes ( strip_tags( trim($pessoa['endereco']) ) ),
+			stripslashes ( strip_tags( trim($pessoa['CEP']) ) ),
 			stripslashes ( strip_tags( trim($pessoa['endereco']) ) ),
 			stripslashes ( strip_tags( trim($pessoa['numero']) ) ),
 			stripslashes ( strip_tags( trim($pessoa['complemento']) ) ),

@@ -24,10 +24,10 @@ Class PessoaDAO {
 	
 	/* Cadastrar */
 	function cadastrar (Pessoa $obj) {
-		$this->sql = sprintf("INSERT INTO pessoa (CEP, tipo, endereco, numero, complemento, bairro, telefone, fax, celular, email1, email2, site)
+		$this->sql = sprintf("INSERT INTO pessoa (tipo, CEP, endereco, numero, complemento, bairro, telefone, fax, celular, email1, email2, site)
 				VALUES('%s', '%s', '%s', '%s', '%s', '%s' , '%s', '%s' , '%s', '%s' , '%s', '%s')", 
-				mysqli_real_escape_string($this->con, $obj->getCEP()),
 				mysqli_real_escape_string($this->con, $obj->getTipo()),
+				mysqli_real_escape_string($this->con, $obj->getCEP()),
 				mysqli_real_escape_string($this->con, $obj->getEndereco()),
 				mysqli_real_escape_string($this->con, $obj->getNumero()),
 				mysqli_real_escape_string($this->con, $obj->getComplemento()),
@@ -47,9 +47,9 @@ Class PessoaDAO {
 	/* Atualizar */
 	function atualizar (Pessoa $obj) {
 		var_dump($obj->getId());
-		$this->sql = sprintf("UPDATE pessoa SET CEP, tipo = '%s', endereco = '%s', numero = '%s', complemento = '%s', bairro = '%s', telefone = '%s', fax = '%s', celular = '%s', email1 = '%s', email2 = '%s', site = '%s', dataedicao = '%s' WHERE id = %d", 
-				mysqli_real_escape_string($this->con, $obj->getCEP()),
+		$this->sql = sprintf("UPDATE pessoa SET tipo = '%s', CEP = '%s', endereco = '%s', numero = '%s', complemento = '%s', bairro = '%s', telefone = '%s', fax = '%s', celular = '%s', email1 = '%s', email2 = '%s', site = '%s', dataedicao = '%s' WHERE id = %d", 
 				mysqli_real_escape_string($this->con, $obj->getTipo()),
+				mysqli_real_escape_string($this->con, $obj->getCEP()),
 				mysqli_real_escape_string($this->con, $obj->getEndereco()),
 				mysqli_real_escape_string($this->con, $obj->getNumero()),
 				mysqli_real_escape_string($this->con, $obj->getComplemento()),
