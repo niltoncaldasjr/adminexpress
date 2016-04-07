@@ -42,6 +42,9 @@ class PessoaJuridicaControl {
 	function buscarPorPessoa () {
 		return $this->objDAO->buscarPorPessoa($this->obj);
 	}
+	function buscarPorCNPJ () {
+		return $this->objDAO->buscarPorCNPJ($this->obj);
+	}
 }
 
 ?>

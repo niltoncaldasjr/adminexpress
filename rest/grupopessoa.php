@@ -110,7 +110,19 @@ function buscarPorId () {
 }
 function buscarPessoa() {
 	$data = $_POST['data'];
-	echo count($data);
+	if(strlen($data)==11) {
+		$objPF = new PessoaFisica(); $objPF->setCpf($data);
+		$pfControl = new PessoaFisicaControl($objPF);
+		$objPF = $pfControl->buscarPorCPF();
+		if($objPF){ echo json_encode($objPF);}
+		else{echo 'Nenhum dado encontrado';}
+	}else{
+		$objPJ = new PessoaJuridica(); $objPJ->setCnpj($data);
+		$pjControl = new PessoajuridicaControl($objPJ);
+		$objPJ = $pjControl->buscarPorCNPJ();
+		if($objPJ){ echo json_encode($objPJ);}
+		else{echo 'Nenhum dado encontrado';}
+	}
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------------//

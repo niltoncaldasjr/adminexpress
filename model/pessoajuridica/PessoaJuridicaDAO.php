@@ -121,6 +121,23 @@ Class PessoaJuridicaDAO {
 		}
 		return $this->obj;
 	}
+	
+	/* Buscar por CNPJ */
+	function buscarPorCNPJ (PessoaJuridica $obj) {
+		$this->sql = sprintf("SELECT * FROM pessoajuridica WHERE cnpj = %d",
+				mysqli_real_escape_string($this->con, $obj->getCnpj()));
+		$resultSet = mysqli_query($this->con, $this->sql);
+		if(!$resultSet) {
+			die('[ERRO]: Class('.get_class($obj).') | Metodo(buscarPorId) | Erro('.mysqli_error($this->con).')');
+		}
+		while($row = mysqli_fetch_object($resultSet)) {
+			$objPessoaControl = new PessoaControl(new Pessoa($row->idpessoa));
+			$objPessoa = $objPessoaControl->buscarPorId();
+	
+			$this->obj = new PessoaJuridica($row->id, $objPessoa, $row->razao, $row->cnpj, $row->nire, $row->inscestadual, $row->inscmunicipal, $row->representante, $row->datacadastro, $row->dataedicao);
+		}
+		return $this->obj;
+	}
 }
 
 ?>

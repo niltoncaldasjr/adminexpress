@@ -144,6 +144,26 @@ Class PessoaFisicaDAO {
 		}
 		return $this->obj;
 	}
+	
+	/* Buscar por CPF */
+	function buscarPorCPF (PessoaFisica $obj) {
+		$this->sql = sprintf("SELECT * FROM pessoafisica WHERE cpf = '%s'",
+				mysqli_real_escape_string($this->con, $obj->getCpf()));
+		$resultSet = mysqli_query($this->con, $this->sql);
+		if(!$resultSet) {
+			die('[ERRO]: Class('.get_class($obj).') | Metodo(buscarPorId) | Erro('.mysqli_error($this->con).')');
+		}
+		while($row = mysqli_fetch_object($resultSet)) {
+			$objPessoaControl = new PessoaControl(new Pessoa($row->idpessoa));
+			$objPessoa = $objPessoaControl->buscarPorId();
+	
+			$profissaoControl = new ProfissaoControl(new Profissao($row->idprofissao));
+			$objProfissao = $profissaoControl->buscarPorId();
+	
+			$this->obj = new PessoaFisica($row->id, $objPessoa, $row->nome, $row->cpf, $row->nacionalidade, $row->naturalidade, $row->datanascimento, $row->estadocivil, $row->nomeconjuge, $objProfissao, $row->tipodoc, $row->numerodoc, $row->orgaodoc, $row->dataemissaodoc, $row->pai, $row->mae, $row->sexo, $row->datacadastro, $row->dataedicao);
+		}
+		return $this->obj;
+	}
 }
 
 ?>
