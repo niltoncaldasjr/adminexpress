@@ -59,6 +59,16 @@ function cadastrar () {
 }
 function atualizar () {
 	$data = $_POST['data'];
+	
+	atualizaPessoa($data['pessoa']);
+	
+	if($data['pessoa']['tipo']=='PJ') {
+		atualizaPJ ($data['pessoapj']);
+		cadRepPJ($data['pessoapj']['representantes'], $data['pessoapj']['id']);
+	}else{
+		atualizaPF($data['pessoapf']);
+	}
+	
 	var_dump($data);
 // 	$obj = new GrupoPessoa(
 // 			$data['id'],
@@ -121,6 +131,27 @@ function cadPessoa ($pessoa) {
 	$idpessoa = $pessoaControl->cadastrar();
 	return $idpessoa;
 }
+function atualizaPessoa ($pessoa) {
+	if(empty($pessoa['tipo'])) $pessoa['tipo'] = 'PF';
+	
+	$objPessoa = new Pessoa(
+			$pessoa['id'],
+			stripslashes ( strip_tags( trim($pessoa['tipo']) ) ),
+			stripslashes ( strip_tags( trim($pessoa['CEP']) ) ),
+			stripslashes ( strip_tags( trim($pessoa['endereco']) ) ),
+			stripslashes ( strip_tags( trim($pessoa['numero']) ) ),
+			stripslashes ( strip_tags( trim($pessoa['complemento']) ) ),
+			stripslashes ( strip_tags( trim($pessoa['bairro']) ) ),
+			stripslashes ( strip_tags( trim($pessoa['telefone']) ) ),
+			stripslashes ( strip_tags( trim($pessoa['fax']) ) ),
+			stripslashes ( strip_tags( trim($pessoa['celular']) ) ),
+			stripslashes ( strip_tags( trim($pessoa['email1']) ) ),
+			stripslashes ( strip_tags( trim($pessoa['email2']) ) ),
+			stripslashes ( strip_tags( trim($pessoa['site']) ) )
+	);
+	$pessoaControl = new PessoaControl($objPessoa);
+	$pessoaControl->atualizar();
+}
 function cadPF ($pf, $idpessoa) {
 	
 	$objPF = new PessoaFisica(
@@ -146,6 +177,30 @@ function cadPF ($pf, $idpessoa) {
 	$pfControl->cadastrar();
 	return $idpessoa;
 }
+function atualizaPF ($pf) {
+
+	$objPF = new PessoaFisica(
+			$pf['id'],
+			new Pessoa($pf['objpessoa']['id']),
+			stripslashes ( strip_tags( trim($pf['nome']) ) ),
+			stripslashes ( strip_tags( trim($pf['cpf']) ) ),
+			stripslashes ( strip_tags( trim($pf['nacionalidade']) ) ),
+			stripslashes ( strip_tags( trim($pf['naturalidade']) ) ),
+			stripslashes ( strip_tags( trim($pf['datanascimento']) ) ),
+			stripslashes ( strip_tags( trim($pf['estadocivil']) ) ),
+			stripslashes ( strip_tags( trim($pf['nomeconjuge']) ) ),
+			new Profissao($pf['objprofissao']['id']),
+			stripslashes ( strip_tags( trim($pf['tipodoc']) ) ),
+			stripslashes ( strip_tags( trim($pf['numerodoc']) ) ),
+			stripslashes ( strip_tags( trim($pf['orgaodoc']) ) ),
+			stripslashes ( strip_tags( trim($pf['dataemissaodoc']) ) ),
+			stripslashes ( strip_tags( trim($pf['pai']) ) ),
+			stripslashes ( strip_tags( trim($pf['mae']) ) ),
+			stripslashes ( strip_tags( trim($pf['sexo']) ) )
+	);
+	$pfControl = new PessoaFisicaControl($objPF);
+	$pfControl->atualizar();
+}
 function cadPJ ($pj, $idpessoa) {
 	$objPJ = new PessoaJuridica(
 			NULL,
@@ -161,22 +216,55 @@ function cadPJ ($pj, $idpessoa) {
 	$pjControl->cadastrar();
 	return $idpessoa;
 }
+function atualizaPJ ($pj) {
+	$objPJ = new PessoaJuridica(
+			$pj['id'],
+			new Pessoa($pj['objpessoa']['id']),
+			stripslashes ( strip_tags( trim($pj['razao']) ) ),
+			stripslashes ( strip_tags( trim($pj['cnpj']) ) ),
+			stripslashes ( strip_tags( trim($pj['nire']) ) ),
+			stripslashes ( strip_tags( trim($pj['inscestadual']) ) ),
+			stripslashes ( strip_tags( trim($pj['inscmunicipal']) ) )
+// 			stripslashes ( strip_tags( trim($data['pessoapj']['representante']) ) )
+			);
+	$pjControl = new PessoaJuridicaControl($objPJ);
+	$pjControl->atualizar();
+}
 function cadRepPJ ($reps, $idpj) {
-	
 	foreach ($reps as $rep) {
-		$idpessoa = cadPessoa($rep['pf']['objpessoa']);
-		$idpf = cadPF ($rep['pf'], $idpessoa);
-		
-		$objRepPJ = new RepresentantePJ(
-				NULL,
-				new Pessoa($idpj),
-				new Pessoa($idpf),
-				stripslashes ( strip_tags( trim($rep['funcao']) ) ),
-				stripslashes ( strip_tags( trim($rep['representante']) ) )
-		);
-		$repControl = new RepresentantePJControl($objRepPJ);
-		return $repControl->cadastrar();
+		if(empty($rep['id'])) {
+			$idpessoa = cadPessoa($rep['pf']['objpessoa']);
+			$idpf = cadPF ($rep['pf'], $idpessoa);
+			
+			$objRepPJ = new RepresentantePJ(
+					NULL,
+					new Pessoa($idpj),
+					new Pessoa($idpf),
+					stripslashes ( strip_tags( trim($rep['funcao']) ) ),
+					stripslashes ( strip_tags( trim($rep['representante']) ) )
+			);
+			$repControl = new RepresentantePJControl($objRepPJ);
+			return $repControl->cadastrar();
+		}else{
+			atualizaPessoa($rep['pf']['objpessoa']);
+			atualizaPF($rep['pf']);
+	
+			$objRepPJ = new RepresentantePJ(
+					$rep['id'],
+					new Pessoa($rep['idpessoapj']['id']),
+					new Pessoa($rep['idpessoapf']),
+					stripslashes ( strip_tags( trim($rep['funcao']) ) ),
+					stripslashes ( strip_tags( trim($rep['representante']) ) )
+			);
+			$repControl = new RepresentantePJControl($objRepPJ);
+			$repControl->atualizar();
+		}
 	}
 }
+function deletaRepPJ () {
+	
+}
+
+
 
 ?>

@@ -50,16 +50,16 @@ Class PessoaFisicaDAO {
 	
 	/* Atualizar */
 	function atualizar (PessoaFisica $obj) {
-		var_dump($obj->getId());
 		$this->sql = sprintf("UPDATE pessoafisica SET idpessoa = %d, nome = '%s', cpf = '%s', nacionalidade = '%s', naturalidade = '%s', datanascimento = '%s', estadocivil = '%s', nomeconjuge = '%s', idprofissao = %d, tipodoc = '%s', numerodoc = '%s', orgaodoc = '%s', dataemissaodoc = '%s', pai = '%s', mae = '%s', sexo = '%s', dataedicao = '%s' WHERE id = %d", 
-				mysqli_real_escape_string($this->con, $obj->getObjpessoa()),
+				mysqli_real_escape_string($this->con, $obj->getObjpessoa()->getId()),
+				mysqli_real_escape_string($this->con, $obj->getNome()),
 				mysqli_real_escape_string($this->con, $obj->getCpf()),
 				mysqli_real_escape_string($this->con, $obj->getNacionalidade()),
 				mysqli_real_escape_string($this->con, $obj->getNaturaldade()),
 				mysqli_real_escape_string($this->con, $obj->getDatanascimento()),
 				mysqli_real_escape_string($this->con, $obj->getEstadocivil()),
 				mysqli_real_escape_string($this->con, $obj->getNomeconjuge()),
-				mysqli_real_escape_string($this->con, $obj->getObjprofissao()),
+				mysqli_real_escape_string($this->con, $obj->getObjprofissao()->getId()),
 				mysqli_real_escape_string($this->con, $obj->getTipodoc()),
 				mysqli_real_escape_string($this->con, $obj->getNumerodoc()),
 				mysqli_real_escape_string($this->con, $obj->getOrgaodoc()),
