@@ -65,18 +65,19 @@ function atualizar () {
 	if($data['pessoa']['tipo']=='PJ') {
 		atualizaPJ ($data['pessoapj']);
 		cadRepPJ($data['pessoapj']['representantes'], $data['pessoapj']['id']);
+		deletaRepPJ($data['repsdel']);
 	}else{
 		atualizaPF($data['pessoapf']);
 	}
 	
-	var_dump($data);
-// 	$obj = new GrupoPessoa(
-// 			$data['id'],
-// 			stripslashes ( strip_tags( trim($data['descricao']) ) ),
-// 			stripslashes ( strip_tags( trim($data['febran']) ) )
-// 	);
-// 	$control = new GrupoPessoaControl($obj);
-// 	echo $control->atualizar();
+	$obj = new GrupoPessoa(
+			$data['grupopessoa']['id'],
+			new Grupo($data['grupopessoa']['idgrupo']),
+			new Pessoa($data['grupopessoa']['idpessoa']),
+			stripslashes ( strip_tags( trim($data['grupopessoa']['informacao']) ) )
+			);
+	$control = new GrupoPessoaControl($obj);
+	$control->atualizar();
 }
 function listar () {
 	$control = new GrupoPessoaControl();
@@ -105,8 +106,10 @@ function buscarPorId () {
 	
 }
 
+//-----------------------------------------------------------------------------------------------------------------------------------//
+
 /*
-	Cadastros das classes Pessoa
+	Functions de Pessoa
 */
 function cadPessoa ($pessoa) {
 	
@@ -152,6 +155,15 @@ function atualizaPessoa ($pessoa) {
 	$pessoaControl = new PessoaControl($objPessoa);
 	$pessoaControl->atualizar();
 }
+function deletaPessoa ($pessoa) {
+	$pessoaControl = new PessoaControl(new Pessoa($pessoa['id']));
+	$pessoaControl->deletar();
+}
+
+
+/*
+ 	Functions de Pessoa Física
+*/
 function cadPF ($pf, $idpessoa) {
 	
 	$objPF = new PessoaFisica(
@@ -201,6 +213,14 @@ function atualizaPF ($pf) {
 	$pfControl = new PessoaFisicaControl($objPF);
 	$pfControl->atualizar();
 }
+function deletaPF ($pf) {
+	$pfControl = new PessoaFisicaControl(new PessoaFisica($pf['id']));
+	$pfControl->deletar();
+}
+
+/*
+ 	Functions de Pessoa Jurídica
+*/
 function cadPJ ($pj, $idpessoa) {
 	$objPJ = new PessoaJuridica(
 			NULL,
@@ -230,12 +250,16 @@ function atualizaPJ ($pj) {
 	$pjControl = new PessoaJuridicaControl($objPJ);
 	$pjControl->atualizar();
 }
+
+/*
+	Functions de Representantes de Pessoa Jurídica
+*/
 function cadRepPJ ($reps, $idpj) {
 	foreach ($reps as $rep) {
 		if(empty($rep['id'])) {
+				
 			$idpessoa = cadPessoa($rep['pf']['objpessoa']);
 			$idpf = cadPF ($rep['pf'], $idpessoa);
-			
 			$objRepPJ = new RepresentantePJ(
 					NULL,
 					new Pessoa($idpj),
@@ -244,7 +268,7 @@ function cadRepPJ ($reps, $idpj) {
 					stripslashes ( strip_tags( trim($rep['representante']) ) )
 			);
 			$repControl = new RepresentantePJControl($objRepPJ);
-			return $repControl->cadastrar();
+			$repControl->cadastrar();
 		}else{
 			atualizaPessoa($rep['pf']['objpessoa']);
 			atualizaPF($rep['pf']);
@@ -261,8 +285,17 @@ function cadRepPJ ($reps, $idpj) {
 		}
 	}
 }
-function deletaRepPJ () {
-	
+function deletaRepPJ ($reps) {
+	foreach ($reps as $rep) {
+		if(!empty($rep['id'])) {
+			$repControl = new RepresentantePJControl(new RepresentantePJ($rep['id']));
+			$repControl->deletar();
+			// deleta pessoa fisica
+			deletaPF($rep['pf']);
+			//deleta pessoa
+			deletaPessoa($rep['pf']['objpessoa']);
+		}
+	}
 }
 
 

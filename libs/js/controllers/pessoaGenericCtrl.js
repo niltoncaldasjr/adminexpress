@@ -12,14 +12,15 @@ angular.module('admin-express')
         */
         function createScopes () {
             $rootScope.gpes = {
-                "grupo"         : {},
-                "grupopessoa"   : {},
-                "pessoa"        : {"tipo":""},
-                "pessoapf"      : {"sexo":"MASCULINO", "datanascimento":moment(), "dataemissaodoc":moment()},
+                "grupo"         : {"id":null,"descricao":null,"tipo":null},
+                "grupopessoa"   : {"id":null,"idgrupo":null,"idpessoa":null,"informacao":null},
+                "pessoa"        : {"id":null,"tipo":null,"CEP":null,"endereco":null,"numero":null,"complemento":null,"bairro":null,"telefone":null,"fax":null,"celular":null,"email1":null,"email2":null,"site":null},
+                "pessoapf"      : {"id":null,"nome":null,"cpf":null,"idpessoa","sexo":"MASCULINO", "datanascimento":moment(), "dataemissaodoc":moment()},
                 "pessoapj"      : {"representantes":[]},
                 "reppessoa"     : {},
                 "reppessoapf"   : {"sexo":"MASCULINO", "datanascimento":moment(), "dataemissaodoc":moment()},
-                "rep"           : {"representante":"SIM"}
+                "rep"           : {"representante":"SIM"},
+                "repsdel"       : []
             };
         }
         createScopes();
@@ -210,7 +211,7 @@ angular.module('admin-express')
             $scope.ok = function (objP, objPF, objRep) {
                 objPF.datanascimento = objPF.datanascimento.format('YYYY-MM-DD');
                 objPF.dataemissaodoc = objPF.dataemissaodoc.format('YYYY-MM-DD');
-                
+
                 // Adiciona obj pessoa ao atributo pessoa de PessoaFisica
                 objPF.objpessoa = objP;
                 objRep.pf = objPF;
@@ -241,6 +242,7 @@ angular.module('admin-express')
             Deleta representante
         */
         $scope.deletaRep = function (obj) {
+            $rootScope.gpes.repsdel.push(obj);
             var reps = $rootScope.gpes.pessoapj.representantes;
             reps.splice(reps.indexOf(obj),1);
         }
