@@ -145,8 +145,6 @@ angular.module('admin-express')
          */
         $scope.cadastrar = function(obj){
             // Caso seja um tipo PJ verificamos se há representantes
-            console.log(obj);
-
             if(obj.pessoa.tipo === 'PJ') {
                 if(obj.pessoapj.representantes.length<=0) {
                     alert('Cadastre pelomenos 1 representante');
@@ -349,6 +347,8 @@ angular.module('admin-express')
                 if(obj.objpessoa.tipo==='PJ') {
                     $rootScope.gpes.reppessoapj = obj;
                 }else{
+                    obj.datanascimento = moment(obj.datanascimento);
+                    obj.dataemissaodoc = moment(obj.dataemissaodoc);
                     $rootScope.gpes.reppessoapf = obj;
                 }
                 delete $scope.buscaResult;
