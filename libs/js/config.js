@@ -288,10 +288,10 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             url: "/admin",
             templateUrl: "views/common/content.html",
         })
-        .state('admin.clientepf', {
-            url: '/clientepf',
-            templateUrl: "views/cadClientePF.html",
-            controller: 'clientePFCtrl',
+        .state('admin.cliente', {
+            url: '/cliente',
+            templateUrl: "views/pessoa/cadPessoaGeneric.html",
+            controller: 'pessoaGenericCtrl',
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
@@ -325,7 +325,43 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('cadastro.corretores', {
             url: '/corretores',
-            templateUrl: "views/cadClientePF.html",
+            templateUrl: "views/pessoa/cadPessoaGeneric.html",
+            controller: 'pessoaGenericCtrl',
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            files: ['libs/js/plugins/footable/footable.all.min.js', 'libs/css/plugins/footable/footable.core.css']
+                        },
+                        {
+                            name: 'ui.footable',
+                            files: ['libs/js/plugins/footable/angular-footable.js']
+                        },
+                        {
+                            files: ['libs/js/plugins/sweetalert/sweetalert.min.js', 'libs/css/plugins/sweetalert/sweetalert.css']
+                        },
+                        {
+                            name: 'oitozero.ngSweetAlert',
+                            files: ['libs/js/plugins/sweetalert/angular-sweetalert.min.js']
+                        },
+                        {
+                            files: ['libs/css/plugins/iCheck/custom.css','libs/js/plugins/iCheck/icheck.min.js']
+                        },
+                        {
+                            files: ['libs/js/plugins/moment/moment.min.js']
+                        },
+                        {
+                            name: 'datePicker',
+                            files: ['libs/css/plugins/datapicker/angular-datapicker.css','libs/js/plugins/datapicker/angular-datepicker.js']
+                        },
+                    ]);
+                }
+            }
+        })
+        
+        .state('cadastro.cartorio', {
+            url: '/cartorio',
+            templateUrl: "views/pessoa/cadPessoaGeneric.html",
             controller: 'pessoaGenericCtrl',
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {
