@@ -2,9 +2,20 @@
     <!--<div class="container services">-->
     <div class="row">
         <div class="col-md-12">
-            <div class="form-group">
-                <h3>Buscar</h3>
-                <input type="text" class="form-control" placeholder="Busca CPF/CNPJ" id="buscar" name="buscar" ng-model="busca" ng-keyup="buscar(busca)">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="form-group">
+                        <h3>Buscar Pessoa</h3>
+                        <input type="text" class="form-control" placeholder="Digite CPF/CNPJ" id="buscar" name="buscar" ng-model="busca" ng-keyup="buscar(busca, gpes.pessoa.tipo)">
+                    </div>
+                    <div class="form-group" ng-if="buscaResult">
+                        <button class="btn btn-info btn-outline" ng-click="usarBusca(buscaResult)">{{buscaResult.nome}}</button>
+                        <button class="btn btn-danger" ng-click="cancelaBusca()">Cancelar</button>
+                    </div>
+                    <div class="alert alert-danger" ng-if="buscaerror">
+                        <strong>A busca não obteve resultados.</strong>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

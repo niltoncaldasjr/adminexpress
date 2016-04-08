@@ -12,13 +12,13 @@ angular.module('admin-express')
         */
         function createScopes () {
             $rootScope.gpes = {
-                "grupo"         : {"id":"","descricao":"","tipo":""},
-                "grupopessoa"   : {"id":"","idgrupo":"","idpessoa":"","informacao":""},
-                "pessoa"        : {"id":"","tipo":"","CEP":"","endereco":"","numero":"","complemento":"","bairro":"","telefone":"","fax":"","celular":"","email1":"","email2":"","site":""},
-                "pessoapf"      : {"id":"", "objpessoa":{}, "nome":"","cpf":"","nacionalidade":"","naturalidade":"", "datanascimento":moment(), "estadocivil":"", "nomeconjuge":"", "objprofissao":{}, "tipodoc":"", "numerodoc":"", "orgaodoc":"", "dataemissaodoc":moment(), "pai":"", "mae":"", "sexo":"MASCULINO"},
-                "pessoapj"      : {"id":"", "objpessoa":{},"razao":"", "cnpj":"", "nire":"", "inscestadual":"", "inscmunicipal":"", "representantes":[]},
-                "reppessoa"     : {"id":"","tipo":"","CEP":"","endereco":"","numero":"","complemento":"","bairro":"","telefone":"","fax":"","celular":"","email1":"","email2":"","site":""},
-                "reppessoapf"   : {"id":"", "objpessoa":{}, "nome":"","cpf":"","nacionalidade":"","naturalidade":"", "datanascimento":moment(), "estadocivil":"", "nomeconjuge":"", "objprofissao":{}, "tipodoc":"", "numerodoc":"", "orgaodoc":"", "dataemissaodoc":moment(), "pai":"", "mae":"", "sexo":"MASCULINO"},
+                "grupo"         : {"descricao":"","tipo":""},
+                "grupopessoa"   : {"idgrupo":"","idpessoa":"","informacao":""},
+                "pessoa"        : {"tipo":"","CEP":"","endereco":"","numero":"","complemento":"","bairro":"","telefone":"","fax":"","celular":"","email1":"","email2":"","site":""},
+                "pessoapf"      : {"objpessoa":{}, "nome":"","cpf":"","nacionalidade":"","naturalidade":"", "datanascimento":moment(), "estadocivil":"", "nomeconjuge":"", "objprofissao":{}, "tipodoc":"", "numerodoc":"", "orgaodoc":"", "dataemissaodoc":moment(), "pai":"", "mae":"", "sexo":"MASCULINO"},
+                "pessoapj"      : {"objpessoa":{},"razao":"", "cnpj":"", "nire":"", "inscestadual":"", "inscmunicipal":"", "representantes":[]},
+                "reppessoa"     : {"tipo":"","CEP":"","endereco":"","numero":"","complemento":"","bairro":"","telefone":"","fax":"","celular":"","email1":"","email2":"","site":""},
+                "reppessoapf"   : {"objpessoa":{}, "nome":"","cpf":"","nacionalidade":"","naturalidade":"", "datanascimento":moment(), "estadocivil":"", "nomeconjuge":"", "objprofissao":{}, "tipodoc":"", "numerodoc":"", "orgaodoc":"", "dataemissaodoc":moment(), "pai":"", "mae":"", "sexo":"MASCULINO"},
                 "rep"           : {"representante":"SIM"},
                 "repsdel"       : []
             };
@@ -38,7 +38,7 @@ angular.module('admin-express')
                 if(response['data']){
                     $rootScope.profissoes = response['data'];
                 }else{
-                    alert('Ainda não existe este Grupo!');
+                    SweetAlert.swal("Atenção", "Este Grupo ainda não existe!", "error");
                 }
             }, function errorCallback(response) {
             });
@@ -94,8 +94,6 @@ angular.module('admin-express')
             }, function errorCallback(response) {
             });
         }
-
-        
 
         /**
          * Funcao de alert para confirmar
@@ -167,17 +165,16 @@ angular.module('admin-express')
             genericAPI.generic(dados)
             .then(function successCallback(response) {
                 if(response['data']){
-                    console.log(response['data']);
-                    // $scope.limparCampos();
-                    // listarorgao();
+                    $scope.limparCampos();
+                    SweetAlert.swal("Sucesso!", "Sucesso na operação!", "success");
                 }else{
                 }
             }, function errorCallback(response) {
             });
         };
 
+        // Edita Generic
         $scope.editar = function(obj){
-            console.log(obj);
             $rootScope.gpes.grupopessoa = obj;
             $rootScope.gpes.pessoa = obj.pes.objpessoa;
             $rootScope.gpes.pessoapf = obj.pes;
@@ -186,11 +183,72 @@ angular.module('admin-express')
         };
 
         $scope.deletar = function(obj){
-
             confirmaDelete(obj);
         };
 
-        
+
+        /*
+            Buscar
+        */
+        var conta;
+
+        $scope.buscar = function (obj, tipo) {
+            $interval.cancel(conta);
+            delete $scope.buscaResult;
+            $scope.buscaerror = false;
+
+            obj = obj.substring(0,14);
+            $scope.busca = obj;
+            
+            conta = $interval(
+                function() {
+                    if(obj.length>=11 && obj!==undefined) { 
+                        $interval.cancel(conta);
+                        buscaPessoa(obj, tipo);
+                    }         
+                }, 2000);
+
+            function buscaPessoa (busca, tipo) {
+                var dados = {'session': true, 'metodo': 'buscarPessoa', 'data': {'busca':busca,'tipo':tipo}, 'class': 'grupopessoa'};
+                
+                genericAPI.generic(dados)
+                .then(function successCallback(response) {
+                    var data = response['data'];
+                    if(data.success === true){
+                        var pessoa = data.data;
+                        if(pessoa.objpessoa.tipo==='PJ') {
+                            $scope.buscaResult = pessoa;
+                            $scope.buscaResult.nome = pessoa.razao;
+                        }else{
+                            $scope.buscaResult = pessoa;
+                            $scope.buscaResult.nome = pessoa.nome;
+                        }
+                    }else{
+                        $scope.buscaerror = true;
+                         // SweetAlert.swal("Atenção", "Sua busca não retornou resutados!", "error");
+                    }
+                }, function errorCallback(response) {
+                });
+            }           
+        }
+
+        $scope.usarBusca = function (obj) {
+            $rootScope.gpes.pessoa = obj.objpessoa;
+            if(obj.objpessoa.tipo==='PJ') {
+                $rootScope.gpes.pessoapj = obj;
+            }else{
+                $rootScope.gpes.pessoapf = obj;
+            }
+            delete $scope.buscaResult;
+            delete $scope.busca;
+        }
+
+        $scope.cancelaBusca = function () {
+            delete $scope.buscaResult;
+            delete $scope.busca;
+        }
+
+
         /*
             Adiciona Representante Modal
         */
@@ -203,9 +261,11 @@ angular.module('admin-express')
             });
         }
 
-        /*
+
+
+        /*===========================================================================
             Ctrl Representante Modal
-        */
+        ============================================================================*/
         function representanteCtrl ($scope, $uibModalInstance) {
 
             $scope.ok = function (objP, objPF, objRep) {
@@ -222,20 +282,83 @@ angular.module('admin-express')
                 if(reps.indexOf(objRep)>=0) { reps.splice(reps.indexOf(objRep),1, objRep);}
                 else{reps.push(objRep);}
 
-                console.log(objRep);
                 // reinicia obj reppessoa
                 $rootScope.gpes.reppessoa = {};
                 // reinicia obj reppessoapf
-                $rootScope.gpes.reppessoapf = {"id":null, "objpessoa":{}, "nome":null,"cpf":null,"nacionalidade":null,"naturalidade":null, "datanascimento":moment(), "estadocivil":null, "nomeconjuge":null, "objprofissao":{}, "tipodoc":null, "numerodoc":null, "orgaodoc":null, "dataemissaodoc":moment(), "pai":null, "mae":null, "sexo":"MASCULINO"},
+                $rootScope.gpes.reppessoapf = {"objpessoa":{}, "nome":"","cpf":"","nacionalidade":"","naturalidade":"", "datanascimento":moment(), "estadocivil":"", "nomeconjuge":"", "objprofissao":{}, "tipodoc":"", "numerodoc":"", "orgaodoc":"", "dataemissaodoc":moment(), "pai":"", "mae":"", "sexo":"MASCULINO"},
                 // reinicia o obj rep
-                $rootScope.gpes.rep = {"representante":"SIM"};
+                $rootScope.gpes.rep = {"representante":"SIM", "funcao":""};
                 // fecha o modal
                 $uibModalInstance.close();
             };
 
             $scope.cancel = function () {
                 $uibModalInstance.dismiss('cancel');
+                // reinicia obj reppessoa
+                $rootScope.gpes.reppessoa = {};
+                // reinicia obj reppessoapf
+                $rootScope.gpes.reppessoapf = {"objpessoa":{}, "nome":"","cpf":"","nacionalidade":"","naturalidade":"", "datanascimento":moment(), "estadocivil":"", "nomeconjuge":"", "objprofissao":{}, "tipodoc":"", "numerodoc":"", "orgaodoc":"", "dataemissaodoc":moment(), "pai":"", "mae":"", "sexo":"MASCULINO"},
+                // reinicia o obj rep
+                $rootScope.gpes.rep = {"representante":"SIM", "funcao":""};
             };
+
+            // Buscar Representante
+            var conta;
+            $scope.buscar = function (obj) {
+                $interval.cancel(conta);
+                delete $scope.buscaResult;
+                $scope.buscaerror = false;
+
+                obj = obj.substring(0,11);
+                $scope.busca = obj;
+                
+                conta = $interval(
+                    function() {
+                        if(obj.length>=11 && obj!==undefined) { 
+                            $interval.cancel(conta);
+                            buscaPessoa(obj);
+                        }         
+                    }, 2000);
+
+                function buscaPessoa (busca) {
+                    var dados = {'session': true, 'metodo': 'buscarPessoa', 'data': {'busca':busca,'tipo':'PF'}, 'class': 'grupopessoa'};
+                    
+                    genericAPI.generic(dados)
+                    .then(function successCallback(response) {
+                        var data = response['data'];
+                        if(data.success === true){
+                            var pessoa = data.data;
+                            if(pessoa.objpessoa.tipo==='PJ') {
+                                $scope.buscaResult = pessoa;
+                                $scope.buscaResult.nome = pessoa.razao;
+                            }else{
+                                $scope.buscaResult = pessoa;
+                                $scope.buscaResult.nome = pessoa.nome;
+                            }
+                        }else{
+                            $scope.buscaerror = true;
+                             // SweetAlert.swal("Atenção", "Sua busca não retornou resutados!", "error");
+                        }
+                    }, function errorCallback(response) {
+                    });
+                }           
+            }
+
+            $scope.usarBusca = function (obj) {
+                $rootScope.gpes.reppessoa = obj.objpessoa;
+                if(obj.objpessoa.tipo==='PJ') {
+                    $rootScope.gpes.reppessoapj = obj;
+                }else{
+                    $rootScope.gpes.reppessoapf = obj;
+                }
+                delete $scope.buscaResult;
+                delete $scope.busca;
+            }
+
+            $scope.cancelaBusca = function () {
+                delete $scope.buscaResult;
+                delete $scope.busca;
+            }
         }
 
         /*
@@ -261,36 +384,6 @@ angular.module('admin-express')
             $rootScope.gpes.rep = obj;
             // Obj pessoa fisica
             $rootScope.gpes.reppessoapf = obj.pf;
-        }
-
-        /*
-            Buscar
-        */
-        var conta;
-
-        $scope.buscar = function (obj) {
-            $interval.cancel(conta);
-
-            conta = $interval(
-                function() {
-                    if(obj.length>=10 && obj!==undefined) { 
-                        $interval.cancel(conta);
-                        buscaPessoa(obj);
-                    }         
-                }, 2000);
-
-            function buscaPessoa (obj) {
-                var dados = {'session': true, 'metodo': 'buscarPessoa', 'data': obj, 'class': 'grupopessoa'};
-                
-                genericAPI.generic(dados)
-                .then(function successCallback(response) {
-                    if(response['data']){
-                        console.log(response['data']);
-                    }else{
-                    }
-                }, function errorCallback(response) {
-                });
-                }           
         }
 
     });

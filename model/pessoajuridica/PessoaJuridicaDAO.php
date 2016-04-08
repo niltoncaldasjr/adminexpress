@@ -124,7 +124,7 @@ Class PessoaJuridicaDAO {
 	
 	/* Buscar por CNPJ */
 	function buscarPorCNPJ (PessoaJuridica $obj) {
-		$this->sql = sprintf("SELECT * FROM pessoajuridica WHERE cnpj = %d",
+		$this->sql = sprintf("SELECT * FROM pessoajuridica WHERE cnpj = '%s'",
 				mysqli_real_escape_string($this->con, $obj->getCnpj()));
 		$resultSet = mysqli_query($this->con, $this->sql);
 		if(!$resultSet) {

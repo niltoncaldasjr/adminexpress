@@ -42,7 +42,7 @@ function cadastrar () {
 	
 	$idpessoa = cadPessoa($data['pessoa']);
 	
-	if($data['grupo']['tipo']=='PJ') {
+	if($data['pessoa']['tipo']=='PJ') {
 		$idpj = cadPJ($data['pessoapj'], $idpessoa);
 		cadRepPJ($data['pessoapj']['representantes'], $idpj);
 	}else{
@@ -110,19 +110,25 @@ function buscarPorId () {
 }
 function buscarPessoa() {
 	$data = $_POST['data'];
-	if(strlen($data)==11) {
-		$objPF = new PessoaFisica(); $objPF->setCpf($data);
+	$response = array('success'=>false, 'data'=>null);
+	if($data['tipo'] == 'PF') {
+		$objPF = new PessoaFisica(); $objPF->setCpf($data['busca']);
 		$pfControl = new PessoaFisicaControl($objPF);
 		$objPF = $pfControl->buscarPorCPF();
-		if($objPF){ echo json_encode($objPF);}
-		else{echo 'Nenhum dado encontrado';}
+		if(!empty($objPF)) { 
+			$response['success'] = true;
+			$response['data'] = $objPF;
+		}
 	}else{
-		$objPJ = new PessoaJuridica(); $objPJ->setCnpj($data);
+		$objPJ = new PessoaJuridica(); $objPJ->setCnpj($data['busca']);
 		$pjControl = new PessoajuridicaControl($objPJ);
 		$objPJ = $pjControl->buscarPorCNPJ();
-		if($objPJ){ echo json_encode($objPJ);}
-		else{echo 'Nenhum dado encontrado';}
+		if(!empty($objPJ)) {
+			$response['success'] = true;
+			$response['data'] = $objPJ;
+		}
 	}
+	echo json_encode($response);
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------------//
