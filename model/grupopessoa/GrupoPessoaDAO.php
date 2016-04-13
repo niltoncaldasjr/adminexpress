@@ -67,7 +67,7 @@ Class GrupoPessoaDAO {
 			$objPessoa = $pessoaControl->buscarPorId();
 			
 			if($objGrupo->getTipo() == 'PF') {
-				$objPF = new Pessoafisica(); $objPF->setObjpessoa($objPessoa);
+				$objPF = new PessoaFisica(); $objPF->setObjpessoa($objPessoa);
 				$pfControl = new PessoaFisicaControl($objPF);
 				$objPF = $pfControl->buscaPorPessoa();
 				$row->pf = $objPF;
@@ -102,7 +102,7 @@ Class GrupoPessoaDAO {
 			$objPessoa = $pessoaControl->buscarPorId();
 			
 			// busca em pessoa
-			$objPF = new Pessoafisica(); $objPF->setObjpessoa($objPessoa);
+			$objPF = new PessoaFisica(); $objPF->setObjpessoa($objPessoa);
 			$pfControl = new PessoaFisicaControl($objPF);
 			$objPF = $pfControl->buscarPorPessoa();
 			
