@@ -145,11 +145,15 @@ angular.module('admin-express')
          */
         $scope.cadastrar = function(obj){
             // Caso seja um tipo PJ verificamos se há representantes
+            
             if(obj.pessoa.tipo === 'PJ') {
                 if(obj.pessoapj.representantes.length<=0) {
                     alert('Cadastre pelomenos 1 representante');
                     return false;
                 }
+            }else{
+                obj.pessoapf.datanascimento = obj.pessoapf.datanascimento.format('YYYY-MM-DD');
+                obj.pessoapf.dataemissaodoc = obj.pessoapf.dataemissaodoc.format('YYYY-MM-DD');
             }
 
             var dados;
@@ -175,9 +179,15 @@ angular.module('admin-express')
         $scope.editar = function(obj){
             $rootScope.gpes.grupopessoa = obj;
             $rootScope.gpes.pessoa = obj.pes.objpessoa;
-            $rootScope.gpes.pessoapf = obj.pes;
-            $rootScope.gpes.pessoapj = obj.pes;
-            $rootScope.gpes.pessoapj.representantes = obj.representantes;
+            if(obj.pes.objpessoa.tipo === 'PJ') {
+                $rootScope.gpes.pessoapj = obj.pes;
+                $rootScope.gpes.pessoapj.representantes = obj.representantes;
+            }else{
+                obj.pes.datanascimento = moment(obj.pes.datanascimento);
+                obj.pes.dataemissaodoc = moment(obj.pes.dataemissaodoc);
+                $rootScope.gpes.pessoapf = obj.pes;
+            }
+            
         };
 
         $scope.deletar = function(obj){
@@ -195,6 +205,9 @@ angular.module('admin-express')
             delete $scope.buscaResult;
             $scope.buscaerror = false;
 
+            if(obj === undefined) return false;
+
+            obj = obj.replace(/[^0-9]+/g, "");
             obj = obj.substring(0,14);
             $scope.busca = obj;
             
@@ -235,6 +248,8 @@ angular.module('admin-express')
             if(obj.objpessoa.tipo==='PJ') {
                 $rootScope.gpes.pessoapj = obj;
             }else{
+                obj.datanascimento = moment(obj.datanascimento);
+                obj.dataemissaodoc = moment(obj.dataemissaodoc);
                 $rootScope.gpes.pessoapf = obj;
             }
             delete $scope.buscaResult;

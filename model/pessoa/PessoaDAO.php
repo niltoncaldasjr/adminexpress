@@ -134,7 +134,7 @@ Class PessoaDAO {
 		}
 		while($row = mysqli_fetch_object($resultSet)) {
 			$objPJ = new PessoaJuridica(); $objPJ->setObjpessoa(new Pessoa($row->id));
-			$pjControl = new PessoaFisicaControl($objPJ);
+			$pjControl = new PessoaJuridicaControl($objPJ);
 			$this->obj = $pjControl->buscarPorPessoa();
 		}
 		return $this->obj;

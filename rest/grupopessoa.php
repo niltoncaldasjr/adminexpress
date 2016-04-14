@@ -121,7 +121,7 @@ function buscarPessoa() {
 		}
 	}else{
 		$objPJ = new PessoaJuridica(); $objPJ->setCnpj($data['busca']);
-		$pjControl = new PessoajuridicaControl($objPJ);
+		$pjControl = new PessoaJuridicaControl($objPJ);
 		$objPJ = $pjControl->buscarPorCNPJ();
 		if(!empty($objPJ)) {
 			$response['success'] = true;
@@ -137,6 +137,11 @@ function buscarPessoa() {
 	Functions de Pessoa
 */
 function cadPessoa ($pessoa) {
+	
+	
+	if(!empty($pessoa['id'])) {
+		return atualizaPessoa($pessoa);
+	}
 	
 	if(empty($pessoa['tipo'])) $pessoa['tipo'] = 'PF';
 	
@@ -179,6 +184,7 @@ function atualizaPessoa ($pessoa) {
 	);
 	$pessoaControl = new PessoaControl($objPessoa);
 	$pessoaControl->atualizar();
+	return $pessoa['id'];
 }
 function deletaPessoa ($pessoa) {
 	$pessoaControl = new PessoaControl(new Pessoa($pessoa['id']));
@@ -190,6 +196,10 @@ function deletaPessoa ($pessoa) {
  	Functions de Pessoa Física
 */
 function cadPF ($pf, $idpessoa) {
+	
+	if(!empty($pf['id'])) {
+		return atualizaPF($pf);
+	}
 	
 	$objPF = new PessoaFisica(
 			NULL,
@@ -237,6 +247,7 @@ function atualizaPF ($pf) {
 	);
 	$pfControl = new PessoaFisicaControl($objPF);
 	$pfControl->atualizar();
+	return $pf['id'];
 }
 function deletaPF ($pf) {
 	$pfControl = new PessoaFisicaControl(new PessoaFisica($pf['id']));
@@ -247,6 +258,12 @@ function deletaPF ($pf) {
  	Functions de Pessoa Jurídica
 */
 function cadPJ ($pj, $idpessoa) {
+	
+	if(!empty($pj['id'])) {
+		atualizaPJ($pj);
+		return false;
+	}
+	
 	$objPJ = new PessoaJuridica(
 			NULL,
 			new Pessoa($idpessoa),
@@ -274,6 +291,7 @@ function atualizaPJ ($pj) {
 			);
 	$pjControl = new PessoaJuridicaControl($objPJ);
 	$pjControl->atualizar();
+	return $pj['id'];
 }
 
 /*
