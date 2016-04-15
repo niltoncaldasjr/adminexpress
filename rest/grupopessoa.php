@@ -247,7 +247,7 @@ function atualizaPF ($pf) {
 	);
 	$pfControl = new PessoaFisicaControl($objPF);
 	$pfControl->atualizar();
-	return $pf['id'];
+	return $pf['objpessoa']['id'];
 }
 function deletaPF ($pf) {
 	$pfControl = new PessoaFisicaControl(new PessoaFisica($pf['id']));
@@ -260,8 +260,7 @@ function deletaPF ($pf) {
 function cadPJ ($pj, $idpessoa) {
 	
 	if(!empty($pj['id'])) {
-		atualizaPJ($pj);
-		return false;
+		return atualizaPJ($pj);
 	}
 	
 	$objPJ = new PessoaJuridica(
@@ -291,7 +290,7 @@ function atualizaPJ ($pj) {
 			);
 	$pjControl = new PessoaJuridicaControl($objPJ);
 	$pjControl->atualizar();
-	return $pj['id'];
+	return $pj['objpessoa']['id'];
 }
 
 /*
