@@ -112,7 +112,7 @@ angular.module('admin-express')
                     closeOnCancel: false },
                 function (isConfirm) {
                     if (isConfirm) {
-                        var dados = {'session':true, 'metodo': 'deletar', 'data': obj, 'class': 'orgao'};
+                        var dados = {'session':true, 'metodo': 'deletar', 'data': obj, 'class': 'grupopessoa'};
                         genericAPI.generic(dados)
                             .then(function successCallback(response) {
                                 if(response['data']){
@@ -146,12 +146,7 @@ angular.module('admin-express')
         $scope.cadastrar = function(obj){
             // Caso seja um tipo PJ verificamos se há representantes
             
-            if(obj.pessoa.tipo === 'PJ') {
-                if(obj.pessoapj.representantes.length<=0) {
-                    alert('Cadastre pelomenos 1 representante');
-                    return false;
-                }
-            }else{
+            if(obj.pessoa.tipo === 'PF') {
                 obj.pessoapf.datanascimento = obj.pessoapf.datanascimento.format('YYYY-MM-DD');
                 obj.pessoapf.dataemissaodoc = obj.pessoapf.dataemissaodoc.format('YYYY-MM-DD');
             }
@@ -247,6 +242,7 @@ angular.module('admin-express')
             $rootScope.gpes.pessoa = obj.objpessoa;
             if(obj.objpessoa.tipo==='PJ') {
                 $rootScope.gpes.pessoapj = obj;
+                $rootScope.gpes.pessoapj.representantes = [];
             }else{
                 obj.datanascimento = moment(obj.datanascimento);
                 obj.dataemissaodoc = moment(obj.dataemissaodoc);
@@ -273,8 +269,6 @@ angular.module('admin-express')
                 backdrop: 'static'
             });
         }
-
-
 
         /*===========================================================================
             Ctrl Representante Modal

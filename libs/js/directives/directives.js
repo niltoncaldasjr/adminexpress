@@ -582,6 +582,51 @@ function footable () {
 
 };
 
+function datamode () {
+    return {
+        restrict: "A",
+        require: "ngModel",
+        link: function (sc, el, att, model) {
+            // formata data
+            var _format = function (date) {
+                date = date.replace(/[^0-9]+/g, "");
+                if(date.length > 2) {
+                    date = date.substring(0,2) +"/"+ date.substring(2);
+                }
+                if(date.length > 5) {
+                    date = date.substring(0,5) +"/"+ date.substring(5,9);
+                }
+                return date;
+            };
+
+            // ao digitar
+            el.bind("keyup", function () {
+                model.$setViewValue(_format(model.$viewValue));
+                model.$render();
+            });
+
+            // ao perder o foco
+            el.bind("blur", function () {
+                if(model.$viewValue.length === 10) {
+                    var parts = model.$viewValue.split('/');
+                    console.log(parts[2]+'-'+parts[1]+'-'+parts[0]);
+                    var date = parts[2]+'-'+parts[1]+'-'+parts[0];
+
+                    model.$$rawModelValue = moment(date);
+                    
+                    // model.$setViewValue(model.$$rawModelValue.format('DD/MM/YYYY'));
+                }else{
+                    model.$$rawModelValue = moment();
+                    // model.$setViewValue(model.$$rawModelValue.format('DD/MM/YYYY'));
+                }
+                model.$render();
+
+                console.log(model);
+            });
+        }
+    }
+};
+
 /**
  *
  * Pass all functions into module
@@ -611,6 +656,7 @@ angular
     .directive('touchSpin', touchSpin)
     .directive('markdownEditor', markdownEditor)
     .directive('footable', footable)
+    .directive('datamode', datamode)
     .directive('reiniciarFootable', function () {
         return function (scope, element) {
             var footableTable = element.parents('table');
