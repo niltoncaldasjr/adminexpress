@@ -587,6 +587,7 @@ function datamode () {
         restrict: "A",
         require: "ngModel",
         link: function (sc, el, att, model) {
+            console.log(model);
             // formata data
             var _format = function (date) {
                 date = date.replace(/[^0-9]+/g, "");
@@ -611,7 +612,8 @@ function datamode () {
                     var parts = model.$viewValue.split('/');
                     console.log(parts[2]+'-'+parts[1]+'-'+parts[0]);
                     var date = parts[2]+'-'+parts[1]+'-'+parts[0];
-
+                    console.log(date);
+                    console.log(moment(date));
                     model.$$rawModelValue = moment(date);
                     
                     // model.$setViewValue(model.$$rawModelValue.format('DD/MM/YYYY'));
