@@ -149,6 +149,8 @@ angular.module('admin-express')
             if(obj.pessoa.tipo === 'PF') {
                 obj.pessoapf.datanascimento = obj.pessoapf.datanascimento.format('YYYY-MM-DD');
                 obj.pessoapf.dataemissaodoc = obj.pessoapf.dataemissaodoc.format('YYYY-MM-DD');
+            }else{
+                obj.pessoapj.representantes = convertDataRepresentante(obj.pessoapj.representantes);
             }
 
             var dados;
@@ -268,6 +270,19 @@ angular.module('admin-express')
                 size: 'lg',
                 backdrop: 'static'
             });
+        }
+
+        function convertDataRepresentante (reps) {
+            if(reps) {
+                console.log(reps);
+                for(var i in reps) {
+                    if(typeof(reps[i].pf.datanascimento) === 'object') {
+                        reps[i].pf.datanascimento = reps[i].pf.datanascimento.format('YYYY-MM-DD');
+                        reps[i].pf.dataemissaodoc = reps[i].pf.dataemissaodoc.format('YYYY-MM-DD');
+                    }
+                }
+            }
+            return reps;
         }
 
         /*===========================================================================

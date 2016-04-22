@@ -67,7 +67,7 @@ function atualizar () {
 	
 	if($data['pessoa']['tipo']=='PJ') {
 		atualizaPJ ($data['pessoapj']);
-		cadRepPJ($data['pessoapj']['representantes'], $data['pessoapj']['id']);
+		cadRepPJ($data['pessoapj']['representantes'], $data['pessoapj']['objpessoa']['id']);
 		deletaRepPJ($data['repsdel']);
 	}else{
 		atualizaPF($data['pessoapf']);
