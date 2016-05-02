@@ -1,158 +1,129 @@
 <!-- <div class="col-md-6">  -->
-<h3>Dados Pessoa Física</h3>
-<div class="hr-line-dashed"></div>
+    <h3>Dados Pessoa Física</h3>
+    <div class="hr-line-dashed"></div>
 
-<input type="hidden" class="form-control" id="id" name="id" ng-model="gpes.pessoapf.id">
+    <input type="hidden" class="form-control" id="id" name="id" ng-model="gpes.pessoapf.id">
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="form-group">
-            <label class="label-control">Nome</label>
-            <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome"
-                   ng-model="gpes.pessoapf.nome" ng-required="true">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="label-control">Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome" ng-model="gpes.pessoapf.nome" ng-required="true">
+            </div>
         </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-3">
-        <div class="form-group">
+        <div class="col-md-3">
+            <div class="form-group">
             <label class="label-control">CPF</label>
-            <input type="text" class="form-control" id="cpf" name="cpf" placeholder="CPF" ng-model="gpes.pessoapf.cpf"
-                   ng-required="true">
+            <input type="text" class="form-control" id="cpf" name="cpf" placeholder="CPF" ng-model="gpes.pessoapf.cpf" ng-required="true">
         </div>
-    </div>
-    <div class="col-md-3">
-        <div class="form-group">
-            <label class="label-control">Data Nascimento</label>
-            <div class="form-group" id="data_1">
-                <div class="input-group date">
-                    <input type="datetime" class="form-control" date-time id="datanascimento" name="datanascimento"
-                           ng-model="gpes.pessoapf.datanascimento" view="date" auto-close="true" min-view="date"
-                           format="DD/MM/YYYY" ng-required="true" readonly>
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="label-control">Data Nascimento</label>
+                <div class="form-group" id="data_1">
+                    <div class="input-group date">
+                        <input type="datetime" class="form-control" date-time id="datanascimento" name="datanascimento" ng-model="gpes.pessoapf.datanascimento" view="date" auto-close="true" min-view="date" format="DD/MM/YYYY" ng-required="true" readonly>
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="label-control">Naturalidade</label>
+                <input type="text" class="form-control" id="naturalidade" name="naturalidade" placeholder="Cidade/UF" ng-model="gpes.pessoapf.naturalidade" ng-required="true">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="label-control">Nacionalidade</label>
+                <input type="text" class="form-control" id="nacionalidade" name="nacionalidade" placeholder="Nacionalidade" ng-model="gpes.pessoapf.nacionalidade" ng-required="true">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="label-control">Estado Civíl</label>
+                <select class="form-control" id="estadocivil" name="estadocivil" placeholder="Estado Civíl" ng-model="gpes.pessoapf.estadocivil" ng-required="true">
+                    <option value>Selecione...</option>
+                    <option value="SOLTEIRO">SOLTEIRO</option>
+                    <option value="CASADO">CASADO</option>
+                    <option value="VIUVO">VIÚVO</option>
+                    <option value="DIVORCIADO">DIVORCIADO</option>
+                    <option value="UNIAOESTAVEL">UNIÃO ESTÁVEL</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="label-control">Profissão</label>
+                <select class="form-control" id="profissao" name="profissao" placeholder="Profissao" ng-model="gpes.pessoapf.objprofissao" ng-required="true" ng-options="prof as prof.descricao for prof in profissoes track by prof.id">
+                    <option value>Selecione...</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="label-control">Sexo</label>
+                <div>
+                    <label> <input icheck type="radio" name="sexo" ng-model="gpes.pessoapf.sexo" checked="true" value="MASCULINO"> MASCULINO </label>
+                    <label> <input icheck type="radio" name="sexo" ng-model="gpes.pessoapf.sexo" value="FEMININO"> FEMININO </label>
                 </div>
             </div>
         </div>
-
-    </div>
-    <div class="col-md-3">
-        <div class="form-group">
-            <label class="label-control">Naturalidade</label>
-            <input type="text" class="form-control" id="naturalidade" name="naturalidade" placeholder="Naturalidade"
-                   ng-model="gpes.pessoapf.naturalidade" ng-required="true">
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="form-group">
-            <label class="label-control">Nacionalidade</label>
-            <input type="text" class="form-control" id="nacionalidade" name="nacionalidade" placeholder="Nacionalidade"
-                   ng-model="gpes.pessoapf.nacionalidade" ng-required="true">
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-4">
-        <div class="form-group">
-            <label class="label-control">Estado Civíl</label>
-            <select class="form-control" id="estadocivil" name="estadocivil" placeholder="Estado Civíl"
-                    ng-model="gpes.pessoapf.estadocivil" ng-required="true">
-                <option value>Selecione...</option>
-                <option value="SOLTEIRO">SOLTEIRO</option>
-                <option value="CASADO">CASADO</option>
-                <option value="VIUVO">VIÚVO</option>
-                <option value="DIVORCIADO">DIVORCIADO</option>
-            </select>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="form-group">
-            <label class="label-control">Profissão</label>
-            <select class="form-control" id="profissao" name="profissao" placeholder="Profissao"
-                    ng-model="gpes.pessoapf.objprofissao" ng-required="true"
-                    ng-options="prof as prof.descricao for prof in profissoes track by prof.id">
-                <option value>Selecione...</option>
-            </select>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="form-group">
-            <label class="label-control">Sexo</label>
-            <div>
-                <label> <input icheck type="radio" name="sexo" ng-model="gpes.pessoapf.sexo" checked="true"
-                               value="MASCULINO"> MASCULINO </label>
-                <label> <input icheck type="radio" name="sexo" ng-model="gpes.pessoapf.sexo" value="FEMININO"> FEMININO
-                </label>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="label-control">Nome Cônjuge</label>
+                <input type="text" class="form-control" id="nomeconjuge" name="nomeconjuge" placeholder="Nome Cônjuge" ng-model="gpes.pessoapf.nomeconjuge" ng-required="true">
             </div>
         </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="form-group">
-            <label class="label-control">Nome Cônjuge</label>
-            <input type="text" class="form-control" id="nomeconjuge" name="nomeconjuge" placeholder="Nome Cônjuge"
-                   ng-model="gpes.pessoapf.nomeconjuge" ng-required="true">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="label-control">Pai</label>
+                <input type="text" class="form-control" id="pai" name="pai" placeholder="Nome Pai" ng-model="gpes.pessoapf.pai" ng-required="true">
+            </div>
         </div>
-    </div>
-    <div class="col-md-12">
-        <div class="form-group">
-            <label class="label-control">Pai</label>
-            <input type="text" class="form-control" id="pai" name="pai" placeholder="Nome Pai"
-                   ng-model="gpes.pessoapf.pai" ng-required="true">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="label-control">Mãe</label>
+                <input type="text" class="form-control" id="mae" name="mae" placeholder="Nome Mãe" ng-model="gpes.pessoapf.mae" ng-required="true">
+            </div>
         </div>
-    </div>
-    <div class="col-md-12">
-        <div class="form-group">
-            <label class="label-control">Mãe</label>
-            <input type="text" class="form-control" id="mae" name="mae" placeholder="Nome Mãe"
-                   ng-model="gpes.pessoapf.mae" ng-required="true">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="label-control">Tipo Doc.</label>
+                <select class="form-control" id="tipodoc" name="tipodoc" placeholder="Tipo Documento" ng-model="gpes.pessoapf.tipodoc" ng-required="true">
+                    <option value>Selecione...</option>
+                    <option value="RG">RG</option>
+                    <option value="CNH">CNH</option>
+                    <option value="OAB">OAB</option>
+                    <option value="OUTROS">OUTROS</option>
+                </select>
+            </div>
         </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-3">
-        <div class="form-group">
-            <label class="label-control">Tipo Doc.</label>
-            <select class="form-control" id="tipodoc" name="tipodoc" placeholder="Tipo Documento"
-                    ng-model="gpes.pessoapf.tipodoc" ng-required="true">
-                <option value>Selecione...</option>
-                <option value="RG">RG</option>
-                <option value="CNH">CNH</option>
-                <option value="OAB">OAB</option>
-                <option value="OUTROS">OUTROS</option>
-            </select>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="form-group">
-            <label class="label-control">Data Emissão</label>
-            <div class="form-group" id="data_1">
-                <div class="input-group date">
-                    <input type="datetime" class="form-control" date-time id="dataemissaodoc" name="dataemissaodoc"
-                           ng-model="gpes.pessoapf.dataemissaodoc" view="date" auto-close="true" min-view="date"
-                           format="DD/MM/YYYY" ng-required="true" readonly>
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="label-control">Data Emissão</label>
+                <div class="form-group" id="data_1">
+                    <div class="input-group date">
+                        <input type="datetime" class="form-control" date-time id="dataemissaodoc" name="dataemissaodoc" ng-model="gpes.pessoapf.dataemissaodoc" view="date" auto-close="true" min-view="date" format="DD/MM/YYYY" ng-required="true" readonly>
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-3">
-        <div class="form-group">
-            <label class="label-control">Nº Documento</label>
-            <input type="text" class="form-control" id="numerodoc" name="numerodoc" placeholder="Nº Documento"
-                   ng-model="gpes.pessoapf.numerodoc" ng-required="true">
-        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="label-control">Número Documento</label>
+                <input type="text" class="form-control" id="numerodoc" name="numerodoc" placeholder="Número Documento" ng-model="gpes.pessoapf.numerodoc" ng-required="true">
+            </div>
 
-    </div>
-    <div class="col-md-3">
-        <div class="form-group">
-            <label class="label-control">Orgão Expedidor</label>
-            <input type="text" class="form-control" id="orgaodoc" name="orgaodoc" placeholder="Orgão Expedidor"
-                   ng-model="gpes.pessoapf.orgaodoc" ng-required="true">
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="label-control">Orgão Documento</label>
+                <input type="text" class="form-control" id="orgaodoc" name="orgaodoc" placeholder="Secretaria/UF" ng-model="gpes.pessoapf.orgaodoc" ng-required="true">
+            </div>
         </div>
     </div>
-</div>
-
-
-<!--</div>-->
 <!-- </div> -->
