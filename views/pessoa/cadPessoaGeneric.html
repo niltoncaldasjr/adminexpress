@@ -26,20 +26,12 @@
                 <div class="ibox-content" ng-if="gpes.grupo.tipo=='AMBOS'">
                     <h3>Selecione o tipo de Pesssoa</h3>
                     <div class="hr-line-dashed"></div>
-                    <div class="row">
-                        <div class="col-sm-6 col-md-2">
-                            <button class="btn btn-block" ng-click="gpes.pessoa.tipo='PF'" ng-class="{'btn-success':gpes.pessoa.tipo == 'PF', 'btn-default':gpes.pessoa.tipo == 'PJ'}">
-                                <i class="fa fa-user"> &nbsp;Pessoa Física </i>
-                            </button>
-                        </div>
-                        <div class="col-sm-6 col-md-2">
-                            <button class="btn btn-block" ng-click="gpes.pessoa.tipo='PJ'" ng-class="{'btn-success':gpes.pessoa.tipo == 'PJ', 'btn-default':gpes.pessoa.tipo == 'PF'}">
-                                <i class="fa fa-building"> &nbsp;Pessoa Jurídica </i>
-                            </button>
-                        </div>
-                    </div>
-
-
+                    <button class="btn" ng-click="gpes.pessoa.tipo='PF'" ng-class="{'btn-success':gpes.pessoa.tipo == 'PF', 'btn-default':gpes.pessoa.tipo == 'PJ'}">
+                       <i class="fa fa-user"> &nbsp;Pessoa Física </i>
+                    </button>
+                    <button class="btn" ng-click="gpes.pessoa.tipo='PJ'" ng-class="{'btn-success':gpes.pessoa.tipo == 'PJ', 'btn-default':gpes.pessoa.tipo == 'PF'}">
+                       <i class="fa fa-building"> &nbsp;Pessoa Jurídica </i>
+                    </button>
                 </div>
                 <div class="ibox-content">
                     <form name="gpesForm" class="form" ng-submit="cadastrar(gpes)"
