@@ -33,6 +33,9 @@ class PessoaFisicaControl {
 	function listar () {
 		return $this->objDAO->listar();
 	}
+	function listarPorNomeCPF () {
+		return $this->objDAO->listarPorNomeCPF($this->obj);
+	}
 	function deletar () {
 		return $this->objDAO->deletar($this->obj);
 	}

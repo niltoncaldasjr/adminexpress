@@ -84,11 +84,38 @@ Class PessoaFisicaDAO {
 			die('[ERRO]: Class(PessoaFisica) | Metodo(Listar) | Erro('.mysqli_error($this->con).')');
 		}
 		while($row = mysqli_fetch_object($resultSet)) {
-			$objPessoaControl = new PessoaControl(new Pessoa($row->idpesoa));
+			$objPessoaControl = new PessoaControl(new Pessoa($row->idpessoa));
 			$objPessoa = $objPessoaControl->buscarPorId();
 			
 			$this->obj = new PessoaFisica($row->id, $objPessoa, $row->nome, $row->cpf, $row->nacionalidade, $row->naturalidade, $row->datanascimento, $row->estadocivil, $row->nomeconjuge, $row->idprofissao, $row->tipodoc, $row->numerodoc, $row->orgaodoc, $row->dataemissaodoc, $row->pai, $row->mae, $row->sexo, $row->datacadastro, $row->dataedicao);
 			
+			array_push($this->lista, $this->obj);
+		}
+		return $this->lista;
+	}
+	
+	/* Listar por Nome ou CPF*/
+	function listarPorNomeCPF (PessoaFisica $obj) {
+		$this->sql = sprintf("SELECT * FROM pessoafisica WHERE nome LIKE '%s%s%s' || cpf LIKE '%s%s%s'",
+				mysqli_real_escape_string($this->con, '%'),
+				mysqli_real_escape_string($this->con, $obj->getCpf()),
+				mysqli_real_escape_string($this->con, '%'),
+				mysqli_real_escape_string($this->con, '%'),
+				mysqli_real_escape_string($this->con, $obj->getNome()),
+				mysqli_real_escape_string($this->con, '%'));
+		$resultSet = mysqli_query($this->con, $this->sql);
+		if(!$resultSet) {
+			die('[ERRO]: Class(PessoaFisica) | Metodo(ListarPorNomeCPF) | Erro('.mysqli_error($this->con).')');
+		}
+		while($row = mysqli_fetch_object($resultSet)) {
+			$objPessoaControl = new PessoaControl(new Pessoa($row->idpessoa));
+			$objPessoa = $objPessoaControl->buscarPorId();
+	
+			$profissaoControl = new ProfissaoControl(new Profissao($row->idprofissao));
+			$objProfissao = $profissaoControl->buscarPorId();
+	
+			$this->obj = new PessoaFisica($row->id, $objPessoa, $row->nome, $row->cpf, $row->nacionalidade, $row->naturalidade, $row->datanascimento, $row->estadocivil, $row->nomeconjuge, $objProfissao, $row->tipodoc, $row->numerodoc, $row->orgaodoc, $row->dataemissaodoc, $row->pai, $row->mae, $row->sexo, $row->datacadastro, $row->dataedicao);
+				
 			array_push($this->lista, $this->obj);
 		}
 		return $this->lista;
