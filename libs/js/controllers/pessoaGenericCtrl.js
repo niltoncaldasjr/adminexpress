@@ -233,7 +233,10 @@ angular.module('admin-express')
             // delete $scope.buscaResult;
             $scope.buscaerror = false;
 
-            if(obj === undefined) return false;
+            if(obj === undefined || !obj.length) {
+                delete $scope.buscaResult
+                return false
+            }
 
             conta = $interval(
                 function() {
@@ -369,7 +372,10 @@ angular.module('admin-express')
                 // delete $scope.buscaResult;
                 $scope.buscaerror = false;
 
-                if(obj === undefined) return false;
+                if(obj === undefined || !obj.length) {
+                    delete $scope.buscaResult; 
+                    return false;
+                }
                 
                 conta = $interval(
                     function() {
