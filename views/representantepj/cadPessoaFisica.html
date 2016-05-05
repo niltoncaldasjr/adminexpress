@@ -14,7 +14,7 @@
         <div class="col-md-3">
             <div class="form-group">
                 <label class="label-control">CPF</label>
-                <input type="text" class="form-control" id="cpf" name="cpf" placeholder="CPF" ng-model="gpes.reppessoapf.cpf" ng-required="true">
+                <input type="text" data-mask="999.999.999-99" class="form-control" id="cpf" name="cpf" placeholder="CPF" ng-model="gpes.reppessoapf.cpf" ng-required="true">
             </div>
         </div>
         <div class="col-md-3">
@@ -70,7 +70,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12" ng-if="gpes.reppessoapf.estadocivil != 'SOLTEIRO' ">
             <div class="form-group">
                 <label class="label-control">Nome Cônjuge</label>
                 <input type="text" class="form-control" id="nomeconjuge" name="nomeconjuge" placeholder="Nome Cônjuge" ng-model="gpes.reppessoapf.nomeconjuge" ng-required="true">
@@ -79,7 +79,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="label-control">Pai</label>
-                <input type="text" class="form-control" id="pai" name="pai" placeholder="Nome Pai" ng-model="gpes.reppessoapf.pai" ng-required="true">
+                <input type="text" class="form-control" id="pai" name="pai" placeholder="Nome Pai" ng-model="gpes.reppessoapf.pai">
             </div>
         </div>
         <div class="col-md-12">
