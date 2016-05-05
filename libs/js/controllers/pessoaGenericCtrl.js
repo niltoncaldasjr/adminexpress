@@ -194,7 +194,7 @@ angular.module('admin-express')
             genericAPI.generic(dados)
             .then(function successCallback(response) {
                 if(response['data']){
-                    $scope.limparCampos();
+                   $scope.cancelar();
                     SweetAlert.swal("Sucesso!", "Sucesso na operação!", "success");
                 }else{
                 }
