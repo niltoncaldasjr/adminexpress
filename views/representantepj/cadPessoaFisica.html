@@ -7,31 +7,31 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="label-control">Nome</label>
+                <label class="label-control">Nome</label> <span class="obrigatorio">*</span>
                 <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome" ng-model="gpes.reppessoapf.nome" ng-required="true">
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
-                <label class="label-control">CPF</label>
+                <label class="label-control">CPF</label> <span class="obrigatorio">*</span>
                 <input type="text" data-mask="999.999.999-99" class="form-control" id="cpf" name="cpf" placeholder="CPF" ng-model="gpes.reppessoapf.cpf" ng-required="true">
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
-                <label class="label-control">Nacionalidade</label>
+                <label class="label-control">Nacionalidade</label> <span class="obrigatorio">*</span>
                 <input type="text" class="form-control" id="nacionalidade" name="nacionalidade" placeholder="Cidade/UF" ng-model="gpes.reppessoapf.nacionalidade" ng-required="true">
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
-                <label class="label-control">Naturalidade</label>
+                <label class="label-control">Naturalidade</label> <span class="obrigatorio">*</span>
                 <input type="text" class="form-control" id="naturalidade" name="naturalidade" placeholder="Naturalidade" ng-model="gpes.reppessoapf.naturalidade" ng-required="true">
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
-                <label class="label-control">Data Nascimento</label>
+                <label class="label-control">Data Nascimento</label> <span class="obrigatorio">*</span>
                 <div class="form-group" id="data_1">
                     <div class="input-group date">
                         <input type="datetime" class="form-control" date-time id="datanascimento" name="datanascimento" ng-model="gpes.reppessoapf.datanascimento" view="date" auto-close="true" min-view="date" format="DD/MM/YYYY" ng-required="true" readonly>
@@ -42,7 +42,7 @@
         </div>
         <div class="col-md-3">
             <div class="form-group">
-                <label class="label-control">Estado Civíl</label>
+                <label class="label-control">Estado Civíl</label> <span class="obrigatorio">*</span>
                 <select class="form-control" id="estadocivil" name="estadocivil" placeholder="Estado Civíl" ng-model="gpes.reppessoapf.estadocivil" ng-required="true">
                     <option value>Selecione...</option>
                     <option value="SOLTEIRO">SOLTEIRO</option>
@@ -55,7 +55,7 @@
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                <label class="label-control">Profissão</label>
+                <label class="label-control">Profissão</label> <span class="obrigatorio">*</span>
                 <select class="form-control" id="profissao" name="profissao" placeholder="Profissao" ng-model="gpes.reppessoapf.objprofissao" ng-required="true" ng-options="prof as prof.descricao for prof in profissoes track by prof.id">
                     <option value>Selecione...</option>
                 </select>
@@ -63,7 +63,7 @@
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                <label class="label-control">Sexo</label>
+                <label class="label-control">Sexo</label> <span class="obrigatorio">*</span>
                 <div>
                     <label> <input icheck type="radio" name="sexo" ng-model="gpes.reppessoapf.sexo" checked="true" value="MASCULINO"> MASCULINO </label>
                     <label> <input icheck type="radio" name="sexo" ng-model="gpes.reppessoapf.sexo" value="FEMININO"> FEMININO </label>
@@ -72,7 +72,7 @@
         </div>
         <div class="col-md-12" ng-if="gpes.reppessoapf.estadocivil != 'SOLTEIRO' ">
             <div class="form-group">
-                <label class="label-control">Nome Cônjuge</label>
+                <label class="label-control">Nome Cônjuge</label> <span class="obrigatorio">*</span>
                 <input type="text" class="form-control" id="nomeconjuge" name="nomeconjuge" placeholder="Nome Cônjuge" ng-model="gpes.reppessoapf.nomeconjuge" ng-required="true">
             </div>
         </div>
@@ -84,13 +84,13 @@
         </div>
         <div class="col-md-12">
             <div class="form-group">
-                <label class="label-control">Mãe</label>
+                <label class="label-control">Mãe</label> <span class="obrigatorio">*</span>
                 <input type="text" class="form-control" id="mae" name="mae" placeholder="Nome Mãe" ng-model="gpes.reppessoapf.mae" ng-required="true">
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
-                <label class="label-control">Tipo Doc.</label>
+                <label class="label-control">Tipo Doc.</label> <span class="obrigatorio">*</span>
                 <select class="form-control" id="tipodoc" name="tipodoc" placeholder="Tipo Documento" ng-model="gpes.reppessoapf.tipodoc" ng-required="true">
                     <option value>Selecione...</option>
                     <option value="RG">RG</option>
@@ -102,19 +102,19 @@
         </div>
         <div class="col-md-3">
             <div class="form-group">
-                <label class="label-control">Número Documento</label>
+                <label class="label-control">Número Documento</label> <span class="obrigatorio">*</span>
                 <input type="text" class="form-control" id="numerodoc" name="numerodoc" placeholder="Número Documento" ng-model="gpes.reppessoapf.numerodoc" ng-required="true">
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
-                <label class="label-control">Orgão Documento</label>
+                <label class="label-control">Orgão Documento</label> <span class="obrigatorio">*</span>
                 <input type="text" class="form-control" id="orgaodoc" name="orgaodoc" placeholder="Secretaria/UF" ng-model="gpes.reppessoapf.orgaodoc" ng-required="true">
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
-                <label class="label-control">Data Emissão</label>
+                <label class="label-control">Data Emissão</label> <span class="obrigatorio">*</span>
                 <div class="form-group" id="data_1">
                     <div class="input-group date">
                         <input type="datetime" class="form-control" date-time id="dataemissaodoc" name="dataemissaodoc" ng-model="gpes.reppessoapf.dataemissaodoc" view="date" auto-close="true" min-view="date" format="DD/MM/YYYY" ng-required="true" readonly>

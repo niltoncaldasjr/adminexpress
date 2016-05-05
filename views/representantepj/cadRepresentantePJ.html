@@ -59,7 +59,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="label-control">Função</label>
+                                <label class="label-control">Função</label> <span class="obrigatorio">*</span>
                                 <select class="form-control" id="funcao" name="funcao" ng-model="gpes.rep.funcao" ng-required="true">
                                     <option value>Selecione...</option>
                                     <option value="Presidente">PRESIDENTE</option>
@@ -71,7 +71,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="label-control">Representante</label>
+                                <label class="label-control">Representante</label> <span class="obrigatorio">*</span>
                                 <div>
                                     <label> <input icheck type="radio" name="representante" ng-model="gpes.rep.representante" checked="true" value="SIM"> SIM </label>
                                     <label> <input icheck type="radio" name="representante" ng-model="gpes.rep.representante" value="NAO"> NÃO </label>

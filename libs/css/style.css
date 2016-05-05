@@ -8248,3 +8248,6 @@ body.md-skin {
   padding: 40px 20px !important;
 }
 
+.obrigatorio {
+  color: red;
+}
