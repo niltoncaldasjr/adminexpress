@@ -44,8 +44,8 @@
                 <tbody>
                 <tr ng-repeat="obj in grupoPF" reiniciar-footable>
                     <td ng-bind="obj.id"></td>
-                    <td ng-bind="obj.pes.nome"></td>
-                    <td ng-bind="obj.pes.cpf"></td>
+                    <td ng-bind="obj.pes.nome | nomeProprio"></td>
+                    <td ng-bind="obj.pes.cpf | cpf"></td>
                     <td ng-bind="obj.pes.nacionalidade"></td>
                     <td ng-bind="obj.pes.naturalidade"></td>
                     <td ng-bind="obj.pes.datanascimento"></td>
@@ -59,14 +59,14 @@
                     <td ng-bind="obj.pes.pai"></td>
                     <td ng-bind="obj.pes.mae"></td>
                     <td ng-bind="obj.pes.sexo"></td>
-                    <td ng-bind="obj.pes.objpessoa.CEP"></td>
+                    <td ng-bind="obj.pes.objpessoa.CEP | cep"></td>
                     <td ng-bind="obj.pes.objpessoa.endereco"></td>
                     <td ng-bind="obj.pes.objpessoa.numero"></td>
                     <td ng-bind="obj.pes.objpessoa.complemento"></td>
                     <td ng-bind="obj.pes.objpessoa.bairro"></td>
-                    <td ng-bind="obj.pes.objpessoa.telefone"></td>
-                    <td ng-bind="obj.pes.objpessoa.fax"></td>
-                    <td ng-bind="obj.pes.objpessoa.celular"></td>
+                    <td ng-bind="obj.pes.objpessoa.telefone | tel"></td>
+                    <td ng-bind="obj.pes.objpessoa.fax | fax"></td>
+                    <td ng-bind="obj.pes.objpessoa.celular | cel"></td>
                     <td ng-bind="obj.pes.objpessoa.email1"></td>
                     <td ng-bind="obj.pes.objpessoa.email2"></td>
                     <td ng-bind="obj.pes.objpessoa.site"></td>

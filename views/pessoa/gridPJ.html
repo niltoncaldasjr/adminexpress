@@ -35,19 +35,19 @@
                 <tbody>
                 <tr ng-repeat="obj in grupoPJ" reiniciar-footable>
                     <td ng-bind="obj.id"></td>
-                    <td ng-bind="obj.pes.razao"></td>
-                    <td ng-bind="obj.pes.cnpj"></td>
+                    <td ng-bind="obj.pes.razao | nomeProprio"></td>
+                    <td ng-bind="obj.pes.cnpj | cnpj"></td>
                     <td ng-bind="obj.pes.inscestadual"></td>
                     <td ng-bind="obj.pes.inscmunicipal"></td>
                     <td ng-bind="obj.pes.nire"></td>
-                    <td ng-bind="obj.pes.objpessoa.CEP"></td>
+                    <td ng-bind="obj.pes.objpessoa.CEP | cep"></td>
                     <td ng-bind="obj.pes.objpessoa.endereco"></td>
                     <td ng-bind="obj.pes.objpessoa.numero"></td>
                     <td ng-bind="obj.pes.objpessoa.complemento"></td>
                     <td ng-bind="obj.pes.objpessoa.bairro"></td>
-                    <td ng-bind="obj.pes.objpessoa.telefone"></td>
-                    <td ng-bind="obj.pes.objpessoa.fax"></td>
-                    <td ng-bind="obj.pes.objpessoa.celular"></td>
+                    <td ng-bind="obj.pes.objpessoa.telefone | tel"></td>
+                    <td ng-bind="obj.pes.objpessoa.fax | fax"></td>
+                    <td ng-bind="obj.pes.objpessoa.celular | cel"></td>
                     <td ng-bind="obj.pes.objpessoa.email1"></td>
                     <td ng-bind="obj.pes.objpessoa.email2"></td>
                     <td ng-bind="obj.pes.objpessoa.site"></td>
