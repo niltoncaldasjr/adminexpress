@@ -89,7 +89,7 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <div class="form-group" ng-if="gpes.pessoapf.estadocivil != 'SOLTEIRO' ">
+        <div class="form-group" ng-if="gpes.pessoapf.estadocivil == 'CASADO' || gpes.pessoapf.estadocivil == 'UNIAOESTAVEL' ">
             <label class="label-control">Nome Cônjuge</label> <span class="obrigatorio">*</span>
             <input type="text" class="form-control" id="nomeconjuge" name="nomeconjuge" placeholder="Nome Cônjuge"
                    ng-model="gpes.pessoapf.nomeconjuge" ng-required="true">

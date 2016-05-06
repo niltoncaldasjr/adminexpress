@@ -629,7 +629,7 @@ function datamode () {
     }
 };
 
-function validarCPF ($timeout) {
+function validarCPF ($timeout, SweetAlert) {
     return {
         restrict: "A",
         require: "ngModel",
@@ -675,12 +675,87 @@ function validarCPF ($timeout) {
             // ao perder o foco
             el.bind("blur", function () {
                 $timeout(function () {
-                    console.log(model.$viewValue);
                     if(model.$viewValue.length) {
                         if(!valCPF(model.$viewValue)) {
-                            alert('CPF INVÁLIDO!');
-                            model.$setViewValue = '';
+                            model.$setViewValue('');
                             model.$render();
+                            sweetAlert("Atenção", "CPF Inválido!", "error");
+                        }                    
+                    }
+                }, 300);
+            });
+        }
+    }
+};
+
+function validarCNPJ ($timeout, SweetAlert) {
+    return {
+        restrict: "A",
+        require: "ngModel",
+        link: function (sc, el, att, model) {
+
+            function valCNPJ(cnpj) {
+ 
+                cnpj = cnpj.replace(/[^\d]+/g,'');
+             
+                if(cnpj == '') return false;
+                 
+                if (cnpj.length != 14)
+                    return false;
+             
+                // Elimina CNPJs invalidos conhecidos
+                if (cnpj == "00000000000000" || 
+                    cnpj == "11111111111111" || 
+                    cnpj == "22222222222222" || 
+                    cnpj == "33333333333333" || 
+                    cnpj == "44444444444444" || 
+                    cnpj == "55555555555555" || 
+                    cnpj == "66666666666666" || 
+                    cnpj == "77777777777777" || 
+                    cnpj == "88888888888888" || 
+                    cnpj == "99999999999999")
+                    return false;
+                     
+                // Valida DVs
+                tamanho = cnpj.length - 2
+                numeros = cnpj.substring(0,tamanho);
+                digitos = cnpj.substring(tamanho);
+                soma = 0;
+                pos = tamanho - 7;
+                for (i = tamanho; i >= 1; i--) {
+                  soma += numeros.charAt(tamanho - i) * pos--;
+                  if (pos < 2)
+                        pos = 9;
+                }
+                resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+                if (resultado != digitos.charAt(0))
+                    return false;
+                     
+                tamanho = tamanho + 1;
+                numeros = cnpj.substring(0,tamanho);
+                soma = 0;
+                pos = tamanho - 7;
+                for (i = tamanho; i >= 1; i--) {
+                  soma += numeros.charAt(tamanho - i) * pos--;
+                  if (pos < 2)
+                        pos = 9;
+                }
+                resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+                if (resultado != digitos.charAt(1))
+                      return false;
+                       
+                return true;
+                
+            }
+
+            // ao perder o foco
+            el.bind("blur", function () {
+                $timeout(function () {
+                    if(model.$viewValue.length) {
+                        if(!valCNPJ(model.$viewValue)) {
+                            model.$setViewValue('');
+                            model.$render();
+                            sweetAlert("Atenção", "CNPJ Inválido!", "error");
                         }                    
                     }
                 }, 300);
@@ -720,6 +795,7 @@ angular
     .directive('footable', footable)
     .directive('datamode', datamode)
     .directive('validarcpf', validarCPF)
+    .directive('validarcnpj', validarCNPJ)
     .directive('reiniciarFootable', function () {
         return function (scope, element) {
             var footableTable = element.parents('table');
