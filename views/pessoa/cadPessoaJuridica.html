@@ -92,14 +92,14 @@
                 <td ng-bind="obj.pf.nome | nomeProprio"></td>
                 <td ng-bind="obj.pf.cpf | cpf"></td>
                 <td ng-bind="obj.pf.nacionalidade"></td>
-                <td ng-bind="obj.pf.datanascimento"></td>
+                <td ng-bind="obj.pf.datanascimento | data"></td>
                 <td ng-bind="obj.pf.estadocivil"></td>
                 <td ng-bind="obj.pf.nomeconjuge"></td>
                 <td ng-bind="obj.pf.objprofissao.descricao"></td>
                 <td ng-bind="obj.pf.tipodoc"></td>
                 <td ng-bind="obj.pf.numerodoc"></td>
                 <td ng-bind="obj.pf.orgaodoc"></td>
-                <td ng-bind="obj.pf.dataemissaodoc"></td>
+                <td ng-bind="obj.pf.dataemissaodoc | data"></td>
                 <td ng-bind="obj.pf.pai"></td>
                 <td ng-bind="obj.pf.mae"></td>
                 <td ng-bind="obj.pf.sexo"></td>
@@ -116,8 +116,8 @@
                 <td ng-bind="obj.pf.objpessoa.site"></td>
                 <td ng-bind="obj.funcao"></td>
                 <td ng-bind="obj.representante"></td>
-                <td ng-bind="obj.datacadastro"></td>
-                <td ng-bind="obj.dataedicao"></td>
+                <td ng-bind="obj.datacadastro | data"></td>
+                <td ng-bind="obj.dataedicao | data"></td>
                 <td class="text-right">
                     <div class="btn-grouobj">
                         <a class="btn-white btn btn-xs" ng-click="editarRep(obj)"><i class="fa fa-edit"></i>

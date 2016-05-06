@@ -32,8 +32,9 @@
                                 <th data-toggle="true">
                                     <button class="btn btn-info btn-outline" ng-click="usarBusca(obj)">Usar dados</button>
                                 </th>
-                                <td ng-bind="obj.nome"></td>
-                                <td ng-bind="obj.cpf"></td>
+                                <td ng-bind="obj.nome | nomeProprio"></td>
+                                <td ng-bind="obj.cpf | cpf" ng-if="obj.cpf"></td>
+                                <td ng-bind="obj.cnpj | cnpj" ng-if="obj.cnpj"></td>
                             </tr>
                             </tbody>
                             <tfoot>

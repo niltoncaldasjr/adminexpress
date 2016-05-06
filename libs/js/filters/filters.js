@@ -60,6 +60,14 @@ function cel () {
 	}
 };
 
+function data ($timeout) {
+	return function (input) {
+		if(!input || typeof(input) == 'object') return input;
+		var data = input.substring(8, 10) + '/' + input.substring(5, 7) + '/' + input.substring(0, 4) + input.substring(10);
+		return data;
+	}
+}
+
 angular
 	.module('admin-express')
 	.filter('nomeProprio', nomeProprio)
@@ -69,3 +77,4 @@ angular
 	.filter('tel', tel)
 	.filter('fax', fax)
 	.filter('cel', cel)
+	.filter('data', data)

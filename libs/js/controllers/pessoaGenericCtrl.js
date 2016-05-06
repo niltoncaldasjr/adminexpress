@@ -259,7 +259,7 @@ angular.module('admin-express')
                             // $scope.buscaResult.nome = pessoa.razao;
                             for(var i in $scope.buscaResult) {
                                 $scope.buscaResult[i].nome = $scope.buscaResult[i].razao;
-                                $scope.buscaResult[i].cpf  = $scope.buscaResult[i].cnpj;
+                                // $scope.buscaResult[i].cpf  = $scope.buscaResult[i].cnpj;
                             }
                         }else{
                             $scope.buscaResult = pessoas;
