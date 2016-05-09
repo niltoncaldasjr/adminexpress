@@ -1,5 +1,8 @@
 <div class="ibox">
         <div class="ibox-content">
+            <button type="button" class="btn btn-primary" ng-click="novoCadastro()">Novo cadastro</button>
+        </div>
+        <div class="ibox-content">
             <input type="text" class="form-control input-sm m-b-xs" id="filter"
                    placeholder="Search in table">
             <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="10"
@@ -32,114 +35,29 @@
                 <tbody>
                 <tr ng-repeat="obj in grupoPJ" reiniciar-footable>
                     <td ng-bind="obj.id"></td>
-                    <td ng-bind="obj.pes.razao"></td>
-                    <td ng-bind="obj.pes.cnpj"></td>
+                    <td ng-bind="obj.pes.razao | nomeProprio"></td>
+                    <td ng-bind="obj.pes.cnpj | cnpj"></td>
                     <td ng-bind="obj.pes.inscestadual"></td>
                     <td ng-bind="obj.pes.inscmunicipal"></td>
                     <td ng-bind="obj.pes.nire"></td>
-                    <td ng-bind="obj.pes.objpessoa.CEP"></td>
+                    <td ng-bind="obj.pes.objpessoa.CEP | cep"></td>
                     <td ng-bind="obj.pes.objpessoa.endereco"></td>
                     <td ng-bind="obj.pes.objpessoa.numero"></td>
                     <td ng-bind="obj.pes.objpessoa.complemento"></td>
                     <td ng-bind="obj.pes.objpessoa.bairro"></td>
-                    <td ng-bind="obj.pes.objpessoa.telefone"></td>
-                    <td ng-bind="obj.pes.objpessoa.fax"></td>
-                    <td ng-bind="obj.pes.objpessoa.celular"></td>
+                    <td ng-bind="obj.pes.objpessoa.telefone | tel"></td>
+                    <td ng-bind="obj.pes.objpessoa.fax | fax"></td>
+                    <td ng-bind="obj.pes.objpessoa.celular | cel"></td>
                     <td ng-bind="obj.pes.objpessoa.email1"></td>
                     <td ng-bind="obj.pes.objpessoa.email2"></td>
                     <td ng-bind="obj.pes.objpessoa.site"></td>
                     <td>
-                        <span ng-repeat="obj in obj.representantes">{{obj.pf.nome}}({{obj.funcao}}), </span>
-                        <!-- <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="10" data-filter=#filter ng-if="gpes.pessoapj.representantes">
-                            <thead>
-                            <tr>
-                                <th data-toggle="true">ID</th>
-                                <th data-hide="phone">Nome</th>
-                                <th data-hide="phone">CPF</th>
-                                <th data-hide="all">Nacionalidade</th>
-                                <th data-hide="all">Data Nacimento</th>
-                                <th data-hide="all">Estado Cívil</th>
-                                <th data-hide="all">Nome Conjuge</th>
-                                <th data-hide="phone">Profissão</th>
-                                <th data-hide="all">Tipo Doc</th>
-                                <th data-hide="all">Número Doc</th>
-                                <th data-hide="all">Orgão Doc</th>
-                                <th data-hide="all">Data Emissão Doc</th>
-                                <th data-hide="all">Pai</th>
-                                <th data-hide="all">Mãe</th>
-                                <th data-hide="all">Sexo</th>
-                                <th data-hide="all">CEP</th>
-                                <th data-hide="all">Endereço</th>
-                                <th data-hide="all">Número</th>
-                                <th data-hide="all">Complemento</th>
-                                <th data-hide="all">Bairro</th>
-                                <th data-hide="all">Telefone</th>
-                                <th data-hide="all">Fax</th>
-                                <th data-hide="phone">Celular</th>
-                                <th data-hide="phone">Email</th>
-                                <th data-hide="all">Email2</th>
-                                <th data-hide="all">Site</th>
-                                <th data-hide="phone">Função</th>
-                                <th data-hide="phone">Representante</th>
-                                <th data-hide="phone">Data de Cadastro</th>
-                                <th data-hide="phone">Data de Edição</th>
-                                <th class="text-right" data-sort-ignore="true">Ações</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="obj in obj.representantes" reiniciar-footable>
-                                <td ng-bind="obj.pf.id"></td>
-                                <td ng-bind="obj.pf.nome"></td>
-                                <td ng-bind="obj.pf.cpf"></td>
-                                <td ng-bind="obj.pf.nacionalidade"></td>
-                                <td ng-bind="obj.pf.datanascimento"></td>
-                                <td ng-bind="obj.pf.estadocivil"></td>
-                                <td ng-bind="obj.pf.nomeconjuge"></td>
-                                <td ng-bind="obj.pf.objprofissao.descricao"></td>
-                                <td ng-bind="obj.pf.tipodoc"></td>
-                                <td ng-bind="obj.pf.numerodoc"></td>
-                                <td ng-bind="obj.pf.orgaodoc"></td>
-                                <td ng-bind="obj.pf.dataemissaodoc"></td>
-                                <td ng-bind="obj.pf.pai"></td>
-                                <td ng-bind="obj.pf.mae"></td>
-                                <td ng-bind="obj.pf.sexo"></td>
-                                <td ng-bind="obj.pf.objpessoa.CEP"></td>
-                                <td ng-bind="obj.pf.objpessoa.endereco"></td>
-                                <td ng-bind="obj.pf.objpessoa.numero"></td>
-                                <td ng-bind="obj.pf.objpessoa.complemento"></td>
-                                <td ng-bind="obj.pf.objpessoa.bairro"></td>
-                                <td ng-bind="obj.pf.objpessoa.telefone"></td>
-                                <td ng-bind="obj.pf.objpessoa.fax"></td>
-                                <td ng-bind="obj.pf.objpessoa.celular"></td>
-                                <td ng-bind="obj.pf.objpessoa.email1"></td>
-                                <td ng-bind="obj.pf.objpessoa.email2"></td>
-                                <td ng-bind="obj.pf.objpessoa.site"></td>
-                                <td ng-bind="obj.funcao"></td>
-                                <td ng-bind="obj.representante"></td>
-                                <td ng-bind="obj.datacadastro"></td>
-                                <td ng-bind="obj.dataedicao"></td>
-                                <td class="text-right">
-                                    <div class="btn-grouobj">
-                                        <a class="btn-white btn btn-xs" ng-click="editarRep(obj)"><i class="fa fa-edit"></i>
-                                        </a>
-                                        <a class="btn-white btn btn-xs" ng-click="deletaRep(obj)"><i class="fa fa-close"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                                <td colspan="12">
-                                    <ul class="pagination pull-right"></ul>
-                                </td>
-                            </tr>
-                            </tfoot>
-                        </table> -->
-                        
+                        <span ng-repeat="obj in obj.representantes">
+                            {{obj.pf.nome}}({{obj.funcao}}), 
+                        </span>
                     </td>
-                    <td ng-bind="obj.datacadastro"></td>
-                    <td ng-bind="obj.dataedicao"></td>
+                    <td ng-bind="obj.datacadastro | data"></td>
+                    <td ng-bind="obj.dataedicao | data"></td>
                     <td class="text-right">
                         <div class="btn-grouobj">
                             <button class="btn-white btn btn-xs" ng-click="editar(obj)"><i class="fa fa-edit"></i>

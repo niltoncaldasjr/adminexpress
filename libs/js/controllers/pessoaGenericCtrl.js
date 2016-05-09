@@ -5,13 +5,19 @@ angular.module('admin-express')
             $location.path('/login');
         }
 
-        $timeout(function() {document.getElementById('cep').focus();}, 1000);
+        // Starta novo cad
+        $scope.novoCad = false;
+
+        scrollTop:0;
+
+        // $timeout(function() {document.getElementById('cep').focus();}, 1000);
 
         /*
             Cria model Pessoa
         */
         function createScopes () {
             $rootScope.gpes = {
+                "busca"          : "",
                 "grupo"         : {"descricao":"","tipo":""},
                 "grupopessoa"   : {"idgrupo":"","idpessoa":"","informacao":""},
                 "pessoa"        : {"tipo":"","CEP":"","endereco":"","numero":"","complemento":"","bairro":"","telefone":"","fax":"","celular":"","email1":"","email2":"","site":""},
@@ -132,10 +138,25 @@ angular.module('admin-express')
         /**
          * Limpa os campos na tela
          */
-        $scope.limparCampos = function(){
+        $scope.cancelar = function(){
+            $scope.novoCad = false;
             createScopes();
             consultaTipoPessoaGrupo();
-            document.getElementById('cep').focus();
+        };
+
+        /**
+         * Limpa os campos na tela
+         */
+        $scope.novoCadastro = function(){
+            $scope.novoCad = true;
+            $timeout(
+                function () {
+                    createScopes();
+                    consultaTipoPessoaGrupo();
+                    document.getElementById('cep').focus();
+                },
+                500
+            );
         };
 
         /**
@@ -146,10 +167,19 @@ angular.module('admin-express')
         $scope.cadastrar = function(obj){
             // Caso seja um tipo PJ verificamos se há representantes
             
+
+            //limpa caracteres da mascara
+            if(obj.pessoa.CEP) obj.pessoa.CEP      = obj.pessoa.CEP.replace(/[^0-9]+/g, "");
+            if(obj.pessoa.telefone) obj.pessoa.telefone = obj.pessoa.telefone.replace(/[^0-9]+/g, "");
+            if(obj.pessoa.fax) obj.pessoa.fax      = obj.pessoa.telefone.replace(/[^0-9]+/g, "");
+            if(obj.pessoa.celular) obj.pessoa.celular  = obj.pessoa.celular.replace(/[^0-9]+/g, "");
+
             if(obj.pessoa.tipo === 'PF') {
+                if(obj.pessoapf.cpf) obj.pessoapf.cpf = obj.pessoapf.cpf.replace(/[^0-9]+/g, "");
                 obj.pessoapf.datanascimento = obj.pessoapf.datanascimento.format('YYYY-MM-DD');
                 obj.pessoapf.dataemissaodoc = obj.pessoapf.dataemissaodoc.format('YYYY-MM-DD');
             }else{
+                if(obj.pessoapj.cnpj) obj.pessoapj.cnpj = obj.pessoapj.cnpj.replace(/[^0-9]+/g, "");
                 obj.pessoapj.representantes = convertDataRepresentante(obj.pessoapj.representantes);
             }
 
@@ -164,7 +194,7 @@ angular.module('admin-express')
             genericAPI.generic(dados)
             .then(function successCallback(response) {
                 if(response['data']){
-                    $scope.limparCampos();
+                   $scope.cancelar();
                     SweetAlert.swal("Sucesso!", "Sucesso na operação!", "success");
                 }else{
                 }
@@ -174,6 +204,7 @@ angular.module('admin-express')
 
         // Edita Generic
         $scope.editar = function(obj){
+            $scope.novoCad = true;
             $rootScope.gpes.grupopessoa = obj;
             $rootScope.gpes.pessoa = obj.pes.objpessoa;
             if(obj.pes.objpessoa.tipo === 'PJ') {
@@ -199,22 +230,21 @@ angular.module('admin-express')
 
         $scope.buscar = function (obj, tipo) {
             $interval.cancel(conta);
-            delete $scope.buscaResult;
+            // delete $scope.buscaResult;
             $scope.buscaerror = false;
 
-            if(obj === undefined) return false;
+            if(obj === undefined || !obj.length) {
+                delete $scope.buscaResult
+                return false
+            }
 
-            obj = obj.replace(/[^0-9]+/g, "");
-            obj = obj.substring(0,14);
-            $scope.busca = obj;
-            
             conta = $interval(
                 function() {
-                    if(obj.length>=11 && obj!==undefined) { 
+                    if(obj.length>=4 && obj!==undefined) { 
                         $interval.cancel(conta);
                         buscaPessoa(obj, tipo);
                     }         
-                }, 2000);
+                }, 100);
 
             function buscaPessoa (busca, tipo) {
                 var dados = {'session': true, 'metodo': 'buscarPessoa', 'data': {'busca':busca,'tipo':tipo}, 'class': 'grupopessoa'};
@@ -223,16 +253,21 @@ angular.module('admin-express')
                 .then(function successCallback(response) {
                     var data = response['data'];
                     if(data.success === true){
-                        var pessoa = data.data;
-                        if(pessoa.objpessoa.tipo==='PJ') {
-                            $scope.buscaResult = pessoa;
-                            $scope.buscaResult.nome = pessoa.razao;
+                        var pessoas = data.data;
+                        if(tipo === 'PJ') {
+                            $scope.buscaResult = pessoas;
+                            // $scope.buscaResult.nome = pessoa.razao;
+                            for(var i in $scope.buscaResult) {
+                                $scope.buscaResult[i].nome = $scope.buscaResult[i].razao;
+                                // $scope.buscaResult[i].cpf  = $scope.buscaResult[i].cnpj;
+                            }
                         }else{
-                            $scope.buscaResult = pessoa;
-                            $scope.buscaResult.nome = pessoa.nome;
+                            $scope.buscaResult = pessoas;
+                            // $scope.buscaResult.nome = pessoa.nome;
                         }
                     }else{
                         $scope.buscaerror = true;
+                        delete $scope.buscaResult;
                          // SweetAlert.swal("Atenção", "Sua busca não retornou resutados!", "error");
                     }
                 }, function errorCallback(response) {
@@ -251,12 +286,12 @@ angular.module('admin-express')
                 $rootScope.gpes.pessoapf = obj;
             }
             delete $scope.buscaResult;
-            delete $scope.busca;
+            delete $rootScope.gpes.busca;
         }
 
         $scope.cancelaBusca = function () {
             delete $scope.buscaResult;
-            delete $scope.busca;
+            delete $rootScope.gpes.busca;
         }
 
 
@@ -274,8 +309,14 @@ angular.module('admin-express')
 
         function convertDataRepresentante (reps) {
             if(reps) {
-                console.log(reps);
                 for(var i in reps) {
+                    // tirando mascara cpf representante
+                    if(reps[i].pf.cpf) reps[i].pf.cpf = reps[i].pf.cpf.replace(/[^0-9]+/g, "");
+                    if(reps[i].pf.objpessoa.CEP) reps[i].pf.objpessoa.CEP = reps[i].pf.objpessoa.CEP.replace(/[^0-9]+/g, "");
+                    if(reps[i].pf.objpessoa.telefone) reps[i].pf.objpessoa.telefone = reps[i].pf.objpessoa.telefone.replace(/[^0-9]+/g, "");
+                    if(reps[i].pf.objpessoa.fax) reps[i].pf.objpessoa.fax = reps[i].pf.objpessoa.fax.replace(/[^0-9]+/g, "");
+                    if(reps[i].pf.objpessoa.celular) reps[i].pf.objpessoa.celular = reps[i].pf.objpessoa.celular.replace(/[^0-9]+/g, "");
+
                     if(typeof(reps[i].pf.datanascimento) === 'object') {
                         reps[i].pf.datanascimento = reps[i].pf.datanascimento.format('YYYY-MM-DD');
                         reps[i].pf.dataemissaodoc = reps[i].pf.dataemissaodoc.format('YYYY-MM-DD');
@@ -328,19 +369,21 @@ angular.module('admin-express')
             var conta;
             $scope.buscar = function (obj) {
                 $interval.cancel(conta);
-                delete $scope.buscaResult;
+                // delete $scope.buscaResult;
                 $scope.buscaerror = false;
 
-                obj = obj.substring(0,11);
-                $scope.busca = obj;
+                if(obj === undefined || !obj.length) {
+                    delete $scope.buscaResult; 
+                    return false;
+                }
                 
                 conta = $interval(
                     function() {
-                        if(obj.length>=11 && obj!==undefined) { 
+                        if(obj.length>=4 && obj!==undefined) { 
                             $interval.cancel(conta);
                             buscaPessoa(obj);
                         }         
-                    }, 2000);
+                    }, 100);
 
                 function buscaPessoa (busca) {
                     var dados = {'session': true, 'metodo': 'buscarPessoa', 'data': {'busca':busca,'tipo':'PF'}, 'class': 'grupopessoa'};
@@ -349,21 +392,15 @@ angular.module('admin-express')
                     .then(function successCallback(response) {
                         var data = response['data'];
                         if(data.success === true){
-                            var pessoa = data.data;
-                            if(pessoa.objpessoa.tipo==='PJ') {
-                                $scope.buscaResult = pessoa;
-                                $scope.buscaResult.nome = pessoa.razao;
-                            }else{
-                                $scope.buscaResult = pessoa;
-                                $scope.buscaResult.nome = pessoa.nome;
-                            }
+                           $scope.buscaResult = data.data;
                         }else{
                             $scope.buscaerror = true;
+                            delete $scope.buscaResult;
                              // SweetAlert.swal("Atenção", "Sua busca não retornou resutados!", "error");
                         }
                     }, function errorCallback(response) {
                     });
-                }           
+                }     
             }
 
             $scope.usarBusca = function (obj) {

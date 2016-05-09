@@ -4,31 +4,31 @@
     <div class="row">
         <div class="col-md-2">
             <div class="form-group">
-                <label class="label-control">CEP</label>
-                <input type="text" class="form-control" id="cep" name="cep" placeholder="CEP" ng-model="gpes.pessoa.CEP" ng-required="true">
+                <label class="label-control">CEP</label> <span class="obrigatorio">*</span>
+                <input type="text" data-mask="99999-999" class="form-control" id="cep" name="cep" placeholder="CEP" ng-model="gpes.pessoa.CEP" ng-required="true">
             </div>
         </div>
         <div class="col-md-10">
             <div class="form-group">
-                <label class="label-control">Endereço</label>
+                <label class="label-control">Endereço</label> <span class="obrigatorio">*</span>
                 <input type="text" class="form-control" id="endereco" name="endereco" placeholder="Endereço" ng-model="gpes.pessoa.endereco" ng-required="true">
             </div>
         </div>
         <div class="col-md-2">
             <div class="form-group">
-                <label class="label-control">Número</label>
+                <label class="label-control">Número</label> <span class="obrigatorio">*</span>
                 <input type="text" class="form-control" id="numero" name="numero" placeholder="Número" ng-model="gpes.pessoa.numero" ng-required="true">
             </div>
         </div>
         <div class="col-md-10">
             <div class="form-group">
                 <label class="label-control">Complemento</label>
-                <input type="text" class="form-control" id="complemento" name="complemento" placeholder="Complemento" ng-model="gpes.pessoa.complemento" ng-required="true">
+                <input type="text" class="form-control" id="complemento" name="complemento" placeholder="Complemento" ng-model="gpes.pessoa.complemento">
             </div>
         </div>
         <div class="col-md-12">
             <div class="form-group">
-                <label class="label-control">Bairro</label>
+                <label class="label-control">Bairro</label> <span class="obrigatorio">*</span>
                 <input type="text" class="form-control" id="bairro" name="bairro" placeholder="Bairro" ng-model="gpes.pessoa.bairro" ng-required="true">
             </div>
         </div>
@@ -39,37 +39,37 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label class="label-control">Telefone</label>
-                <input type="text" class="form-control" id="telefone" name="telefone" placeholder="Telefone" ng-model="gpes.pessoa.telefone" ng-required="true">
+                <input type="text" data-mask="(99) 9999-9999" class="form-control" id="telefone" name="telefone" placeholder="Telefone" ng-model="gpes.pessoa.telefone">
             </div>
         </div>
         <div class="col-md-4">
             <div class="form-group">
                 <label class="label-control">Fax</label>
-                <input type="text" class="form-control" id="fax" name="fax" placeholder="Fax" ng-model="gpes.pessoa.fax" ng-required="true">
+                <input type="text" data-mask="(99) 9999-9999" class="form-control" id="fax" name="fax" placeholder="Fax" ng-model="gpes.pessoa.fax">
             </div>
         </div>
         <div class="col-md-4">
             <div class="form-group">
                 <label class="label-control">Celular</label>
-                <input type="text" class="form-control" id="celular" name="celular" placeholder="Celular" ng-model="gpes.pessoa.celular" ng-required="true">
+                <input type="text" data-mask="(99) 99999-9999" class="form-control" id="celular" name="celular" placeholder="Celular" ng-model="gpes.pessoa.celular">
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label class="label-control">Email</label>
-                <input type="text" class="form-control" id="email1" name="email1" placeholder="Email 1" ng-model="gpes.pessoa.email1" ng-required="true">
+                <input type="text" class="form-control" id="email1" name="email1" placeholder="Email 1" ng-model="gpes.pessoa.email1">
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label class="label-control">Email 2</label>
-                <input type="text" class="form-control" id="email2" name="email2" placeholder="Email 2" ng-model="gpes.pessoa.email2" ng-required="true">
+                <input type="text" class="form-control" id="email2" name="email2" placeholder="Email 2" ng-model="gpes.pessoa.email2">
             </div>
         </div>
         <div class="col-md-12">
             <div class="form-group">
                 <label class="label-control">Site</label>
-                <input type="text" class="form-control" id="site" name="site" placeholder="Site" ng-model="gpes.pessoa.site" ng-required="true">
+                <input type="text" class="form-control" id="site" name="site" placeholder="Site" ng-model="gpes.pessoa.site">
             </div>
         </div>
     </div>

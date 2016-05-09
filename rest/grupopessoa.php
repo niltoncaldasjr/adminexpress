@@ -112,20 +112,21 @@ function buscarPessoa() {
 	$data = $_POST['data'];
 	$response = array('success'=>false, 'data'=>null);
 	if($data['tipo'] == 'PF') {
-		$objPF = new PessoaFisica(); $objPF->setCpf($data['busca']);
+		$objPF = new PessoaFisica(); $objPF->setNome($data['busca']); $objPF->setCpf($data['busca']);
 		$pfControl = new PessoaFisicaControl($objPF);
-		$objPF = $pfControl->buscarPorCPF();
-		if(!empty($objPF)) { 
+		$lista = $pfControl->listarPorNomeCPF();
+		if(!empty($lista)) { 
 			$response['success'] = true;
-			$response['data'] = $objPF;
+			$response['data'] = $lista;
 		}
 	}else{
-		$objPJ = new PessoaJuridica(); $objPJ->setCnpj($data['busca']);
+		$objPJ = new PessoaJuridica(); $objPJ->setRazao($data['busca']); $objPJ->setCnpj($data['busca']);
 		$pjControl = new PessoaJuridicaControl($objPJ);
-		$objPJ = $pjControl->buscarPorCNPJ();
-		if(!empty($objPJ)) {
+		$lista = $pjControl->listarPorNomeCNPJ();
+		
+		if(!empty($lista)) {
 			$response['success'] = true;
-			$response['data'] = $objPJ;
+			$response['data'] = $lista;
 		}
 	}
 	echo json_encode($response);

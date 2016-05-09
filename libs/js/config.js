@@ -319,6 +319,9 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                             name: 'datePicker',
                             files: ['libs/css/plugins/datapicker/angular-datapicker.css','libs/js/plugins/datapicker/angular-datepicker.js']
                         },
+                        {
+                            files: ['libs/js/plugins/jasny/jasny-bootstrap.min.js']
+                        }
                     ]);
                 }
             }
@@ -382,6 +385,9 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                             name: 'datePicker',
                             files: ['libs/css/plugins/datapicker/angular-datapicker.css','libs/js/plugins/datapicker/angular-datepicker.js']
                         },
+                        {
+                            files: ['libs/js/plugins/jasny/jasny-bootstrap.min.js']
+                        }
                     ]);
                 }
             }
@@ -418,6 +424,9 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                             name: 'datePicker',
                             files: ['libs/css/plugins/datapicker/angular-datapicker.css','libs/js/plugins/datapicker/angular-datepicker.js']
                         },
+                        {
+                            files: ['libs/js/plugins/jasny/jasny-bootstrap.min.js']
+                        }
                     ]);
                 }
             }
@@ -453,6 +462,9 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                             name: 'datePicker',
                             files: ['libs/css/plugins/datapicker/angular-datapicker.css','libs/js/plugins/datapicker/angular-datepicker.js']
                         },
+                        {
+                            files: ['libs/js/plugins/jasny/jasny-bootstrap.min.js']
+                        }
                     ]);
                 }
             }

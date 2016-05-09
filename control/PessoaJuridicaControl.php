@@ -33,6 +33,9 @@ class PessoaJuridicaControl {
 	function listar () {
 		return $this->objDAO->listar();
 	}
+	function listarPorNomeCNPJ () {
+		return $this->objDAO->listarPorNomeCNPJ($this->obj);
+	}
 	function deletar () {
 		return $this->objDAO->deletar($this->obj);
 	}

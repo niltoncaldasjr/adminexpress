@@ -1,5 +1,8 @@
 <div class="ibox">
         <div class="ibox-content">
+            <button type="button" class="btn btn-primary" ng-click="novoCadastro()">Novo cadastro</button>
+        </div>
+        <div class="ibox-content">
             <input type="text" class="form-control input-sm m-b-xs" id="filter"
                    placeholder="Search in table">
             <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="10"
@@ -41,34 +44,34 @@
                 <tbody>
                 <tr ng-repeat="obj in grupoPF" reiniciar-footable>
                     <td ng-bind="obj.id"></td>
-                    <td ng-bind="obj.pes.nome"></td>
-                    <td ng-bind="obj.pes.cpf"></td>
+                    <td ng-bind="obj.pes.nome | nomeProprio"></td>
+                    <td ng-bind="obj.pes.cpf | cpf"></td>
                     <td ng-bind="obj.pes.nacionalidade"></td>
                     <td ng-bind="obj.pes.naturalidade"></td>
-                    <td ng-bind="obj.pes.datanascimento"></td>
+                    <td ng-bind="obj.pes.datanascimento | data"></td>
                     <td ng-bind="obj.pes.estadocivil"></td>
                     <td ng-bind="obj.pes.nomeconjuge"></td>
                     <td ng-bind="obj.pes.objprofissao.descricao"></td>
                     <td ng-bind="obj.pes.tipodoc"></td>
                     <td ng-bind="obj.pes.numerodoc"></td>
                     <td ng-bind="obj.pes.orgaodoc"></td>
-                    <td ng-bind="obj.pes.dataemissaodoc"></td>
+                    <td ng-bind="obj.pes.dataemissaodoc | data"></td>
                     <td ng-bind="obj.pes.pai"></td>
                     <td ng-bind="obj.pes.mae"></td>
                     <td ng-bind="obj.pes.sexo"></td>
-                    <td ng-bind="obj.pes.objpessoa.CEP"></td>
+                    <td ng-bind="obj.pes.objpessoa.CEP | cep"></td>
                     <td ng-bind="obj.pes.objpessoa.endereco"></td>
                     <td ng-bind="obj.pes.objpessoa.numero"></td>
                     <td ng-bind="obj.pes.objpessoa.complemento"></td>
                     <td ng-bind="obj.pes.objpessoa.bairro"></td>
-                    <td ng-bind="obj.pes.objpessoa.telefone"></td>
-                    <td ng-bind="obj.pes.objpessoa.fax"></td>
-                    <td ng-bind="obj.pes.objpessoa.celular"></td>
+                    <td ng-bind="obj.pes.objpessoa.telefone | tel"></td>
+                    <td ng-bind="obj.pes.objpessoa.fax | fax"></td>
+                    <td ng-bind="obj.pes.objpessoa.celular | cel"></td>
                     <td ng-bind="obj.pes.objpessoa.email1"></td>
                     <td ng-bind="obj.pes.objpessoa.email2"></td>
                     <td ng-bind="obj.pes.objpessoa.site"></td>
-                    <td ng-bind="obj.datacadastro"></td>
-                    <td ng-bind="obj.dataedicao"></td>
+                    <td ng-bind="obj.datacadastro | data"></td>
+                    <td ng-bind="obj.dataedicao | data"></td>
                     <td class="text-right">
                         <div class="btn-grouobj">
                             <button class="btn-white btn btn-xs" ng-click="editar(obj)"><i class="fa fa-edit"></i>

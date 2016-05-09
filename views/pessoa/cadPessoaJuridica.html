@@ -7,32 +7,32 @@
 <div class="row">
     <div class="col-md-12">
         <div class="form-group">
-            <label class="label-control">Razão Social</label>
+            <label class="label-control">Razão Social</label> <span class="obrigatorio">*</span>
             <input type="text" class="form-control" id="razao" name="razao" placeholder="Razão Social" ng-model="gpes.pessoapj.razao" ng-required="true">
         </div>
     </div>
     <div class="col-md-3">
         <div class="form-group">
-            <label class="label-control">CNPJ</label>
-            <input type="text" class="form-control" id="cnpj" name="cnpj" placeholder="CNPJ" ng-model="gpes.pessoapj.cnpj" ng-required="true">
+            <label class="label-control">CNPJ</label> <span class="obrigatorio">*</span>
+            <input type="text" validarcnpj data-mask="99.999.999/9999-99" class="form-control" id="cnpj" name="cnpj" placeholder="CNPJ" ng-model="gpes.pessoapj.cnpj" ng-required="true">
         </div>
     </div>
     <div class="col-md-3">
         <div class="form-group">
             <label class="label-control">NIRE</label>
-            <input type="text" class="form-control" id="nire" name="nire" placeholder="NIRE" ng-model="gpes.pessoapj.nire" ng-required="true">
+            <input type="text" class="form-control" id="nire" name="nire" placeholder="NIRE" ng-model="gpes.pessoapj.nire">
         </div>
     </div>
     <div class="col-md-3">
         <div class="form-group">
             <label class="label-control">Insc. Estadual</label>
-            <input type="text" class="form-control" id="inscestadual" name="inscestadual" placeholder="Inscrição Estadual" ng-model="gpes.pessoapj.inscestadual" ng-required="true">
+            <input type="text" class="form-control" id="inscestadual" name="inscestadual" placeholder="Inscrição Estadual" ng-model="gpes.pessoapj.inscestadual">
         </div>
     </div>
     <div class="col-md-3">
         <div class="form-group">
             <label class="label-control">Insc. Municipal</label>
-            <input type="text" class="form-control" id="inscmunicipal" name="inscmunicipal" placeholder="Inscrição Municipal" ng-model="gpes.pessoapj.inscmunicipal" ng-required="true">
+            <input type="text" class="form-control" id="inscmunicipal" name="inscmunicipal" placeholder="Inscrição Municipal" ng-model="gpes.pessoapj.inscmunicipal">
         </div>
     </div>
 </div>
@@ -89,35 +89,35 @@
             <tbody>
             <tr ng-repeat="obj in gpes.pessoapj.representantes" reiniciar-footable>
                 <td ng-bind="obj.id"></td>
-                <td ng-bind="obj.pf.nome"></td>
-                <td ng-bind="obj.pf.cpf"></td>
+                <td ng-bind="obj.pf.nome | nomeProprio"></td>
+                <td ng-bind="obj.pf.cpf | cpf"></td>
                 <td ng-bind="obj.pf.nacionalidade"></td>
-                <td ng-bind="obj.pf.datanascimento"></td>
+                <td ng-bind="obj.pf.datanascimento | data"></td>
                 <td ng-bind="obj.pf.estadocivil"></td>
                 <td ng-bind="obj.pf.nomeconjuge"></td>
                 <td ng-bind="obj.pf.objprofissao.descricao"></td>
                 <td ng-bind="obj.pf.tipodoc"></td>
                 <td ng-bind="obj.pf.numerodoc"></td>
                 <td ng-bind="obj.pf.orgaodoc"></td>
-                <td ng-bind="obj.pf.dataemissaodoc"></td>
+                <td ng-bind="obj.pf.dataemissaodoc | data"></td>
                 <td ng-bind="obj.pf.pai"></td>
                 <td ng-bind="obj.pf.mae"></td>
                 <td ng-bind="obj.pf.sexo"></td>
-                <td ng-bind="obj.pf.objpessoa.CEP"></td>
+                <td ng-bind="obj.pf.objpessoa.CEP | cep"></td>
                 <td ng-bind="obj.pf.objpessoa.endereco"></td>
                 <td ng-bind="obj.pf.objpessoa.numero"></td>
                 <td ng-bind="obj.pf.objpessoa.complemento"></td>
                 <td ng-bind="obj.pf.objpessoa.bairro"></td>
-                <td ng-bind="obj.pf.objpessoa.telefone"></td>
-                <td ng-bind="obj.pf.objpessoa.fax"></td>
-                <td ng-bind="obj.pf.objpessoa.celular"></td>
+                <td ng-bind="obj.pf.objpessoa.telefone | tel"></td>
+                <td ng-bind="obj.pf.objpessoa.fax | fax"></td>
+                <td ng-bind="obj.pf.objpessoa.celular | cel"></td>
                 <td ng-bind="obj.pf.objpessoa.email1"></td>
                 <td ng-bind="obj.pf.objpessoa.email2"></td>
                 <td ng-bind="obj.pf.objpessoa.site"></td>
                 <td ng-bind="obj.funcao"></td>
                 <td ng-bind="obj.representante"></td>
-                <td ng-bind="obj.datacadastro"></td>
-                <td ng-bind="obj.dataedicao"></td>
+                <td ng-bind="obj.datacadastro | data"></td>
+                <td ng-bind="obj.dataedicao | data"></td>
                 <td class="text-right">
                     <div class="btn-grouobj">
                         <a class="btn-white btn btn-xs" ng-click="editarRep(obj)"><i class="fa fa-edit"></i>
