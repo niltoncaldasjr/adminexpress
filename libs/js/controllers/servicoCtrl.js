@@ -85,7 +85,7 @@ angular.module('admin-express')
         };
 
         $scope.mostrarChecklist = function(obj){
-
+            console.log(obj);
             $scope.checklists = {};
             $scope.checklist.idservico = obj.id;
             listarChecklist(obj);
