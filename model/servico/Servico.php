@@ -5,8 +5,8 @@
  	Project Owner: Diego.
  	Gerente de Desenvolvimento: Nilton Caldas Jr.
  	Desenvolverdor: Fabiano Ferreira da Silva Costa
- 	Desenvolverdor: Adelson Guimarães Monteiro.
- 	Data de início: 08/03/2016.
+ 	Desenvolverdor: Adelson Guimarï¿½es Monteiro.
+ 	Data de inï¿½cio: 08/03/2016.
  	Data Atual: 08/03/2016. 
 */
 
@@ -14,6 +14,7 @@ Class Servico implements JsonSerializable {
 	/* Atributos */
 	private $id;
 	private $nome;
+	private $valor;
 	private $datacadastro;
 	private $dataedicao;
 
@@ -22,12 +23,14 @@ Class Servico implements JsonSerializable {
 	(
 		$id					= NULL,
 		$nome				= NULL,
+		$valor				= NULL,
 		$datacadastro		= NULL,
 		$dataedicao 		= NULL
 	)
 	{
 		$this->id					= $id;
 		$this->nome		 			= $nome;
+		$this->valor				= $valor;
 		$this->datacadastro 		= $datacadastro;
 		$this->dataedicao 			= $dataedicao;
 	}
@@ -47,6 +50,25 @@ Class Servico implements JsonSerializable {
 		$this->nome = $nome;
 		return $this;
 	}
+
+	/**
+	 * @return null
+	 */
+	public function getValor()
+	{
+		return $this->valor;
+	}
+
+	/**
+	 * @param null $valor
+	 * @return Servico
+	 */
+	public function setValor($valor)
+	{
+		$this->valor = $valor;
+		return $this;
+	}
+
 	public function getDatacadastro() {
 		return $this->datacadastro;
 	}
@@ -73,6 +95,7 @@ Class Servico implements JsonSerializable {
 		return [
 			"id"					=> $this->id,
 			"nome"					=> $this->nome,
+			"valor"					=> $this->valor,
 			"datacadastro" 			=> $this->datacadastro,
 			"dataedicao" 			=> $this->dataedicao
 		];

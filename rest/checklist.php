@@ -24,6 +24,9 @@ switch ($_POST['metodo']) {
     case 'listar':
         listar();
         break;
+    case 'listarporservico':
+        listarPorServico();
+        break;
     case 'deletar':
         deletar();
         break;
@@ -38,7 +41,7 @@ function cadastrar () {
 
     $obj = new Checklist(
         NULL,
-        new Servico($data['idservico']['id']),
+        new Servico($data['idservico']),
         stripslashes ( strip_tags( trim($data['ordem']) )),
         stripslashes ( strip_tags( trim($data['item']) ) )
     );
@@ -51,7 +54,7 @@ function atualizar () {
     $data = $_POST['data'];
     $obj = new Checklist(
         $data['id'],
-        new Servico($data['idservico']['id']),
+        new Servico($data['idservico']),
         stripslashes ( strip_tags( trim($data['ordem']) )),
         stripslashes ( strip_tags( trim($data['item']) ) )
     );
@@ -65,6 +68,19 @@ function listar () {
         echo json_encode($lista);
     }
 }
+function listarPorServico () {
+    $data = $_POST['data'];
+    $obj = new Checklist(
+        NULL,
+        new Servico($data['id'])
+    );
+    $control = new ChecklistControl($obj);
+    $lista = $control->listarPorServico();
+    if(!empty($lista)) {
+        echo json_encode($lista);
+    }
+}
+
 function deletar () {
     $data = $_POST['data'];
     $obj = new Checklist();

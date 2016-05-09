@@ -71,6 +71,23 @@ Class ChecklistDAO {
         return $this->lista;
     }
 
+    /* Listar */
+    function listarPorServico (Checklist $obj) {
+        $idservico = $obj->getObjServico()->getId();
+        $this->sql = "SELECT * FROM checklist WHERE idservico = $idservico ORDER BY ordem";
+        $resultSet = mysqli_query($this->con, $this->sql);
+        if(!$resultSet) {
+            die('[ERRO]: Class(Checklist) | Metodo(Listar) | Erro('.mysqli_error($this->con).')');
+        }
+        while($row = mysqli_fetch_object($resultSet)) {
+
+//            $this->obj = new Checklist($row->id, $objServico, $row->ordem, $row->item, $row->datacadastro, $row->dataedicao);
+
+            $this->lista[] = $row;//$this->obj;
+        }
+        return $this->lista;
+    }
+
     /* Deletar */
     function deletar (Checklist $obj) {
         $this->sql = sprintf("DELETE FROM checklist WHERE id = %d",

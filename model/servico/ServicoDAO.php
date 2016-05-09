@@ -24,9 +24,10 @@ Class ServicoDAO {
 	
 	/* Cadastrar */
 	function cadastrar (Servico $obj) {
-		$this->sql = sprintf("INSERT INTO servico (nome)
-				VALUES('%s')", 
-				mysqli_real_escape_string($this->con, $obj->getNome()));
+		$this->sql = sprintf("INSERT INTO servico (nome, valor)
+				VALUES('%s', %f)",
+				mysqli_real_escape_string($this->con, $obj->getNome()),
+				mysqli_real_escape_string($this->con, $obj->getValor()));
 		if(!mysqli_query($this->con, $this->sql)) {
 			die('[ERRO]: Class('.get_class($obj).') | Metodo(Cadastrar) | Erro('.mysqli_error($this->con).')');
 		}
@@ -35,8 +36,9 @@ Class ServicoDAO {
 	
 	/* Atualizar */
 	function atualizar (Servico $obj) {
-		$this->sql = sprintf("UPDATE servico SET nome = '%s', dataedicao = '%s' WHERE id = %d", 
+		$this->sql = sprintf("UPDATE servico SET nome = '%s', valor = %f, dataedicao = '%s' WHERE id = %d",
 				mysqli_real_escape_string($this->con, $obj->getNome()),
+				mysqli_real_escape_string($this->con, $obj->getValor()),
 				mysqli_real_escape_string($this->con, date('Y-m-d') ), //pega data atual
 				mysqli_real_escape_string($this->con, $obj->getId())
 				);
@@ -54,7 +56,7 @@ Class ServicoDAO {
 			die('[ERRO]: Class(Servico) | Metodo(Listar) | Erro('.mysqli_error($this->con).')');
 		}
 		while($row = mysqli_fetch_object($resultSet)) {
-			$this->obj = new Servico($row->id, $row->nome, $row->datacadastro, $row->dataedicao);
+			$this->obj = new Servico($row->id, $row->nome, $row->valor, $row->datacadastro, $row->dataedicao);
 			
 			array_push($this->lista, $this->obj);
 		}
@@ -81,7 +83,7 @@ Class ServicoDAO {
 			die('[ERRO]: Class('.get_class($obj).') | Metodo(buscarPorId) | Erro('.mysqli_error($this->con).')');
 		}
 		while($row = mysqli_fetch_object($resultSet)) {
-			$this->obj = new Servico($row->id, $row->nome, $row->datacadastro, $row->dataedicao);
+			$this->obj = new Servico($row->id, $row->nome, $row->valor, $row->datacadastro, $row->dataedicao);
 		}
 		return $this->obj;
 	}

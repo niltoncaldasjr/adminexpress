@@ -77,7 +77,7 @@ function config($translateProvider) {
             PARAMETROSDOSISTEMA: 'Parametros do Sistema',
             RELATORIOS: 'Relatórios',
             PROCESSOS: 'Processos',
-            SEARCH: 'Buscar por algo...',
+            SEARCH: 'Search something...',
             LANGUAGE: 'Language',
             LOGOUT: 'Log out',
             HONORARIO: 'Honorário',

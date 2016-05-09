@@ -5,8 +5,8 @@
  	Project Owner: Diego.
  	Gerente de Desenvolvimento: Nilton Caldas Jr.
  	Desenvolverdor: Fabiano Ferreira da Silva Costa
- 	Desenvolverdor: Adelson Guimarães Monteiro.
- 	Data de início: 08/03/2016.
+ 	Desenvolverdor: Adelson Guimarï¿½es Monteiro.
+ 	Data de inï¿½cio: 08/03/2016.
  	Data Atual: 18/03/2016. 
 */
 
@@ -38,7 +38,8 @@ function cadastrar () {
 
 	$obj = new Servico(
 			NULL,
-			stripslashes ( strip_tags( trim($data['nome']) ) )
+			stripslashes ( strip_tags( trim($data['nome']))),
+			$data['valor']
 			);
 	$control = new ServicoControl($obj);
 	$id = $control->cadastrar();
@@ -49,7 +50,8 @@ function atualizar () {
 	$data = $_POST['data'];
 	$obj = new Servico(
 			$data['id'],
-			stripslashes ( strip_tags( trim($data['nome']) ) )
+			stripslashes ( strip_tags( trim($data['nome']) ) ),
+			$data['valor']
 		);
 	$control = new ServicoControl($obj);
 	echo $control->atualizar();

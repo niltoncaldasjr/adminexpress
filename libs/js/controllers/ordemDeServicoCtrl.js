@@ -1,9 +1,7 @@
 angular.module('admin-express')
-    .controller('checklistCtrl', function ($scope, $rootScope, $http, $location, genericAPI, SweetAlert, authenticationAPI) {
+    .controller('ordemDeServicoCtrl', function ($scope, $rootScope, $http, $location, genericAPI, SweetAlert, authenticationAPI) {
 
-        $scope.checklist = {};
-        // $scope.servico = {};
-        console.log();
+        $scope.ordemdeservico = {};
 
         if (!$rootScope.usuario) {
             $location.path('/login');
@@ -26,7 +24,7 @@ angular.module('admin-express')
                     closeOnCancel: false },
                 function (isConfirm) {
                     if (isConfirm) {
-                        var dados = {'session':true, 'metodo': 'deletar', 'data': obj, 'class': 'checklist'};
+                        var dados = {'session':true, 'metodo': 'deletar', 'data': obj, 'class': 'ordemdeservico'};
                         genericAPI.generic(dados)
                             .then(function successCallback(response) {
                                 if(response['data']){
@@ -34,7 +32,7 @@ angular.module('admin-express')
                                         SweetAlert.swal("Ops!!!", response.data.msg, "error");
                                     }else{
                                         SweetAlert.swal("Deletado!", "Essa informação foi deletada.", "success");
-                                        listarChecklist();
+                                        listarOS();
                                     }
 
                                 }else{
@@ -53,7 +51,7 @@ angular.module('admin-express')
          * Limpa os campos na tela
          */
         $scope.limparCampos = function(){
-            delete $scope.checklist;
+            delete $scope.ordemdeservico;
             //$scope.atualizacao = true;
         };
 
@@ -62,31 +60,31 @@ angular.module('admin-express')
          * checa o obj.id se existe entao altera
          * @param obj
          */
-        $scope.cadastrarChecklist = function(obj){
+        $scope.cadastrarOS = function(obj){
             var dados;
 
             if(obj.id == undefined){
-                var dados = {'metodo': 'cadastrar', 'data': obj, 'class': 'checklist'};
+                var dados = {'metodo': 'cadastrar', 'data': obj, 'class': 'ordemdeservico'};
             }else{
-                var dados = {'metodo': 'atualizar', 'data': obj, 'class': 'checklist'};
+                var dados = {'metodo': 'atualizar', 'data': obj, 'class': 'ordemdeservico'};
             }
 
             genericAPI.generic(dados)
                 .then(function successCallback(response) {
                     if(response['data']){
-                        delete $scope.checklist;
-                        listarChecklist();
+                        delete $scope.ordemdeservico;
+                        listarOS();
                     }else{
                     }
                 }, function errorCallback(response) {
                 });
         };
 
-        $scope.editarChecklist = function(obj){
-            $scope.checklist = obj;
+        $scope.editarOS = function(obj){
+            $scope.ordemdeservico = obj;
         };
 
-        $scope.deletarChecklist = function(obj){
+        $scope.deletarOS = function(obj){
 
             confirmaDelete(obj);
         };
@@ -105,22 +103,14 @@ angular.module('admin-express')
                 });
         };
 
-        // $scope.mostrar = function(obj){
-        //     // var obj = {id: 1, nome:'coisa'};
-        //     if(obj != undefined){
-        //         listarChecklistDoServico(obj);
-        //     }
-        //
-        // }
+        var listarOS = function(){
 
-        var listarChecklist = function(){
-
-            var dados = {'metodo': 'listar', 'data': null, 'class': 'checklist'};
+            var dados = {'metodo': 'listar', 'data': null, 'class': 'ordemdeservico'};
 
             genericAPI.generic(dados)
                 .then(function successCallback(response) {
                     if(response['data']){
-                        $scope.checklists = response['data'];
+                        $scope.ordemdeservicos = response['data'];
 
                     }else{
                     }
@@ -128,24 +118,8 @@ angular.module('admin-express')
                 });
         };
 
-        // var listarChecklistDoServico = function(obj){
-        //     alert(obj.nome);
-        //
-        //     var dados = {'metodo': 'listarporservico', 'data': obj, 'class': 'checklist'};
-        //     genericAPI.generic(dados)
-        //         .then(function successCallback(response) {
-        //             if(response['data']){
-        //                 // $scope.itens = response['data'];
-        //
-        //             }else{
-        //             }
-        //         }, function errorCallback(response) {
-        //         });
-        // };
-
-        // listarChecklist();
+        listarOS();
         listarServico();
-        // listarChecklistDoServico();
 
 
 

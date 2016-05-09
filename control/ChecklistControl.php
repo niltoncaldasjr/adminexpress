@@ -33,6 +33,9 @@ class ChecklistControl {
     function listar () {
         return $this->objDAO->listar();
     }
+    function listarPorServico () {
+        return $this->objDAO->listarPorServico($this->obj);
+    }
     function deletar () {
         return $this->objDAO->deletar($this->obj);
     }
