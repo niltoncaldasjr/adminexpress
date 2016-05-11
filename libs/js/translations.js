@@ -40,7 +40,8 @@ function config($translateProvider) {
             LANGUAGE: 'Idioma',
             LOGOUT: 'Sair',
             HONORARIO: 'Honorário',
-            CHECKLIST: 'Checklist'
+            CHECKLIST: 'Checklist',
+            ORDEMDESERVICO: 'Ordem de Serviço'
 
 
         })
@@ -79,7 +80,8 @@ function config($translateProvider) {
             LANGUAGE: 'Language',
             LOGOUT: 'Log out',
             HONORARIO: 'Honorário',
-            CHECKLIST: 'Checklist'
+            CHECKLIST: 'Checklist',
+            ORDEMDESERVICO: 'Order of Service'
         });
 
     $translateProvider.preferredLanguage('pt');
