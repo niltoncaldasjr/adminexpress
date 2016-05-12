@@ -5,8 +5,8 @@
  	Project Owner: Diego.
  	Gerente de Desenvolvimento: Nilton Caldas Jr.
  	Desenvolverdor: Fabiano Ferreira da Silva Costa
- 	Desenvolverdor: Adelson Guimarães Monteiro.
- 	Data de início: 08/03/2016.
+ 	Desenvolverdor: Adelson Guimarï¿½es Monteiro.
+ 	Data de inï¿½cio: 08/03/2016.
  	Data Atual: 16/03/2016. 
 */
 
@@ -35,6 +35,9 @@ class PessoaFisicaControl {
 	}
 	function listarPorNomeCPF () {
 		return $this->objDAO->listarPorNomeCPF($this->obj);
+	}
+	function listarPorNome () {
+		return $this->objDAO->listarPorNome($this->obj);
 	}
 	function deletar () {
 		return $this->objDAO->deletar($this->obj);

@@ -5,8 +5,8 @@
  	Project Owner: Diego.
  	Gerente de Desenvolvimento: Nilton Caldas Jr.
  	Desenvolverdor: Fabiano Ferreira da Silva Costa.
- 	Desenvolverdor: Adelson Guimarães Monteiro.
- 	Data de início: 08/03/2016.
+ 	Desenvolverdor: Adelson Guimarï¿½es Monteiro.
+ 	Data de inï¿½cio: 08/03/2016.
  	Data Atual: 16/03/2016.
 */
 
@@ -77,7 +77,7 @@ Class PessoaJuridicaDAO {
 		return $this->lista;
 	}
 	
-	/* Listar por RazãoSocial ou CNPJ */
+	/* Listar por Razï¿½oSocial ou CNPJ */
 	function listarPorNomeCNPJ (PessoaJuridica $obj) {
 		$this->sql = sprintf("SELECT * FROM pessoajuridica WHERE razao LIKE '%s%s%s' || cnpj LIKE '%s%s%s' ",
 				mysqli_real_escape_string($this->con, '%'),

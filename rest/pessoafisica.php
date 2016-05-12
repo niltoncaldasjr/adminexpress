@@ -5,8 +5,8 @@
  	Project Owner: Diego.
  	Gerente de Desenvolvimento: Nilton Caldas Jr.
  	Desenvolverdor: Fabiano Ferreira da Silva Costa
- 	Desenvolverdor: Adelson Guimarães Monteiro.
- 	Data de início: 08/03/2016.
+ 	Desenvolverdor: Adelson Guimarï¿½es Monteiro.
+ 	Data de inï¿½cio: 08/03/2016.
  	Data Atual: 16/03/2016. 
 */
 
@@ -23,6 +23,9 @@ switch ($_POST['metodo']) {
 		break;
 	case 'listar':
 		listar();
+		break;
+	case 'listarLikePf':
+		listarLikePf();
 		break;
 	case 'deletar':
 		deletar();
@@ -86,6 +89,16 @@ function atualizar () {
 function listar () {
 	$control = new PessoaFisicaControl();
 	$lista = $control->listar();
+	if(!empty($lista)) {
+		echo json_encode($lista);
+	}
+}
+function listarLikePf () {
+	$data = $_POST['data'];
+	$obj = new PessoaFisica();
+	$obj->setNome($data['nome']);
+	$control = new PessoaFisicaControl($obj);
+	$lista = $control->listarPorNome();
 	if(!empty($lista)) {
 		echo json_encode($lista);
 	}
