@@ -5,6 +5,16 @@
         border: 1px;
     }
 
+    .pesquisaparticipante {
+        background-color: #fff;
+        position: absolute;
+        border: 1px;
+    }
+
+    .qtdeitem {
+        width: 30px;
+    }
+
 </style>
 
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -13,9 +23,6 @@
         <!--inicio-->
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    Ordem de Serviço
-                </div>
                 <div class="ibox-content">
                     <div class="row">
                         <div class="col-md-4">
@@ -39,14 +46,12 @@
                                                         class="input-sm form-control" ng-model="os.cliente.nome"> <span
                                 class="input-group-btn">
                                         <button type="button" class="btn btn-sm btn-success"
-                                                ng-click="pesquisarPF(os.cliente.nome)"> PF!
-                                        </button><button type="button" class="btn btn-sm btn-primary"
-                                                         ng-click="pesquisarPJ(os.cliente.nome)"> PJ!
-                        </button> </span></div>
-                        <div class="pesquisacliente">
+                                                ng-click="pesquisaCliente(os.cliente.nome)">Buscar
+                                        </button> </span></div>
+                        <div class="pesquisacliente" ng-if="escolhido">
                             <ul class="nav">
-                                <li ng-repeat="p in grupoPF"><a ng-click="addPF(p)">{{p.nome}}</a></li>
-                                <!--<li ng-repeat="p in grupoPJ"><a ng-click="addPF(p)">{{p.razao}}</a></li>-->
+                                <li ng-repeat="p in clientes"><a ng-click="addCliente(p)">{{p.nome}} - {{p.cpf}}</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -55,7 +60,7 @@
                         <select class="input-sm form-control input-s-sm inline"
                                 required id="idservico" name="servico" ng-model="os.servico"
                                 ng-options="servico as servico.nome for servico in servicos track by servico.id"
-                                ng-selected="mostrar(servico)">
+                                ng-blur="escolher(os.servico)">
                         </select>
                     </div>
                     <div class="form-group">
@@ -81,19 +86,13 @@
                                                     class="input-sm form-control input-s-sm inline"
                                                     required id="idsrvico" name="servico" ng-model="itemdeservico"
                                                     ng-options="servico as servico.nome for servico in servicos track by servico.id"
-                                                    ng-selected="mostrar(itemdeservico)">
+                                                    ng-selected="mostrar(servico)">
                                             </select> <span
                                                     class="input-group-btn">
                                         <button type="button" class="btn btn-sm btn-primary"
-                                                ng-click="pesquisar(itemdeservico)"> Adicionar!
+                                                ng-click="addItem(itemdeservico)"> Add!
                                         </button> </span></div>
-                                            <div class="pesquisacliente">
-                                                <ul class="nav">
-                                                    <li ng-repeat="p in os.servicos"><a
-                                                            ng-click="addPF(p)">{{p.nome}}</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
+
                                         </div>
 
 
@@ -119,11 +118,11 @@
                                                 </td>
                                                 <td>
                                                     <a href=""><i class="fa fa-plus-circle text-navy"
-                                                                  ng-click="deletarChecklist(cada)"></i></a>
+                                                                  ng-click="aumentarQtde(cada)"></i></a>
                                                     <a href=""><i class="fa fa-minus-circle text-navy"
-                                                                  ng-click="deletarChecklist(cada)"></i></a>
+                                                                  ng-click="diminuirQtde(cada)"></i></a>
                                                 </td>
-                                                <td>{{cada.qtde}}</td>
+                                                <td><input class="qtdeitem" type="text" ng-model="cada.qtde"></td>
                                                 <td>R${{cada.valor}}</td>
                                                 <td>R${{cada.valor * cada.qtde}}</td>
                                             </tr>
@@ -159,15 +158,13 @@
                                         <table class="table">
                                             <thead>
                                             <tr>
-
                                                 <th>Ordem</th>
                                                 <th>Item</th>
                                                 <th>Status</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr ng-repeat="chk in os.checklist">
-
+                                            <tr ng-repeat="chk in os.checklists">
                                                 <td>{{chk.ordem}}</td>
                                                 <td>{{chk.item}}</td>
                                                 <td><input icheck type="checkbox" ng-model="chk.status"></td>
@@ -192,12 +189,12 @@
                                                                             ng-model="busca"> <span
                                                     class="input-group-btn">
                                         <button type="button" class="btn btn-sm btn-primary"
-                                                ng-click="pesquisar(busca)"> Adicionar!
+                                                ng-click="pesquisaParticipante(busca)">Pesquisar!
                                         </button> </span></div>
-                                            <div class="pesquisacliente">
+                                            <div class="pesquisaparticipante" ng-if="added">
                                                 <ul class="nav">
-                                                    <li ng-repeat="p in grupoPF"><a ng-click="addPF(p)">{{p.nome}}</a>
-                                                    </li>
+                                                    <li ng-repeat="pes in clientes"><a ng-click="addParticipante(pes)">{{pes.nome}}
+                                                        - {{pes.cpf}}</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -247,6 +244,13 @@
                             </uib-tab>
                         </uib-tabset>
                     </div>
+                </div>
+            </div>
+            <div class="ibox">
+                <div class="ibox-content">
+                    <button type="button" class="btn btn-success"
+                            ng-click="finalizar(os)">Finalizar
+                    </button>
                 </div>
             </div>
         </div>

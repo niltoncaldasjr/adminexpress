@@ -1,47 +1,60 @@
 angular.module('admin-express')
     .controller('ordemDeServicoCtrl', function ($scope, $rootScope, $http, $location, genericAPI, SweetAlert, authenticationAPI) {
 
-        $scope.os = {
-            'id': 1, 'data': '2016-05-12 00:00', 'cliente': {
-                'id': 1, 'nome': 'Fabio Lucena'
-            },
-            'servico': {'id': 1, 'nome': 'Servico Principal', 'valor': 810},
-            'observacao': 'Obs...',
-            'itensdeservico': [
-                {'id': 123, 'nome': 'Compra de Imóvel', 'valor': 26, 'qtde': 2},
-                {'id': 25, 'nome': 'Reconhecimento de Firma', 'valor': 80, 'qtde': 1},
-                {'id': 28, 'nome': 'ITBI', 'valor': 150, 'qtde': 1},
-            ],
-            'checklist': [
-                {'id': 2, 'ordem': 2, 'item': 'Certidão de casamento', 'status': true},
-                {'id': 3, 'ordem': 3, 'item': 'Reconhecimento de Firma', 'status': false},
-                {'id': 4, 'ordem': 7, 'item': 'Cópia autenticada do RG', 'status': false}
-            ],
-            'participantes': [
-                {'id': 2, 'nome': 'Clint Eastwood', 'cpf': '701.662.843-10'},
-                {'id': 4, 'nome': 'Antonio Carlos', 'cpf': '603.415.982-00'},
-                {'id': 6, 'nome': 'Paulo Coelho', 'cpf': '401.940.100-10'}
-            ]
-        };
-        // $scope.os = {'cliente':{'nome':""}};
-
-        $scope.pesquisarPF = function (p) {
-            console.log(p);
-            listarCliente(p, 'PF');
-        }
-
-        $scope.pesquisarPJ = function (p) {
-            console.log(p);
-            listarCliente(p, 'PJ');
-        }
-
-        $scope.addPF = function (pf) {
-            $scope.os.cliente = pf;
-            console.log(pf);
-        }
-
         if (!$rootScope.usuario) {
             $location.path('/login');
+        }
+
+        $scope.os = {
+            'id': '', 'data': '',
+            'cliente': {'id': '', 'nome': ''},
+            'servico': {'id': '', 'nome': '', 'valor': ''},
+            'observacao': '',
+            'itensdeservico': [],
+            'checklists': [],
+            'participantes': []
+        };
+
+        $scope.added = false;
+        $scope.escolhido = false;
+        $scope.busca = "";
+
+        $scope.pesquisaCliente = function (p) {
+            listarCliente(p);
+            $scope.escolhido = true;
+        }
+
+        $scope.pesquisaParticipante = function (p) {
+            listarCliente(p);
+            $scope.added = true;
+        }
+
+        $scope.addParticipante = function (pes) {
+            console.log(pes);
+            $scope.os.participantes.push(pes);
+            $scope.added = false;
+            $scope.busca = "";
+        }
+
+        $scope.addCliente = function (cliente) {
+            $scope.os.cliente = cliente;
+            $scope.escolhido = false;
+            // $scope.busca = "";
+        }
+
+        $scope.addItem= function (item) {
+            var qtde = {qtde: 1};
+            item.qtde = 1;
+            $scope.os.itensdeservico.push(item);
+        }
+
+        $scope.escolher = function (serv) {
+            listarChecklist(serv);
+        }
+
+        $scope.finalizar = function (os) {
+            console.log(os);
+
         }
 
         /**
@@ -156,23 +169,38 @@ angular.module('admin-express')
                 });
         };
 
-        var listarCliente = function (busca, tipo) {
+        var listarCliente = function (busca) {
 
             var dados = {
                 'session': true,
-                'metodo': 'buscarPessoa',
-                'data': {'busca': busca, 'tipo': tipo},
-                'class': 'grupopessoa'
+                'metodo': 'listarclientes',
+                'data': {'busca': busca},
+                'class': 'ordemdeservico'
             };
 
             genericAPI.generic(dados)
                 .then(function successCallback(response) {
                     if (response['data']) {
-                        console.log(response['data']['data']);
-                        $scope.grupoPF = response['data']['data'];
-                        $scope.grupoPJ = response['data']['data'];
+                        console.log(response['data']);
+                        $scope.clientes = response['data'];
+                        // $scope.grupoPJ = response['data']['data'];
                     } else {
                         alert('vazio');
+                    }
+                }, function errorCallback(response) {
+                });
+        };
+
+        var listarChecklist = function(obj){
+
+            var dados = {'metodo': 'listarporservico', 'data': obj, 'class': 'checklist'};
+
+            genericAPI.generic(dados)
+                .then(function successCallback(response) {
+                    if(response['data']){
+                        $scope.os.checklists = response['data'];
+
+                    }else{
                     }
                 }, function errorCallback(response) {
                 });

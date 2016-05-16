@@ -5,8 +5,8 @@
  	Project Owner: Diego.
  	Gerente de Desenvolvimento: Nilton Caldas Jr.
  	Desenvolverdor: Fabiano Ferreira da Silva Costa
- 	Desenvolverdor: Adelson Guimarães Monteiro.
- 	Data de início: 08/03/2016.
+ 	Desenvolverdor: Adelson Guimarï¿½es Monteiro.
+ 	Data de inï¿½cio: 08/03/2016.
  	Data Atual: 16/03/2016. 
 */
 
@@ -32,6 +32,9 @@ class PessoaControl {
 	}
 	function listar () {
 		return $this->objDAO->listar();
+	}
+	function listarJuntos ($nome) {
+		return $this->objDAO->listarJuntos($nome);
 	}
 	function deletar () {
 		return $this->objDAO->deletar($this->obj);

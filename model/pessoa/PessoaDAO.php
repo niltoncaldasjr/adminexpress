@@ -5,8 +5,8 @@
  	Project Owner: Diego.
  	Gerente de Desenvolvimento: Nilton Caldas Jr.
  	Desenvolverdor: Fabiano Ferreira da Silva Costa.
- 	Desenvolverdor: Adelson Guimarães Monteiro.
- 	Data de início: 08/03/2016.
+ 	Desenvolverdor: Adelson Guimarï¿½es Monteiro.
+ 	Data de inï¿½cio: 08/03/2016.
  	Data Atual: 16/03/2016.
 */
 
@@ -138,6 +138,44 @@ Class PessoaDAO {
 			$this->obj = $pjControl->buscarPorPessoa();
 		}
 		return $this->obj;
+	}
+
+	function listarJuntos ($nome) {
+		$this->sql = sprintf("SELECT * FROM clientesview WHERE nome LIKE '%s%s%s'",
+			mysqli_real_escape_string($this->con, '%'),
+			mysqli_real_escape_string($this->con, $nome),
+			mysqli_real_escape_string($this->con, '%'));
+		$resultSet = mysqli_query($this->con, $this->sql);
+		if(!$resultSet) {
+			die('[ERRO]: Class(Pessoa) | Metodo(listarJuntos) | Erro('.mysqli_error($this->con).')');
+		}
+		while($row = mysqli_fetch_object($resultSet)) {
+//			var_dump($row);
+			$this->lista[] = $row;
+		}
+		return $this->lista;
+	}
+	function listarPorNome (PessoaFisica $obj) {
+		$this->sql = sprintf("SELECT * FROM pessoafisica WHERE nome LIKE '%s%s%s'",
+			mysqli_real_escape_string($this->con, '%'),
+			mysqli_real_escape_string($this->con, $obj->getNome()),
+			mysqli_real_escape_string($this->con, '%'));
+		$resultSet = mysqli_query($this->con, $this->sql);
+		if(!$resultSet) {
+			die('[ERRO]: Class(PessoaFisica) | Metodo(ListarPorNomeCPF) | Erro('.mysqli_error($this->con).')');
+		}
+		while($row = mysqli_fetch_object($resultSet)) {
+			$objPessoaControl = new PessoaControl(new Pessoa($row->idpessoa));
+			$objPessoa = $objPessoaControl->buscarPorId();
+
+			$profissaoControl = new ProfissaoControl(new Profissao($row->idprofissao));
+			$objProfissao = $profissaoControl->buscarPorId();
+
+			$this->obj = new PessoaFisica($row->id, $objPessoa, $row->nome, $row->cpf, $row->nacionalidade, $row->naturalidade, $row->datanascimento, $row->estadocivil, $row->nomeconjuge, $objProfissao, $row->tipodoc, $row->numerodoc, $row->orgaodoc, $row->dataemissaodoc, $row->pai, $row->mae, $row->sexo, $row->datacadastro, $row->dataedicao);
+
+			array_push($this->lista, $this->obj);
+		}
+		return $this->lista;
 	}
 }
 
