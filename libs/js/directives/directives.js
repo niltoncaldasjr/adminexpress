@@ -762,7 +762,41 @@ function validarCNPJ ($timeout, SweetAlert) {
             });
         }
     }
-}
+};
+
+function mascara () {
+    return {
+        restrict: "A",
+        require: "ngModel",
+        link: function (sc, el, att, model) {
+            
+            var mask = [];
+            for(var x=0; x<att.mascara.length; x++) {
+                mask.push(att.mascara.substring(x, x+1));
+            }
+
+            console.log(mask);
+
+            // ao soltar 1 tecla
+            el.bind("keyup", function () {
+                var len = model.$viewValue.length;
+                if(len) {
+                    len = len-1;
+                    if(mask[len] === 'A') {
+                        model.$setViewValue(model.$viewValue.replace(/^\W/, ""));
+                    }else if(mask[len] === '9') {
+                        model.$setViewValue(model.$viewValue.replace(/[^0-9]+/g, ""));
+                    }
+                    model.$render();
+                }
+            });
+            // após perder o foco
+            el.bind("blur", function () {
+                
+            });
+        }
+    }
+};
 
 /**
  *
@@ -796,6 +830,7 @@ angular
     .directive('datamode', datamode)
     .directive('validarcpf', validarCPF)
     .directive('validarcnpj', validarCNPJ)
+    .directive('mascara', mascara)
     .directive('reiniciarFootable', function () {
         return function (scope, element) {
             var footableTable = element.parents('table');
