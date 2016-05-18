@@ -12,8 +12,29 @@ angular.module('admin-express')
             'observacao': '',
             'itensdeservico': [],
             'checklists': [],
-            'participantes': []
+            'participantes': [],
+            'desconto':'',
+            'total':0,
+            'subtotal':0,
+            'desconto':0
         };
+
+
+        $scope.pegartotal = function () {
+
+            if($scope.os.itensdeservico){
+                var itens = $scope.os.itensdeservico;
+                var tot = 0;
+                var qtos = itens.length;
+                for (var i = 0, len = itens.length; i < len; i++) {
+                    tot = tot + itens[i].parcial;
+                }
+                return tot;
+            }else{
+                return 0;
+            }
+        }
+
 
         $scope.added = false;
         $scope.escolhido = false;

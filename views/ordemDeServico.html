@@ -28,13 +28,13 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="">Nº</label>
-                                <input class="form-control" type="text" value="{{os.id}}">
+                                <input class="form-control" type="text" ng-model="os.id">
                             </div>
                         </div>
                         <div class="col-md-4 col-md-offset-4">
                             <div class="form-group">
                                 <label for="">Data</label>
-                                <input class="form-control" type="text" value="{{os.data}}">
+                                <input class="form-control" type="text" ng-model="os.data">
                             </div>
                         </div>
                     </div>
@@ -124,7 +124,7 @@
                                                 </td>
                                                 <td><input class="qtdeitem" type="text" ng-model="cada.qtde"></td>
                                                 <td>R${{cada.valor}}</td>
-                                                <td>R${{cada.valor * cada.qtde}}</td>
+                                                <td>R${{cada.parcial = (cada.valor * cada.qtde)}}</td>
                                             </tr>
 
                                             </tbody>
@@ -134,15 +134,15 @@
                                         <tbody>
                                         <tr>
                                             <td><strong>Sub Total :</strong></td>
-                                            <td>R$1026.00</td>
+                                            <td>R${{os.subtotal = pegartotal()}}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Desconto :</strong></td>
-                                            <td>R$50.00</td>
+                                            <td>R$<input class="qtdeitem" type="text" ng-model="os.desconto"></td>
                                         </tr>
                                         <tr>
                                             <td><strong>TOTAL :</strong></td>
-                                            <td>R$1261.98</td>
+                                            <td>R${{os.total = os.subtotal - (os.subtotal * (os.desconto/100))}}</td>
                                         </tr>
                                         </tbody>
                                     </table>
