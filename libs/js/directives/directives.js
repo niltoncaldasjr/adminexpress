@@ -803,6 +803,13 @@ function mascara () {
                 model.$render();
             });
 
+            el.bind("keypress", function (e) {
+                //    CTRL                 ALT                SHIFT
+                if (e.keyCode === 17 || e.keyCode === 18 || e.keyCode === 16) return false;
+                model.$setViewValue(_digitado(model.$viewValue));
+                model.$render();
+            });
+
             // format
             var _format = function (input) {
                 var text = '';
