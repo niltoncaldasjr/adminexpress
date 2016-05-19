@@ -797,15 +797,15 @@ function mascara () {
             };
 
             el.bind("keyup", function (e) {
-                //    CTRL                 ALT                SHIFT
-                if (e.keyCode === 17 || e.keyCode === 18 || e.keyCode === 16) return false;
+                //   SETA-ESQUERDA           SETA-CIMA         SETA-DIREITA         SETA-BAIXO         BACKSAPCE          CTRL                 ALT                SHIFT
+                if (e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40 || e.keyCode === 8 || e.keyCode === 17 || e.keyCode === 18 || e.keyCode === 16) return false;
                 model.$setViewValue(_digitado(model.$viewValue));
                 model.$render();
             });
 
             el.bind("keypress", function (e) {
-                //    CTRL                 ALT                SHIFT
-                if (e.keyCode === 17 || e.keyCode === 18 || e.keyCode === 16) return false;
+                //   SETA-ESQUERDA           SETA-CIMA         SETA-DIREITA         SETA-BAIXO         BACKSAPCE          CTRL                 ALT                SHIFT
+                if (e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40 || e.keyCode === 8 || e.keyCode === 17 || e.keyCode === 18 || e.keyCode === 16) return false;
                 model.$setViewValue(_digitado(model.$viewValue));
                 model.$render();
             });
@@ -832,6 +832,12 @@ function mascara () {
                 }
                 return input;
             };
+
+            // após ganhar foco
+            el.bind("focus", function () {
+                model.$setViewValue(_format(model.$viewValue));
+                model.$render();
+            });
 
             // após perder o foco
             el.bind("blur", function () {
