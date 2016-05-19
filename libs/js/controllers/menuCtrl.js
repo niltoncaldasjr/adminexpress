@@ -36,7 +36,6 @@ angular.module('admin-express')
         }
 
         if($rootScope.usuario){
-            console.log("root");
             $rootScope.trazer_menu();
             //$rootScope.trazer_perfil();
         }

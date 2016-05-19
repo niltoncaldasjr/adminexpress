@@ -4,7 +4,7 @@ var authenticationCtrl = function ($location, $scope, $rootScope, authentication
     if($rootScope.usuario) { $location.path("/home"); return false; }
     // if(!sessionStorage['usuario']) { $location.path("/login"); return false; }
 
-    console.log($rootScope.usuario);
+    // console.log($rootScope.usuario);
 	$scope.logar = function (obj) {
         obj.senha = MD5(obj.senha);
 		var data = { "metodo": "logar", "data": obj, "class": "authentication" };
