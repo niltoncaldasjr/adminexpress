@@ -770,29 +770,65 @@ function mascara () {
         require: "ngModel",
         link: function (sc, el, att, model) {
             
-            var mask = [];
-            for(var x=0; x<att.mascara.length; x++) {
-                mask.push(att.mascara.substring(x, x+1));
+            var maskTxt = att.mascara.replace(/[^\d,A-Z]+/g,'');
+            var maskArray = [];
+            var lenMask = maskTxt.length;
+            for(var x=0; x<lenMask; x++) {
+                maskArray.push(maskTxt.substring(x, x+1));
             }
 
-            console.log(mask);
-
-            // ao soltar 1 tecla
-            el.bind("keyup", function () {
-                var len = model.$viewValue.length;
-                if(len) {
+            var _digitado = function (input) {
+                var len = input.length;
+                if(len && len<lenMask) {
                     len = len-1;
-                    if(mask[len] === 'A') {
-                        model.$setViewValue(model.$viewValue.replace(/^\W/, ""));
-                    }else if(mask[len] === '9') {
-                        model.$setViewValue(model.$viewValue.replace(/[^0-9]+/g, ""));
+                    var digito = input.substring(len);
+                    input = input.substring(0,len);
+                    if(maskArray[len].search(/[^A-Za-z]/)) {
+                        digito = digito.replace(/[^A-Za-z]/, "");
+                        input += digito.toUpperCase();
+                    }else if(maskArray[len].search(/[^0-9]+/g)) {
+                        digito = digito.replace(/[^0-9]+/g, "");
+                        input += digito;
                     }
-                    model.$render();
                 }
+                input = input.substring(0, lenMask);
+
+                return input;
+            };
+
+            el.bind("keyup", function (e) {
+                if (e.keyCode === 17 || e.keyCode === 18) return false;
+                model.$setViewValue(_digitado(model.$viewValue));
+                model.$render();
             });
+
+            // format
+            var _format = function (input) {
+                var text = '';
+                var count = 0;
+                input = input.replace(/[^\d,A-Z]+/g,'');
+                if(input.length === lenMask) {
+                    for(var x in att.mascara) {
+                        if(att.mascara[x].search(/[^\s\/\(\)\._-]/)) {
+                            text += att.mascara[x];
+                            count++;
+                        }else{
+                            text += input[x-count];
+                        }
+                    }
+                    input = text;
+                }else if(input.length === att.mascara.length) {
+                    input = input;
+                }else{
+                    input = "";
+                }
+                return input;
+            };
+
             // após perder o foco
             el.bind("blur", function () {
-                
+                model.$setViewValue(_format(model.$viewValue));
+                model.$render();
             });
         }
     }
