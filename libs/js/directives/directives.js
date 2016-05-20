@@ -796,30 +796,36 @@ function mascara () {
                 return input;
             };
 
-            var _keyCodes = function () {
+            var _keyCodes = function (key) {
                 var keys = [
                     8,  //backspace
+                    16, //shift
                     17, //ctrl
                     18, //alt
-                    16, //shift
+                    33, //page up
+                    34, //page down
+                    35, //end
+                    36, //home
                     37, //seta-esquerda
                     38, //seta-cima
                     39, //seta-direita
-                    40  //seta-baixo
+                    40, //seta-baixo
+                    45, //insert
+                    46  //delete
                 ];
-            }
+
+                if (keys.indexOf(key)>=0) return true;
+                return false;
+            };
 
             el.bind("keyup", function (e) {
-                console.log(e);
-                //   SETA-ESQUERDA           SETA-CIMA         SETA-DIREITA         SETA-BAIXO         BACKSAPCE          CTRL                 ALT                SHIFT
-                if (e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40 || e.keyCode === 8 || e.keyCode === 17 || e.keyCode === 18 || e.keyCode === 16) return false;
+                if (_keyCodes(e.keyCode)) return false;
                 model.$setViewValue(_digitado(model.$viewValue));
                 model.$render();
             });
 
             el.bind("keypress", function (e) {
-                //   SETA-ESQUERDA           SETA-CIMA         SETA-DIREITA         SETA-BAIXO         BACKSAPCE          CTRL                 ALT                SHIFT
-                if (e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40 || e.keyCode === 8 || e.keyCode === 17 || e.keyCode === 18 || e.keyCode === 16) return false;
+                if (_keyCodes(e.keyCode)) return false;
                 model.$setViewValue(_digitado(model.$viewValue));
                 model.$render();
             });
