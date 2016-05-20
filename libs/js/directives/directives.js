@@ -796,30 +796,18 @@ function mascara () {
                 return input;
             };
 
-            var _keyCodes = function (key) {
+            var _keyCodes = function (e) {
                 var keys = [
-                    8,  //backspace
-                    16, //shift
-                    17, //ctrl
-                    18, //alt
-                    33, //page up
-                    34, //page down
-                    35, //end
-                    36, //home
-                    37, //seta-esquerda
-                    38, //seta-cima
-                    39, //seta-direita
-                    40, //seta-baixo
-                    45, //insert
-                    46  //delete
+                    91, //left window
+                    92, //right window
+                    93  //select key
                 ];
-
-                if (keys.indexOf(key)>=0) return true;
+                if (keys.indexOf(e.keyCode)>=0 || e.keyCode<48 || e.keyCode>105 || e.altKey === true || e.ctrlKey === true || e.shiftkey === true) return true;
                 return false;
             };
 
             el.bind("keyup", function (e) {
-                if (_keyCodes(e.keyCode)) return false;
+                if (_keyCodes(e)) return false;
                 model.$setViewValue(_digitado(model.$viewValue));
                 model.$render();
             });
