@@ -349,6 +349,9 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                         },
                         {
                             files: ['libs/css/plugins/iCheck/custom.css','libs/js/plugins/iCheck/icheck.min.js']
+                        },
+                        {
+                            files: ['libs/js/plugins/moment/moment.min.js']
                         }
                     ]);
                 }

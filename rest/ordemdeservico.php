@@ -25,21 +25,43 @@ switch ($_POST['metodo']) {
     case 'listarclientes':
         listarClientes();
         break;
-    case 'deletar':
-        deletar();
+    case 'listartodos':
+        listarTodos();
         break;
-    case 'buscarPorId':
+    case 'buscarporid':
         buscarPorId();
         break;
 }
 
-function listarClientes(){
+function listarTodos()
+{
+    $control = new OrdemDeServicoControl();
+    $todos = $control->listarTodos();
 
+    echo json_encode($todos);
+}
+
+function listarClientes()
+{
     $data = $_POST['data'];
-    
+
     $control = new PessoaControl();
     $clientes = $control->listarJuntos($data['busca']);
 
-//    echo json_encode(array('data'=>$clientes));
     echo json_encode($clientes);
+}
+
+function cadastrar()
+{
+    $data = $_POST['data'];
+    var_dump($data);
+//    $os = new OrdemDeServico();
+//    $os->setObjpessoa(new Pessoa($data['idcliente']['id']))
+//        ->setObjservico($data['idservico']['id'])
+//        ->setAndamento('Parado na 8º Vara');
+}
+function atualizar()
+{
+    $data = $_POST['data'];
+    var_dump($data);
 }

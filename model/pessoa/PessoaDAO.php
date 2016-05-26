@@ -155,6 +155,19 @@ Class PessoaDAO {
 		}
 		return $this->lista;
 	}
+
+	function listarJuntosPorId ($id) {
+		$this->sql = "SELECT * FROM clientesview WHERE id = $id";
+		$resultSet = mysqli_query($this->con, $this->sql);
+		if(!$resultSet) {
+			die('[ERRO]: Class(Pessoa) | Metodo(listarJuntosProId) | Erro('.mysqli_error($this->con).')');
+		}
+		while($row = mysqli_fetch_object($resultSet)) {
+			$this->obj = $row;
+		}
+		return $this->obj;
+	}
+
 	function listarPorNome (PessoaFisica $obj) {
 		$this->sql = sprintf("SELECT * FROM pessoafisica WHERE nome LIKE '%s%s%s'",
 			mysqli_real_escape_string($this->con, '%'),

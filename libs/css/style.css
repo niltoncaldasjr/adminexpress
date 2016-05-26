@@ -8251,3 +8251,19 @@ body.md-skin {
 .obrigatorio {
   color: red;
 }
+
+.pesquisacliente {
+  background-color: #fff;
+  position: absolute;
+  border: 1px;
+}
+
+.pesquisaparticipante {
+  background-color: #fff;
+  position: absolute;
+  border: 1px;
+}
+
+.qtdeitem {
+  width: 30px;
+}

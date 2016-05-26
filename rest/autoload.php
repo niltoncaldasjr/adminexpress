@@ -70,5 +70,4 @@ function getRest($class) {
 	Chama a fun��o GetRest
 */
 getRest($_POST['class']);
-
 ?>

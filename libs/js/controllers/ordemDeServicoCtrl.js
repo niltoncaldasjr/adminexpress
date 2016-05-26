@@ -7,8 +7,9 @@ angular.module('admin-express')
 
         $scope.os = {
             'id': '', 'data': '',
-            'cliente': {'id': '', 'nome': ''},
-            'servico': {'id': '', 'nome': '', 'valor': ''},
+            'idcliente': {'id': '', 'nome': ''},
+            'idservico': {'id': '', 'nome': '', 'valor': ''},
+            'status': 'OFF',
             'observacao': '',
             'itensdeservico': [],
             'checklists': [],
@@ -16,8 +17,12 @@ angular.module('admin-express')
             'desconto':'',
             'total':0,
             'subtotal':0,
+            'datacadastro':moment(),
             'desconto':0
         };
+        // listarOS();
+        $scope.listaOs = [];
+
 
 
         $scope.pegartotal = function () {
@@ -35,6 +40,20 @@ angular.module('admin-express')
             }
         }
 
+        $scope.mostrarForm = false;
+        $scope.mostrarTabela = true;
+
+        $scope.mostrar = function () {
+
+            $scope.mostrarForm = true;
+            $scope.mostrarTabela = false;
+        }
+
+        $scope.esconder = function () {
+
+            $scope.mostrarForm = false;
+            $scope.mostrarTabela = true;
+        }
 
         $scope.added = false;
         $scope.escolhido = false;
@@ -58,7 +77,7 @@ angular.module('admin-express')
         }
 
         $scope.addCliente = function (cliente) {
-            $scope.os.cliente = cliente;
+            $scope.os.idcliente = cliente;
             $scope.escolhido = false;
             // $scope.busca = "";
         }
@@ -75,6 +94,9 @@ angular.module('admin-express')
 
         $scope.finalizar = function (os) {
             console.log(os);
+            $scope.listaOs.push(os);
+            $scope.mostrarForm = false;
+            $scope.mostrarTabela = true;
 
         }
 
@@ -133,9 +155,11 @@ angular.module('admin-express')
          * @param obj
          */
         $scope.cadastrarOS = function (obj) {
+            $scope.mostrarForm = false;
+            $scope.mostrarTabela = true;
             var dados;
 
-            if (obj.id == undefined) {
+            if (obj.id == undefined || obj.id =="") {
                 var dados = {'metodo': 'cadastrar', 'data': obj, 'class': 'ordemdeservico'};
             } else {
                 var dados = {'metodo': 'atualizar', 'data': obj, 'class': 'ordemdeservico'};
@@ -144,7 +168,7 @@ angular.module('admin-express')
             genericAPI.generic(dados)
                 .then(function successCallback(response) {
                     if (response['data']) {
-                        delete $scope.ordemdeservico;
+                        delete $scope.os;
                         listarOS();
                     } else {
                     }
@@ -177,12 +201,12 @@ angular.module('admin-express')
 
         var listarOS = function () {
 
-            var dados = {'metodo': 'listar', 'data': null, 'class': 'ordemdeservico'};
+            var dados = {'metodo': 'listartodos', 'data': null, 'class': 'ordemdeservico'};
 
             genericAPI.generic(dados)
                 .then(function successCallback(response) {
                     if (response['data']) {
-                        $scope.ordemdeservicos = response['data'];
+                        $scope.listaOs = response['data'];
 
                     } else {
                     }

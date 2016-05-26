@@ -36,6 +36,9 @@ class PessoaControl {
 	function listarJuntos ($nome) {
 		return $this->objDAO->listarJuntos($nome);
 	}
+	function listarJuntosPorId ($id) {
+		return $this->objDAO->listarJuntosPorId($id);
+	}
 	function deletar () {
 		return $this->objDAO->deletar($this->obj);
 	}
