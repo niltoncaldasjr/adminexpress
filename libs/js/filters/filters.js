@@ -4,11 +4,12 @@
 
 function nomeProprio () {
 	return function (input) {
-		var listaNomes = input.split(" ");
-		var listaNomeFormat = listaNomes.map(function (nome) {
-			return nome.charAt(0).toUpperCase() + nome.substring(1).toLowerCase();
-		});
-		return listaNomeFormat.join(" ");
+		return input;
+		// var listaNomes = input.split(" ");
+		// var listaNomeFormat = listaNomes.map(function (nome) {
+		// 	return nome.charAt(0).toUpperCase() + nome.substring(1).toLowerCase();
+		// });
+		// return listaNomeFormat.join(" ");
 	}
 };
 
