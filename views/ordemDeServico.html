@@ -1,13 +1,37 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>Ordem de Serviço</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/#/home/">Home</a>
+            </li>
+            <li class="active">
+                <strong>Ordem de Serviço</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <a href="" class="btn btn-primary" ng-click="mostrar()" ng-if="mostrarTabela"><i class="fa fa-star-o"></i> Nova OS </a>
+            <!--<a href="/#/outra/teste" target="_blank" class="btn btn-primary" ng-if="mostrarForm"><i class="fa fa-print"></i> Print Invoice </a>-->
+            <a href="" class="btn btn-success" ng-click="cadastrarOS(os)" ng-if="mostrarForm"><i class="fa fa-save"></i> Finalizar </a>
+            <a href="" class="btn btn-danger" ng-click="esconder()" ng-if="mostrarForm"><i class="fa fa-exclamation"></i> Cancelar </a>
+
+        </div>
+    </div>
+</div>
+<!--FIM DO CABEÇALHO-->
+
 <div class="wrapper wrapper-content animated fadeInRight">
 
     <div class="row" ng-if="mostrarTabela">
         <div class="col-md-12">
             <div class="ibox">
-                <div class="ibox-heading">
-                    <div class="ibox-title">
-                        <button class="btn btn-large btn-success" ng-click="mostrar()">Iniciar OS</button>
-                    </div>
-                </div>
+                <!--<div class="ibox-heading">-->
+                    <!--<div class="ibox-title">-->
+                        <!--<button class="btn btn-large btn-success" ng-click="mostrar()">Iniciar OS</button>-->
+                    <!--</div>-->
+                <!--</div>-->
                 <div class="ibox-content">
                     <input type="text" class="form-control input-sm m-b-xs" id="filter"
                            placeholder="Search in table">
@@ -39,16 +63,13 @@
                             <td class="text-right">
 
                                 <div class="btn-group">
-                                    <button title="Resetar senha" class="btn-info btn btn-xs"
-                                            ng-click="resetarSenha(u)"><i
-                                            class="fa fa-key"></i>
-                                    </button>
+                                    <a href="/#/outra/teste" target="_blank" class="btn-primary btn btn-xs"><i class="fa fa-print"></i></a>
                                     <button title="Editar usuário" class="btn-white btn btn-xs"
-                                            ng-click="editarUsuario(u)"><i
+                                            ng-click="funcaoOculta(u)"><i
                                             class="fa fa-edit"></i>
                                     </button>
                                     <button title="Deletar usuário" class="btn-danger btn btn-xs"
-                                            ng-click="deletarUsuario(u)"><i
+                                            ng-click="funcaoOculta(u)"><i
                                             class="fa fa-close"></i>
                                     </button>
                                 </div>
@@ -75,12 +96,12 @@
         <!--inicio-->
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
-                <div class="ibox-heading">
-                    <div class="ibox-title">
+                <!--<div class="ibox-heading">-->
+                    <!--<div class="ibox-title">-->
 
-                    </div>
+                    <!--</div>-->
 
-                </div>
+                <!--</div>-->
                 <div class="ibox-content">
                     <div class="row">
                         <div class="col-md-4">
@@ -302,16 +323,6 @@
                             </uib-tab>
                         </uib-tabset>
                     </div>
-                </div>
-            </div>
-            <div class="ibox">
-                <div class="ibox-content">
-                    <button type="button" class="btn btn-success"
-                            ng-click="cadastrarOS(os)">Finalizar
-                    </button>
-                    <button type="button" class="btn btn-success"
-                            ng-click="esconder()">Cancelar
-                    </button>
                 </div>
             </div>
         </div>

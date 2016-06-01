@@ -17,6 +17,28 @@ class OrdemDeServicoDAO
         $this->con = $con;
     }
 
+    function cadastrar(OrdemDeServico $os)
+    {
+        $query = sprintf("INSERT INTO ordemdeservico (idcliente, idservico, idusuario, observacao, subtotal, desconto, total, status, andamento) VALUES (%d,%d,%d,'%s',%f,%f,%f,'%s','%s')",
+            mysqli_real_escape_string($this->con, $os->getObjpessoa()->getId()),
+            mysqli_real_escape_string($this->con, $os->getObjservico()->getId()),
+            mysqli_real_escape_string($this->con, $os->getObjusuario()->getId()),
+            mysqli_real_escape_string($this->con, $os->getObservacao()),
+            mysqli_real_escape_string($this->con, $os->getSubtotal()),
+            mysqli_real_escape_string($this->con, $os->getDesconto()),
+            mysqli_real_escape_string($this->con, $os->getTotal()),
+            mysqli_real_escape_string($this->con, $os->getStatus()),
+            mysqli_real_escape_string($this->con, $os->getAndamento())
+        );
+        if(!mysqli_query($this->con, $query)) {
+            die('[ERRO]: Class('.get_class($os).') | Metodo(Cadastrar) | Erro('.mysqli_error($this->con).')');
+        }
+        $id = mysqli_insert_id($this->con);
+
+        return $id;
+
+    }
+
     function listarTodos()
     {
 //        $array = array();
@@ -30,6 +52,14 @@ class OrdemDeServicoDAO
             $sControl = new ServicoControl($s);
             $row->idservico = $sControl->buscarPorId();
 
+            $itensControl = new OsItensDeServicoControl();
+            $row->itensdeservico = $itensControl->listarPorIdOs($row->id);
+
+            $partControl = new OsParticipantesControl();
+            $row->participantes = $partControl->listarPorIdOs($row->id);
+
+            $chkControl = new OsChecklistControl();
+            $row->checklists = $chkControl->listarPorIdOs($row->id);
             $this->lista[] = $row;
         }
         return $this->lista;

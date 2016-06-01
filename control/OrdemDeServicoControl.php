@@ -18,6 +18,10 @@ class OrdemDeServicoControl
         $this->objOS = $os;
     }
 
+    function cadastrar(){
+        return $this->osDAO->cadastrar($this->objOS);
+    }
+
     function buscarPorId(){
         return $this->osDAO->buscarPorId($this->objOS);
     }

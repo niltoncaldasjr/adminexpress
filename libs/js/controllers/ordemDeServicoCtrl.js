@@ -20,10 +20,8 @@ angular.module('admin-express')
             'datacadastro':moment(),
             'desconto':0
         };
-        // listarOS();
+
         $scope.listaOs = [];
-
-
 
         $scope.pegartotal = function () {
 
@@ -92,14 +90,6 @@ angular.module('admin-express')
             listarChecklist(serv);
         }
 
-        $scope.finalizar = function (os) {
-            console.log(os);
-            $scope.listaOs.push(os);
-            $scope.mostrarForm = false;
-            $scope.mostrarTabela = true;
-
-        }
-
         /**
          * Funcao de alert para confirmar
          * @param obj
@@ -159,7 +149,7 @@ angular.module('admin-express')
             $scope.mostrarTabela = true;
             var dados;
 
-            if (obj.id == undefined || obj.id =="") {
+            if (obj.id == undefined || obj.id == "") {
                 var dados = {'metodo': 'cadastrar', 'data': obj, 'class': 'ordemdeservico'};
             } else {
                 var dados = {'metodo': 'atualizar', 'data': obj, 'class': 'ordemdeservico'};
@@ -253,6 +243,10 @@ angular.module('admin-express')
 
         listarOS();
         listarServico();
+
+        $scope.funcaoOculta = function (u) {
+            alert('calma cocada!!!');
+        }
 
 
     });

@@ -479,7 +479,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('outra.teste', {
             url: "/teste",
-            templateUrl: "views/teste.html",
+            templateUrl: "views/invoxxx.html",
             //resolve: {
             //    loadPlugin: function ($ocLazyLoad) {
             //        return $ocLazyLoad.load([
