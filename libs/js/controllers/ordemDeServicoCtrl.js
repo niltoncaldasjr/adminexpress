@@ -74,6 +74,7 @@ angular.module('admin-express')
 
         $scope.addParticipante = function (pes) {
             $scope.os.participantes.push(pes);
+
             $scope.added = false;
             $scope.procura = {};
 
@@ -284,6 +285,7 @@ angular.module('admin-express')
         };
 
         $scope.salvarAndamento = function (and) {
+            and.data = new Date();
             $scope.os.andamentos.push(and);
             $scope.and = {};
         }

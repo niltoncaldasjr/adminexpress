@@ -55,31 +55,33 @@ function cadastrar()
 {
     $data = $_POST['data'];
     $os = new OrdemDeServico();
-//    $os->setObjpessoa(new Pessoa($data['idcliente']['id']))
-//        ->setObjservico(new Servico($data['idservico']['id']))
-//        ->setObjusuario(new Usuario("1"))
-//        ->setAndamento('Parado na 8º Vara')
-//        ->setDesconto($data['desconto'])
-//        ->setSubtotal($data['subtotal'])
-//        ->setTotal($data['total'])
-//        ->setObservacao($data['observacao'])
-//        ->setStatus(1);
+    $os->setObjpessoa(new Pessoa($data['idcliente']['id']))
+        ->setObjservico(new Servico($data['idservico']['id']))
+        ->setObjusuario(new Usuario("1"))
+        ->setAndamento('Parado na 8º Vara')
+        ->setDesconto($data['desconto'])
+        ->setSubtotal($data['subtotal'])
+        ->setTotal($data['total'])
+        ->setObservacao($data['observacao'])
+        ->setStatus(1);
 
     $osControl= new OrdemDeServicoControl($os);
-//    $os->setId( $osControl->cadastrar() );
-    $os->setId(4);
+    $os->setId( $osControl->cadastrar());
+//    $os->setId(4);
 
     $itens = $data['itensdeservico'];
     $participantes = $data['participantes'];
+    $checklists = $data['checklists'];
+    $andamentos = $data['andamentos'];
 
-//    foreach ($itens as $item):
-//        $servico = new OsItensDeServico();
-//        $servico->setObjOrdemdeservico(new OrdemDeServico($os->getId()))
-//            ->setObjServico(new Servico($item['id']))
-//            ->setQuantidade($item['qtde']);
-//        $itemControl = new OsItensDeServicoControl($servico);
-//        $itemControl->cadastrar();
-//    endforeach;
+    foreach ($itens as $item):
+        $servico = new OsItensDeServico();
+        $servico->setObjOrdemdeservico(new OrdemDeServico($os->getId()))
+            ->setObjServico(new Servico($item['id']))
+            ->setQuantidade($item['qtde']);
+        $itemControl = new OsItensDeServicoControl($servico);
+        $itemControl->cadastrar();
+    endforeach;
 
     foreach ($participantes as $part):
         $pessoa = new OsParticipantes();
@@ -90,11 +92,29 @@ function cadastrar()
         $partControl->cadastrar();
     endforeach;
 
+    foreach ($checklists as $chk):
+        $osChk = new OsChecklist();
+        $osChk->setObjOrdemdeservico(new OrdemDeServico($os->getId()))
+            ->setObjChecklist(new Pessoa($chk['id']))
+            ->setStatus($chk['status']);
+        $chkControl = new OsChecklistControl($osChk);
+        $chkControl->cadastrar();
+    endforeach;
 
+    foreach ($andamentos as $andam):
+        $osAndam = new OsAndamento();
+        $osAndam->setObjOrdemdeservico(new OrdemDeServico($os->getId()))
+            ->setObjStatusprocesso(new StatusProcesso($andam['idstatusprocesso']['id']))
+            ->setDescricao($andam['descricao']);
+        $andControl = new OsAndamentoControl($osAndam);
+        $andControl->cadastrar();
+    endforeach;
+
+
+    echo json_encode(array('result'=>'true'));
     
-    
-    echo "<pre>";
-    var_dump($participantes);
+//    echo "<pre>";
+//    var_dump($data);
 }
 function atualizar()
 {
