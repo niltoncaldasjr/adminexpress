@@ -50,7 +50,7 @@ Class ServicoDAO {
 	
 	/* Listar */
 	function listar () {
-		$this->sql = "SELECT * FROM servico";
+		$this->sql = "SELECT * FROM servico WHERE status = 'ATIVO'";
 		$resultSet = mysqli_query($this->con, $this->sql);
 		if(!$resultSet) {
 			die('[ERRO]: Class(Servico) | Metodo(Listar) | Erro('.mysqli_error($this->con).')');
@@ -65,7 +65,9 @@ Class ServicoDAO {
 	
 	/* Deletar */
 	function deletar (Servico $obj) {
-		$this->sql = sprintf("DELETE FROM servico WHERE id = %d",
+//		$this->sql = sprintf("DELETE FROM servico WHERE id = %d",
+		$this->sql = sprintf("UPDATE servico SET status = '%s' WHERE id = %d",
+				mysqli_real_escape_string($this->con, 'INATIVO'),
 				mysqli_real_escape_string($this->con, $obj->getId()));
 		$resultSet = mysqli_query($this->con, $this->sql);
 		if(!$resultSet) {

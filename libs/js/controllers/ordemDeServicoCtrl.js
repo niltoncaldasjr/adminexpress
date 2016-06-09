@@ -7,19 +7,24 @@ angular.module('admin-express')
 
         $scope.os = {
             'id': '', 'data': '',
-            'idcliente': {'id': '', 'nome': ''},
-            'idservico': {'id': '', 'nome': '', 'valor': ''},
+            'idcliente': {},
+            'idservico': {},
             'status': 'OFF',
             'observacao': '',
             'itensdeservico': [],
             'checklists': [],
             'participantes': [],
+            'andamentos': [],
             'desconto':'',
             'total':0,
             'subtotal':0,
             'datacadastro':moment(),
             'desconto':0
         };
+
+        $scope.and = {} ;
+
+        $scope.procura = {};
 
         $scope.listaOs = [];
 
@@ -63,18 +68,19 @@ angular.module('admin-express')
         }
 
         $scope.pesquisaParticipante = function (p) {
-            listarCliente(p);
+            listarParticipantes(p.participante);
             $scope.added = true;
         }
 
         $scope.addParticipante = function (pes) {
-            console.log(pes);
             $scope.os.participantes.push(pes);
             $scope.added = false;
-            $scope.busca = "";
+            $scope.procura = {};
+
         }
 
         $scope.addCliente = function (cliente) {
+            console.log(cliente);
             $scope.os.idcliente = cliente;
             $scope.escolhido = false;
             // $scope.busca = "";
@@ -226,6 +232,28 @@ angular.module('admin-express')
                 });
         };
 
+        var listarParticipantes = function (busca) {
+
+            var dados = {
+                'session': true,
+                'metodo': 'listarclientes',
+                'data': {'busca': busca},
+                'class': 'ordemdeservico'
+            };
+
+            genericAPI.generic(dados)
+                .then(function successCallback(response) {
+                    if (response['data']) {
+                        console.log(response['data']);
+                        $scope.participantes = response['data'];
+                        // $scope.grupoPJ = response['data']['data'];
+                    } else {
+                        alert('vazio');
+                    }
+                }, function errorCallback(response) {
+                });
+        };
+
         var listarChecklist = function(obj){
 
             var dados = {'metodo': 'listarporservico', 'data': obj, 'class': 'checklist'};
@@ -241,8 +269,28 @@ angular.module('admin-express')
                 });
         };
 
+        var listarstatusProcesso = function () {
+
+            var dados = {'metodo': 'listar', 'data': null, 'class': 'statusprocesso'};
+
+            genericAPI.generic(dados)
+                .then(function successCallback(response) {
+                    if (response['data']) {
+                        $scope.statusprocessos = response['data'];
+                    } else {
+                    }
+                }, function errorCallback(response) {
+                });
+        };
+
+        $scope.salvarAndamento = function (and) {
+            $scope.os.andamentos.push(and);
+            $scope.and = {};
+        }
+
         listarOS();
         listarServico();
+        listarstatusProcesso();
 
         $scope.funcaoOculta = function (u) {
             alert('calma cocada!!!');
