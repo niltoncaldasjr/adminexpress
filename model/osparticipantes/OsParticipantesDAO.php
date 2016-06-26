@@ -38,6 +38,8 @@ class OsParticipantesDAO
         );
         $result = mysqli_query($this->con, $query);
         while ($row = mysqli_fetch_object($result)){
+            $participanteControl = new PessoaControl();
+            $row->idcliente = $participanteControl->listarJuntosPorId($row->idcliente);
             $this->lista[] = $row;
         }
         return $this->lista;

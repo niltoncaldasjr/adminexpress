@@ -31,6 +31,20 @@ class OsItensDeServicoDAO
         return $id;
     }
 
+    function atualizar(OsItensDeServico $item)
+    {
+//        var_dump($item);
+        $query = sprintf("UPDATE ositensdeservico SET quantidade=%d WHERE id= %d",
+            mysqli_real_escape_string($this->con, $item->getQuantidade()),
+            mysqli_real_escape_string($this->con, $item->getId())
+        );
+        if(!mysqli_query($this->con, $query)) {
+            die('[ERRO]: Class('.get_class($item).') | Metodo(Cadastrar) | Erro('.mysqli_error($this->con).')');
+        }
+
+        return true;
+    }
+
     function listarPorIdOs($idos)
     {
         $query = sprintf("SELECT * FROM ositensdeservico WHERE idos = %d",
@@ -38,6 +52,9 @@ class OsItensDeServicoDAO
         );
         $result = mysqli_query($this->con, $query);
         while ($row = mysqli_fetch_object($result)){
+            $sControl = new ServicoControl(new Servico($row->idservico));
+            $row->idservico = $sControl->buscarPorId();
+            
             $this->lista[] = $row;
         }
         return $this->lista;

@@ -69,6 +69,15 @@ function data ($timeout) {
 	}
 }
 
+function status () {
+	return function (input) {
+		// if(!input || typeof(input) == 'object') return input;
+		// var status = input.substring(8, 10) + '/' + input.substring(5, 7) + '/' + input.substring(0, 4) + input.substring(10);
+		console.log('SIM');
+		return data;
+	}
+}
+
 angular
 	.module('admin-express')
 	.filter('nomeProprio', nomeProprio)

@@ -38,6 +38,9 @@ class OsChecklistDAO
         );
         $result = mysqli_query($this->con, $query);
         while ($row = mysqli_fetch_object($result)){
+            $chkControl = new ChecklistControl(new Checklist($row->idchecklist));
+            $row->idchecklist = $chkControl->buscarPorId();
+            $row->status == 0 ? $row->status = false : $row->status = true;
             $this->lista[] = $row;
         }
         return $this->lista;

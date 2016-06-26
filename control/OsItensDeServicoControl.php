@@ -21,6 +21,9 @@ class OsItensDeServicoControl
     function cadastrar(){
         return $this->osDAO->cadastrar($this->objItem);
     }
+    function atualizar(){
+        return $this->osDAO->atualizar($this->objItem);
+    }
     function listarPorIdOs($idos){
         return $this->osDAO->listarPorIdOs($idos);
     }

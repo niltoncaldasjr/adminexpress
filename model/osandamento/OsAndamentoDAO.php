@@ -33,11 +33,13 @@ class OsAndamentoDAO
 
     function listarPorIdOs($idos)
     {
-        $query = sprintf("SELECT * FROM oschecklist WHERE idos = %d",
+        $query = sprintf("SELECT * FROM osandamento WHERE idos = %d",
             mysqli_real_escape_string($this->con, $idos)
         );
         $result = mysqli_query($this->con, $query);
         while ($row = mysqli_fetch_object($result)){
+            $control = new StatusProcessoControl(new StatusProcesso($row->idstatusprocesso));
+            $row->idstatusprocesso = $control->buscarPorId();
             $this->lista[] = $row;
         }
         return $this->lista;

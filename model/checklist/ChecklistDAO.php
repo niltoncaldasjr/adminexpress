@@ -80,6 +80,9 @@ Class ChecklistDAO {
             die('[ERRO]: Class(Checklist) | Metodo(Listar) | Erro('.mysqli_error($this->con).')');
         }
         while($row = mysqli_fetch_object($resultSet)) {
+            $chkControl = new ChecklistControl(new Checklist($row->id));
+            $row->idchecklist = $chkControl->buscarPorId();
+            $row->status = false;
 
 //            $this->obj = new Checklist($row->id, $objServico, $row->ordem, $row->item, $row->datacadastro, $row->dataedicao);
 

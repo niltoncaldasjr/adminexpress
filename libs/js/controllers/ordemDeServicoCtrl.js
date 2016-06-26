@@ -5,22 +5,26 @@ angular.module('admin-express')
             $location.path('/login');
         }
 
-        $scope.os = {
-            'id': '', 'data': '',
-            'idcliente': {},
-            'idservico': {},
-            'status': 'OFF',
-            'observacao': '',
-            'itensdeservico': [],
-            'checklists': [],
-            'participantes': [],
-            'andamentos': [],
-            'desconto':'',
-            'total':0,
-            'subtotal':0,
-            'datacadastro':moment(),
-            'desconto':0
-        };
+        var createOS = function () {
+            $scope.os = {
+                'id': '', 'data': '',
+                'idcliente': {},
+                'idservico': {},
+                'status': 'OFF',
+                'observacao': '',
+                'itensdeservico': [],
+                'checklists': [],
+                'participantes': [],
+                'andamentos': [],
+                'desconto':'',
+                'total':0,
+                'subtotal':0,
+                'datacadastro':moment(),
+                'desconto':0
+            };
+        }
+
+        createOS();
 
         $scope.and = {} ;
 
@@ -30,9 +34,9 @@ angular.module('admin-express')
 
         $scope.pegartotal = function () {
 
-            if($scope.os.itensdeservico){
+            if($scope.os.itensdeservico.length > 0){
                 var itens = $scope.os.itensdeservico;
-                var tot = 0;
+                var tot = 20;
                 var qtos = itens.length;
                 for (var i = 0, len = itens.length; i < len; i++) {
                     tot = tot + itens[i].parcial;
@@ -48,8 +52,11 @@ angular.module('admin-express')
 
         $scope.mostrar = function () {
 
+
             $scope.mostrarForm = true;
             $scope.mostrarTabela = false;
+            // delete $scope.os;
+            // createOS();
         }
 
         $scope.esconder = function () {
@@ -73,7 +80,8 @@ angular.module('admin-express')
         }
 
         $scope.addParticipante = function (pes) {
-            $scope.os.participantes.push(pes);
+            // pes.idcliente.push(pes);
+            $scope.os.participantes.push({id:pes.id, idcliente:pes});
 
             $scope.added = false;
             $scope.procura = {};
@@ -88,9 +96,7 @@ angular.module('admin-express')
         }
 
         $scope.addItem= function (item) {
-            var qtde = {qtde: 1};
-            item.qtde = 1;
-            $scope.os.itensdeservico.push(item);
+            $scope.os.itensdeservico.push({'id':0,'idservico':item, 'quantidade':1});
         }
 
         $scope.escolher = function (serv) {
@@ -142,7 +148,7 @@ angular.module('admin-express')
          * Limpa os campos na tela
          */
         $scope.limparCampos = function () {
-            delete $scope.ordemdeservico;
+            delete $scope.os;
             //$scope.atualizacao = true;
         };
 
@@ -155,7 +161,7 @@ angular.module('admin-express')
             $scope.mostrarForm = false;
             $scope.mostrarTabela = true;
             var dados;
-
+            console.log(obj);
             if (obj.id == undefined || obj.id == "") {
                 var dados = {'metodo': 'cadastrar', 'data': obj, 'class': 'ordemdeservico'};
             } else {
@@ -166,6 +172,7 @@ angular.module('admin-express')
                 .then(function successCallback(response) {
                     if (response['data']) {
                         delete $scope.os;
+                        createOS();
                         listarOS();
                     } else {
                     }
@@ -174,7 +181,11 @@ angular.module('admin-express')
         };
 
         $scope.editarOS = function (obj) {
-            $scope.ordemdeservico = obj;
+            $scope.os = obj;
+            $scope.mostrarForm = true;
+            $scope.mostrarTabela = false;
+            listarOS();
+
         };
 
         $scope.deletarOS = function (obj) {
@@ -202,7 +213,7 @@ angular.module('admin-express')
 
             genericAPI.generic(dados)
                 .then(function successCallback(response) {
-                    if (response['data']) {
+                    if (response['data']) {                        
                         $scope.listaOs = response['data'];
 
                     } else {
@@ -247,9 +258,7 @@ angular.module('admin-express')
                     if (response['data']) {
                         console.log(response['data']);
                         $scope.participantes = response['data'];
-                        // $scope.grupoPJ = response['data']['data'];
                     } else {
-                        alert('vazio');
                     }
                 }, function errorCallback(response) {
                 });
@@ -285,7 +294,8 @@ angular.module('admin-express')
         };
 
         $scope.salvarAndamento = function (and) {
-            and.data = new Date();
+            // and.data = new Date();
+            and.datacadastro = moment().format('YYYY-MM-DD h:mm:ss');
             $scope.os.andamentos.push(and);
             $scope.and = {};
         }
@@ -295,8 +305,12 @@ angular.module('admin-express')
         listarstatusProcesso();
 
         $scope.funcaoOculta = function (u) {
-            alert('calma cocada!!!');
+            console.log(u);
+            $scope.os = u;
         }
+
+        
+        
 
 
     });

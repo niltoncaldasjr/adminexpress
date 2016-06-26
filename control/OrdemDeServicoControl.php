@@ -21,6 +21,9 @@ class OrdemDeServicoControl
     function cadastrar(){
         return $this->osDAO->cadastrar($this->objOS);
     }
+    function atualizar(){
+        return $this->osDAO->atualizar($this->objOS);
+    }
 
     function buscarPorId(){
         return $this->osDAO->buscarPorId($this->objOS);
