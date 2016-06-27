@@ -94,6 +94,25 @@ class OrdemDeServicoDAO
         );
         $result = mysqli_query($this->con, $query);
         while ($row = mysqli_fetch_object($result)){
+            $pControl = new PessoaControl();
+            $row->idcliente = $pControl->listarJuntosPorId($row->idcliente);
+
+            $s = new Servico($row->idservico);
+            $sControl = new ServicoControl($s);
+            $row->idservico = $sControl->buscarPorId();
+
+            $itensControl = new OsItensDeServicoControl();
+            $row->itensdeservico = $itensControl->listarPorIdOs($row->id);
+
+            $partControl = new OsParticipantesControl();
+            $row->participantes = $partControl->listarPorIdOs($row->id);
+
+            $chkControl = new OsChecklistControl();
+            $row->checklists = $chkControl->listarPorIdOs($row->id);
+
+            $andControl = new OsAndamentoControl();
+            $row->andamentos = $andControl->listarPorIdOs($row->id);
+
             $this->obj = $row;
         }
         return $this->obj;

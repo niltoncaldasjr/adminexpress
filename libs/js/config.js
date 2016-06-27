@@ -357,6 +357,37 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                 }
             }
         })
+        .state('cadastro.orcamento', {
+            url: '/orcamento',
+            templateUrl: "views/orcamento.html",
+            controller: 'orcamentoCtrl',
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            files: ['libs/js/plugins/footable/footable.all.min.js', 'libs/css/plugins/footable/footable.core.css']
+                        },
+                        {
+                            name: 'ui.footable',
+                            files: ['libs/js/plugins/footable/angular-footable.js']
+                        },
+                        {
+                            files: ['libs/js/plugins/sweetalert/sweetalert.min.js', 'libs/css/plugins/sweetalert/sweetalert.css']
+                        },
+                        {
+                            name: 'oitozero.ngSweetAlert',
+                            files: ['libs/js/plugins/sweetalert/angular-sweetalert.min.js']
+                        },
+                        {
+                            files: ['libs/css/plugins/iCheck/custom.css','libs/js/plugins/iCheck/icheck.min.js']
+                        },
+                        {
+                            files: ['libs/js/plugins/moment/moment.min.js']
+                        }
+                    ]);
+                }
+            }
+        })
         .state('cadastro.corretores', {
             url: '/corretores',
             templateUrl: "views/pessoa/cadPessoaGeneric.html",
@@ -472,34 +503,22 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                 }
             }
         })
-        .state('outra', {
+        .state('impressao', {
             abstract: true,
-            url: "/outra",
+            url: "/impressao",
             templateUrl: "views/common/content.html",
         })
-        .state('outra.teste', {
-            url: "/teste",
-            templateUrl: "views/invoxxx.html",
-            //resolve: {
-            //    loadPlugin: function ($ocLazyLoad) {
-            //        return $ocLazyLoad.load([
-            //            {
-            //
-            //                serie: true,
-            //                name: 'angular-flot',
-            //                files: [ 'js/plugins/flot/jquery.flot.js', 'js/plugins/flot/jquery.flot.time.js', 'js/plugins/flot/jquery.flot.tooltip.min.js', 'js/plugins/flot/jquery.flot.spline.js', 'js/plugins/flot/jquery.flot.resize.js', 'js/plugins/flot/jquery.flot.pie.js', 'js/plugins/flot/curvedLines.js', 'js/plugins/flot/angular-flot.js', ]
-            //            },
-            //            {
-            //                name: 'angles',
-            //                files: ['js/plugins/chartJs/angles.js', 'js/plugins/chartJs/Chart.min.js']
-            //            },
-            //            {
-            //                name: 'angular-peity',
-            //                files: ['js/plugins/peity/jquery.peity.min.js', 'js/plugins/peity/angular-peity.js']
-            //            }
-            //        ]);
-            //    }
-            //}
+        .state('impressao.os', {
+            url: "/os/:id",
+            templateUrl: "views/osimpressao.html",
+            controller: 'osImpressaoCtrl',
+            resolve: {
+               loadPlugin: function ($ocLazyLoad) {
+                   return $ocLazyLoad.load([
+
+                   ]);
+               }
+            }
         });
 
 

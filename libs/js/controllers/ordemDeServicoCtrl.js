@@ -7,7 +7,7 @@ angular.module('admin-express')
 
         var createOS = function () {
             $scope.os = {
-                'id': '', 'data': '',
+                'id': '',
                 'idcliente': {},
                 'idservico': {},
                 'status': 'OFF',

@@ -1,0 +1,104 @@
+<!--<div class="wrapper wrapper-content p-xl">-->
+    <div class="ibox-content p-xl">
+        <div class="row">
+            <table>
+                <tr>
+                    <th style="width: 250px;"><img id="logosite" src="libs/img/logo-site2.png"></th>
+                    <th style="width: 250px;">
+                        <address>
+                            <strong>Cartório Express AM {{nome}}</strong><br>
+                            Av. Djalma Batista, 1080<br>
+                            Chapada, Manaus 69055-120<br>
+                            <abbr title="Telefone">F:</abbr> (92) 98822-4321
+                        </address>
+                    </th>
+                </tr>
+            </table>
+        </div>
+        <div class="table-responsive m-t">
+            <table class="table invoice-table">
+                <thead>
+                <tr>
+                    <th>Nº OS</th>
+                    <th>Data</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{os.id}}</td>
+                    <td>{{os.datacadastro | data}}</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-responsive m-t">
+            <table class="table invoice-table">
+                <thead>
+                <tr>
+                    <th>Nome do Cliente</th>
+                    <th>Data</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{os.idcliente.nome}}</td>
+                    <td>{{os.datacadastro | data}}</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-responsive m-t">
+            <table class="table invoice-table">
+                <thead>
+                <tr>
+                    <th>Itens</th>
+                    <th>Qtde.</th>
+                    <th>Preço Unitário</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="cada in os.itensdeservico">
+                    <td>
+                        <div><strong>{{cada.idservico.nome}}</strong></div>
+                        <small>{{cada.descricao}}</small>
+                    </td>
+                    <td>{{cada.quantidade}}</td>
+                    <td>R${{cada.idservico.valor}}</td>
+                    <td>R${{cada.parcial = (cada.idservico.valor * cada.quantidade)}}</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <table class="table invoice-total">
+            <tbody>
+            <tr>
+                <td><strong>Sub Total :</strong></td>
+                <td>R${{os.subtotal = pegartotal()}}</td>
+            </tr>
+            <tr>
+                <td><strong>Desconto :</strong></td>
+                <td>R${{os.desconto}}</td>
+            </tr>
+            <tr>
+                <td><strong>TOTAL :</strong></td>
+                <td>R${{os.total = os.subtotal - (os.subtotal * (os.desconto/100))}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="well m-t"><strong>Observações</strong>
+            {{os.observacao}}
+        </div>
+    </div>
+
+<!--</div>-->
+
+<script type="text/javascript">
+    window.print();
+</script>

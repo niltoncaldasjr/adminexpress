@@ -41,6 +41,15 @@ function listarTodos()
     echo json_encode($todos);
 }
 
+function buscarPorId()
+{
+    $data = $_POST['data'];
+    $control = new OrdemDeServicoControl(new OrdemDeServico($data));
+    $todos = $control->buscarPorId();
+
+    echo json_encode($todos);
+}
+
 function listarClientes()
 {
     $data = $_POST['data'];
@@ -110,9 +119,7 @@ function cadastrar()
 
 
     echo json_encode(array('result'=>'true'));
-    
-//    echo "<pre>";
-//    var_dump($data);
+
 }
 function atualizar()
 {
@@ -139,28 +146,28 @@ function atualizar()
     foreach ($itens as $item):
         $servico = new OsItensDeServico();
         $servico->setObjOrdemdeservico(new OrdemDeServico($os->getId()))
-            ->setObjServico(new Servico($item['id']))
+            ->setObjServico(new Servico($item['idservico']['id']))
             ->setQuantidade($item['quantidade']);
         $itemControl = new OsItensDeServicoControl($servico);
-        $itemControl->cadastrar();
+//        $itemControl->cadastrar();
     endforeach;
 
     foreach ($participantes as $part):
         $pessoa = new OsParticipantes();
         $pessoa->setObjOrdemdeservico(new OrdemDeServico($os->getId()))
-            ->setObjPessoa(new Pessoa($part['id']))
+            ->setObjPessoa(new Pessoa($part['idcliente']['id']))
             ->setFuncao(1);
         $partControl = new OsParticipantesControl($pessoa);
-        $partControl->cadastrar();
+//        $partControl->cadastrar();
     endforeach;
 
     foreach ($checklists as $chk):
         $osChk = new OsChecklist();
         $osChk->setObjOrdemdeservico(new OrdemDeServico($os->getId()))
-            ->setObjChecklist(new Checklist($chk['id']))
+            ->setObjChecklist(new Checklist($chk['idchecklist']['id']))
             ->setStatus($chk['status']);
         $chkControl = new OsChecklistControl($osChk);
-        $chkControl->cadastrar();
+//        $chkControl->cadastrar();
     endforeach;
 
     foreach ($andamentos as $andam):
@@ -169,7 +176,7 @@ function atualizar()
             ->setObjStatusprocesso(new StatusProcesso($andam['idstatusprocesso']['id']))
             ->setDescricao($andam['descricao']);
         $andControl = new OsAndamentoControl($osAndam);
-        $andControl->cadastrar();
+//        $andControl->cadastrar();
     endforeach;
-    echo json_encode(array('result'=>$itens));
+    echo json_encode(array('result'=>$data));
 }
