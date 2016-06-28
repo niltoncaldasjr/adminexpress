@@ -24,6 +24,9 @@ class OsItensDeServicoControl
     function atualizar(){
         return $this->osDAO->atualizar($this->objItem);
     }
+    function deletar(){
+        return $this->osDAO->deletar($this->objItem);
+    }
     function listarPorIdOs($idos){
         return $this->osDAO->listarPorIdOs($idos);
     }

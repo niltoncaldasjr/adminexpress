@@ -18,7 +18,7 @@ class OsParticipantesDAO
 
     function cadastrar(OsParticipantes $part)
     {
-        $query = sprintf("INSERT INTO osparticipantes (idos, idcliente, funcao) VALUES (%d,%d,%d)",
+        $query = sprintf("INSERT INTO osparticipantes (idos, idcliente, funcao) VALUES (%d,%d,'%s')",
             mysqli_real_escape_string($this->con, $part->getObjOrdemdeservico()->getId()),
             mysqli_real_escape_string($this->con, $part->getObjPessoa()->getId()),
             mysqli_real_escape_string($this->con, $part->getFuncao())
@@ -29,6 +29,19 @@ class OsParticipantesDAO
         $id = mysqli_insert_id($this->con);
 
         return $id;
+    }
+
+    function atualizar(OsParticipantes $part)
+    {
+        $query = sprintf("UPDATE osparticipantes SET funcao = '%s' WHERE id = %d",
+            mysqli_real_escape_string($this->con, $part->getFuncao()),
+            mysqli_real_escape_string($this->con, $part->getId())
+        );
+        if(!mysqli_query($this->con, $query)) {
+            die('[ERRO]: Class('.get_class($part).') | Metodo(Atualizar) | Erro('.mysqli_error($this->con).')');
+        }
+
+        return true;
     }
 
     function listarPorIdOs($idos)

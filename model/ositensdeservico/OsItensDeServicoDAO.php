@@ -59,4 +59,16 @@ class OsItensDeServicoDAO
         }
         return $this->lista;
     }
+
+    function deletar(OsItensDeServico $item)
+    {
+        $query = sprintf("DELETE FROM ositensdeservico WHERE id= %d",
+            mysqli_real_escape_string($this->con, $item->getId())
+        );
+        if(!mysqli_query($this->con, $query)) {
+            die('[ERRO]: Class('.get_class($item).') | Metodo(dELETAR) | Erro('.mysqli_error($this->con).')');
+        }
+
+        return true;
+    }
 }

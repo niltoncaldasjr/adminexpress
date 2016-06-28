@@ -112,7 +112,7 @@
                                         </button> </span></div>
                         <div class="pesquisacliente" ng-if="escolhido">
                             <ul class="nav">
-                                <li ng-repeat="p in clientes"><a ng-click="addCliente(p)">{{p.nome}} - {{p.cpf}}</a>
+                                <li ng-repeat="p in clientes"><a ng-click="addCliente(p)">{{p.nome}} - {{p.cpf | cpf}}</a>
                                 </li>
                             </ul>
                         </div>
@@ -256,7 +256,7 @@
                                             <div class="pesquisaparticipante" ng-if="added">
                                                 <ul class="nav">
                                                     <li ng-repeat="pes in participantes"><a ng-click="addParticipante(pes)">{{pes.nome}}
-                                                        - {{pes.cpf}}</a></li>
+                                                        - {{pes.cpf | cpf}}</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -277,10 +277,10 @@
                                             <tr ng-repeat="par in os.participantes">
                                                 <td>{{par.id}}</td>
                                                 <td>{{par.idcliente.nome}}</td>
-                                                <td>{{par.idcliente.cpf}}</td>
-                                                <td><select name="funcao">
-                                                    <option value="">Opção 1</option>
-                                                    <option value="">Opção 2</option>
+                                                <td>{{par.idcliente.cpf | cpf}}</td>
+                                                <td><select name="funcao" ng-model="par.funcao">
+                                                    <option value="OUTORGANTE">OUTORGANTE</option>
+                                                    <option value="OUTORGADO">OUTORGADO</option>
                                                 </select>
                                                 </td>
                                             </tr>

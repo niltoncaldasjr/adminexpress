@@ -81,7 +81,7 @@ angular.module('admin-express')
 
         $scope.addParticipante = function (pes) {
             // pes.idcliente.push(pes);
-            $scope.os.participantes.push({id:pes.id, idcliente:pes});
+            $scope.os.participantes.push({id:0, idcliente:pes, funcao:'OUTORGANTE'});
 
             $scope.added = false;
             $scope.procura = {};
@@ -97,6 +97,54 @@ angular.module('admin-express')
 
         $scope.addItem= function (item) {
             $scope.os.itensdeservico.push({'id':0,'idservico':item, 'quantidade':1});
+        }
+
+        $scope.aumentarQtde = function (obj) {
+            obj.quantidade = parseInt(obj.quantidade) + 1;
+        }
+
+        // $scope.diminuirQtde = function (obj) {
+        //     if(parseInt(obj.quantidade) == 1 ){
+        //         $scope.excluirItemDeServico(obj);
+        //     }else{
+        //         obj.quantidade = parseInt(obj.quantidade) - 1;
+        //     }
+        //
+        // }
+
+        $scope.excluirItemDeServico = function (obj) {
+            SweetAlert.swal({
+                    title: "Deseja apagar?",
+                    text: "Você não poderar recuperar essa informação novamente!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Sim, apague!",
+                    cancelButtonText: "Não, cancele!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        var dados = {'session': true, 'metodo': 'deletarositem', 'data': obj, 'class': 'ordemdeservico'};
+                        genericAPI.generic(dados)
+                            .then(function successCallback(response) {
+                                if (response['data']) {
+                                    if (response.data.result == false) {
+                                        SweetAlert.swal("Ops!!!", response.data.msg, "error");
+                                    } else {
+                                        SweetAlert.swal("Deletado!", "Essa informação foi deletada.", "success");
+                                    }
+
+                                } else {
+                                }
+                            }, function errorCallback(response) {
+                            });
+                        //SweetAlert.swal("Deletado!", "Essa informação foi deletada.", "success");
+                    } else {
+                        SweetAlert.swal("Cancelado", "Operação cancelado pelo usuário", "error");
+                    }
+                });
         }
 
         $scope.escolher = function (serv) {

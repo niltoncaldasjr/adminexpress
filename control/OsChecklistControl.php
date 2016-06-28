@@ -21,6 +21,9 @@ class OsChecklistControl
     function cadastrar(){
         return $this->osDAO->cadastrar($this->objChk);
     }
+    function atualizar(){
+        return $this->osDAO->atualizar($this->objChk);
+    }
     function listarPorIdOs($idos){
         return $this->osDAO->listarPorIdOs($idos);
     }

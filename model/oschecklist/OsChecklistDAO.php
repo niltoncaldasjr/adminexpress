@@ -31,6 +31,18 @@ class OsChecklistDAO
         return $id;
     }
 
+    function atualizar(OsChecklist $chk)
+    {
+        $query = sprintf("UPDATE oschecklist SET status = %d WHERE id = %d",
+            mysqli_real_escape_string($this->con, $chk->getStatus()),
+            mysqli_real_escape_string($this->con, $chk->getId())
+        );
+        if(!mysqli_query($this->con, $query)) {
+            die('[ERRO]: Class('.get_class($chk).') | Metodo(Atualizar) | Erro('.mysqli_error($this->con).')');
+        }
+        return true;
+    }
+
     function listarPorIdOs($idos)
     {
         $query = sprintf("SELECT * FROM oschecklist WHERE idos = %d",

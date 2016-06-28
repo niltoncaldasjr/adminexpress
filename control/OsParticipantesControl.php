@@ -21,6 +21,9 @@ class OsParticipantesControl
     function cadastrar(){
         return $this->osDAO->cadastrar($this->objPart);
     }
+    function atualizar(){
+        return $this->osDAO->atualizar($this->objPart);
+    }
     function listarPorIdOs($idos){
         return $this->osDAO->listarPorIdOs($idos);
     }

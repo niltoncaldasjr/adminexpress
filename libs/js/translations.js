@@ -41,7 +41,8 @@ function config($translateProvider) {
             LOGOUT: 'Sair',
             HONORARIO: 'Honorário',
             CHECKLIST: 'Checklist',
-            ORDEMDESERVICO: 'Ordem de Serviço'
+            ORDEMDESERVICO: 'Ordem de Serviço',
+            ORCAMENTO: 'Orçamento'
 
 
         })
@@ -81,7 +82,8 @@ function config($translateProvider) {
             LOGOUT: 'Log out',
             HONORARIO: 'Honorário',
             CHECKLIST: 'Checklist',
-            ORDEMDESERVICO: 'Order of Service'
+            ORDEMDESERVICO: 'Order of Service',
+            ORCAMENTO: 'Quote'
         });
 
     $translateProvider.preferredLanguage('pt');
