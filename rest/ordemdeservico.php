@@ -58,10 +58,11 @@ function deletarOsItem()
     $data = $_POST['data'];
     $ositensdeservico = new OsItensDeServico($data['id']);
 
-    $control = new OsItensDeServicoControl();
-//    $control->deletar();
+    $control = new OsItensDeServicoControl($ositensdeservico);
+    $control->deletar();
+    $itensdeservico = $control->listarPorIdOs($data['idos']);
 
-    echo json_encode(array('result'=> true));
+    echo json_encode(array('result'=> true, 'data'=>$itensdeservico));
 }
 
 function listarClientes()

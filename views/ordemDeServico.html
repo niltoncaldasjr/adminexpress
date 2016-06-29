@@ -59,8 +59,8 @@
                             <td ng-bind="u.idcliente.nome"></td>
                             <td ng-bind="u.idservico.nome"></td>
                             <td ng-bind="u.status"></td>
-                            <td ng-bind="u.desconto"></td>
-                            <td ng-bind="u.total"></td>
+                            <td ng-bind="u.desconto | currency:'R$':2"></td>
+                            <td ng-bind="u.total | currency:'R$':2"></td>
                             <td ng-bind="u.observacao"></td>
                             <td ng-bind="u.datacadastro | data"></td>
                             <td class="text-right">
@@ -185,8 +185,8 @@
                                                                   ng-click="diminuirQtde(cada)"></i></a>
                                                 </td>
                                                 <td><input class="qtdeitem" type="text" ng-model="cada.quantidade"></td>
-                                                <td>R${{cada.idservico.valor}}</td>
-                                                <td>R${{cada.parcial = (cada.idservico.valor * cada.quantidade)}}</td>
+                                                <td>{{cada.idservico.valor | currency:"R$":2}}</td>
+                                                <td>{{cada.parcial = (cada.idservico.valor * cada.quantidade) | currency:"R$":2}}</td>
                                             </tr>
 
                                             </tbody>
@@ -196,7 +196,7 @@
                                         <tbody>
                                         <tr>
                                             <td><strong>Sub Total :</strong></td>
-                                            <td>R${{os.subtotal = pegartotal()}}</td>
+                                            <td>{{os.subtotal = pegartotal() | currency:"R$":2}}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Desconto :</strong></td>
@@ -204,7 +204,7 @@
                                         </tr>
                                         <tr>
                                             <td><strong>TOTAL :</strong></td>
-                                            <td>R${{os.total = os.subtotal - (os.subtotal * (os.desconto/100))}}</td>
+                                            <td>{{os.total = os.subtotal - (os.subtotal * (os.desconto/100))| currency:"R$":2}}</td>
                                         </tr>
                                         </tbody>
                                     </table>

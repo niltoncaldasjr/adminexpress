@@ -103,14 +103,15 @@ angular.module('admin-express')
             obj.quantidade = parseInt(obj.quantidade) + 1;
         }
 
-        // $scope.diminuirQtde = function (obj) {
-        //     if(parseInt(obj.quantidade) == 1 ){
-        //         $scope.excluirItemDeServico(obj);
-        //     }else{
-        //         obj.quantidade = parseInt(obj.quantidade) - 1;
-        //     }
-        //
-        // }
+        $scope.diminuirQtde = function (obj) {
+            if(parseInt(obj.quantidade) == 1 ){
+                $scope.excluirItemDeServico(obj);
+            }else{
+                obj.quantidade = parseInt(obj.quantidade) - 1;
+            }
+
+        }
+
 
         $scope.excluirItemDeServico = function (obj) {
             SweetAlert.swal({
@@ -134,6 +135,7 @@ angular.module('admin-express')
                                         SweetAlert.swal("Ops!!!", response.data.msg, "error");
                                     } else {
                                         SweetAlert.swal("Deletado!", "Essa informação foi deletada.", "success");
+                                        $scope.os.itensdeservico = response.data.data;
                                     }
 
                                 } else {
